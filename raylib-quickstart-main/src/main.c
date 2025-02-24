@@ -9,9 +9,9 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "raylib.h"
 
-#include "resource_dir.h"	// utility header for SearchAndSetResourceDir
+#include "resource_dir.h" // utility header for SearchAndSetResourceDir
 
-int main ()
+int main()
 {
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
@@ -24,9 +24,9 @@ int main ()
 
 	// Load a texture from the resources directory
 	Texture SpriteSheet = LoadTexture("General Sprites.png");
-	
+
 	// game loop
-	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
+	while (!WindowShouldClose()) // run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		// drawing
 		BeginDrawing();
@@ -35,14 +35,14 @@ int main ()
 		ClearBackground(BLACK);
 
 		// draw some text using the default font
-		DrawText("Jajaja aixo es una pestanya normal", 200,200,20,WHITE);
+		DrawText("Jajaja aixo es una pestanya normal", 200, 200, 20, WHITE);
 
 		// draw our texture to the screen
 		BeginScissorMode(400, 400, 8, 8);
 		DrawTexture(SpriteSheet, 400, 400, WHITE);
 		EndScissorMode();
-		
-		// end the frame and get ready for the next one  (display frame, poll input, etc...)
+
+		// end the frame and get ready for the next one (display frame, poll input, etc...)
 		EndDrawing();
 	}
 

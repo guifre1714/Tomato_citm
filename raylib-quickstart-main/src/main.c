@@ -17,7 +17,7 @@ int main()
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
 	// Create the window and OpenGL context
-	InitWindow(1280, 800, "Ajuda la elena em pega");
+	InitWindow(1280, 800, "El marc es un mentider");
 
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
@@ -43,6 +43,7 @@ int main()
 		EndScissorMode();
 
 		// end the frame and get ready for the next one (display frame, poll input, etc...)
+		//holaaa
 		EndDrawing();
 	}
 

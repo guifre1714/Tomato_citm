@@ -10,9 +10,12 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "raylib.h"
 
 #include "resource_dir.h" // utility header for SearchAndSetResourceDir
-
 int main()
 {
+	Rectangle GetShapesTextureRectangle(void);
+	Rectangle drawArea = { 100, 100 };
+	Vector2 playerPos = { 400, 400 };
+	int spriteBomber1[2] = {0, 16};
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
@@ -38,9 +41,7 @@ int main()
 		DrawText("Jajaja aixo es una pestanya normal", 200, 200, 20, WHITE);
 
 		// draw our texture to the screen
-		BeginScissorMode(400, 400, 8, 8);
-		DrawTexture(SpriteSheet, 400, 400, WHITE);
-		EndScissorMode();
+		DrawTextureRec(SpriteSheet, drawArea, playerPos, WHITE);
 
 		// end the frame and get ready for the next one (display frame, poll input, etc...)
 		//holaaa

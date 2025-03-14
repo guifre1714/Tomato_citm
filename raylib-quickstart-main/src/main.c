@@ -44,7 +44,6 @@ int main()
 		DrawTextureRec(SpriteSheet, drawArea, playerPos, WHITE);
 
 		// end the frame and get ready for the next one (display frame, poll input, etc...)
-		//holaaa
 		EndDrawing();
 	}
 

@@ -10,6 +10,12 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "raylib.h"
 
 #include "resource_dir.h" // utility header for SearchAndSetResourceDir
+
+typedef struct entity {
+	Texture texture;
+	Vector2 position;
+	Rectangle collider;
+} entity;
 int main()
 {
 	//BASURERO DE CODI
@@ -36,11 +42,14 @@ int main()
 	SearchAndSetResourceDir("resources");
 
 	// Load a texture from the resources directory
+	
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
 	Texture BMan = LoadTexture("Sprites/bomberman.png");
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 
+	entity player = { .texture = BMan,  .position = BManPos, .collider = {};
+	
 	SetTargetFPS(60);
 
 	// game loop

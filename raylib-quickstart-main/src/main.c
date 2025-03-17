@@ -103,6 +103,8 @@ int main()
 		//DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		DrawTextureV(BMan, BManPos, WHITE);
 
+		bool isColliding = CheckCollision(player.collider, bloc.collider);
+
 		// end the frame and get ready for the next one (display frame, poll input, etc...)
 		EndDrawing();
 	}

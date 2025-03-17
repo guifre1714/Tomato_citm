@@ -16,6 +16,15 @@ typedef struct entity {
 	Vector2 position;
 	Rectangle collider;
 } entity;
+
+bool CheckCollision(Rectangle rec1, Rectangle rec2) 
+{
+	return (rec1.x < rec2.x + rec2.width &&
+		rec1.x + rec1.width > rec2.x &&
+		rec1.y < rec2.y + rec2.height &&
+		rec1.y + rec1.height > rec2.y);
+}
+
 int main()
 {
 	//BASURERO DE CODI
@@ -47,6 +56,7 @@ int main()
 	
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
 	Texture BMan = LoadTexture("Sprites/bomberman.png");
+	Texture blocs = LoadTexture("Sprites/bomberman.png"); //són amb el que colisionen
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 

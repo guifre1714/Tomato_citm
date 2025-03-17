@@ -48,7 +48,7 @@ int main()
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 
-	entity player = { .texture = BMan,  .position = BManPos, .collider = {};
+	//entity player = { .texture = BMan,  .position = BManPos, .collider = {};
 	
 	SetTargetFPS(60);
 

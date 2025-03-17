@@ -55,8 +55,8 @@ int main()
 	// Load a texture from the resources directory
 	
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
-	Texture BMan = LoadTexture("Sprites/bomberman.png");
-	Texture Blocs = LoadTexture("Sprites/bomberman.png"); //són amb el que colisionen
+	Texture2D BMan = LoadTexture("Sprites/walkf1.png");
+	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 

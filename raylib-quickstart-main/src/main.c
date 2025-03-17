@@ -60,10 +60,6 @@ int main()
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 
-	//entity player = { .texture = BMan,  .position = BManPos, .collider = {};
-	
-	/*entity player = { .texture = BMan,  .position = BManPos, .collider = {};*/
-
 	//els meus canvis
 	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width, (float)BMan.height };
 	entity player = { .texture = BMan, .position = BManPos, .collider = playerCollider };

@@ -59,6 +59,7 @@ int main()
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
+	int currentFrame = 0;
 
 	//blocs:
 
@@ -100,6 +101,7 @@ int main()
 
 		// draw our texture to the screen
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
+		DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
 		//DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		DrawTextureV(BMan, BManPos, WHITE);
 

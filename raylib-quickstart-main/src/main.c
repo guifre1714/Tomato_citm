@@ -75,7 +75,7 @@ int main()
 	camera.target = (Vector2){ player.position.x + 20.0f, player.position.y + 20.0f };
 	camera.offset = (Vector2){ screenWidth / 2.0f, screenHeight / 2.0f };
 	camera.rotation = 0.0f;
-	camera.zoom = 5.0f;
+	camera.zoom = 3.5f;
 
 	SetTargetFPS(60);
 
@@ -91,7 +91,9 @@ int main()
 		if (IsKeyDown(KEY_UP)) BManPos.y -= 2.0f;
 		if (IsKeyDown(KEY_DOWN)) BManPos.y += 2.0f;
 		player.position = BManPos;
-		camera.target = (Vector2){ player.position.x + 20, player.position.y + 20 };
+		if (BManPos.x > 555 && BManPos.x < 685) {
+			camera.target = (Vector2){ player.position.x + 20, (float)(screenHeight / 2) - 20 };
+		}
 		// drawing
 		BeginDrawing();
 		BeginMode2D(camera);

@@ -31,7 +31,8 @@ int main()
 	// 
 	// draw some text using the default font
 	//DrawText("Jajaja aixo es una pestanya normal", 200, 200, 20, WHITE);
-
+	//DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
+	//DrawTextureV(BMan, BManPos, WHITE);
 
 
 
@@ -55,7 +56,9 @@ int main()
 	// Load a texture from the resources directory
 	
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
-	Texture2D BMan = LoadTexture("Sprites/walkFront.png");
+	Texture2D BMan = LoadTexture("Sprites/idle.png");
+	BMan = LoadTexture("Sprites/walkFront.png");
+	BMan = LoadTexture("Sprites/walkBack.png");
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
@@ -71,7 +74,7 @@ int main()
 	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)Blocs.width, (float)Blocs.height };
 	entity bloc = { .texture = Blocs, .position = blocPos, .collider = blocCollider };
 	//prova:
-	Rectangle frameRec = { 0.0f, 0.0f, (float)BMan.width / 3, (float)BMan.height };
+	Rectangle frameRec = { 0.0f, 0.0f, (float)BMan.width / 3, (float)BMan.height }; //MIDA DISPLAY FRAME
 	Rectangle blocks[] = 
 	{
 		{ 200.0f, 150.0f, 100.0f, 50.0f }, // Block 1
@@ -100,22 +103,22 @@ int main()
 
 		bloc.collider.x = bloc.position.x;
 		bloc.collider.y = bloc.position.y;
+
 		//moviment personatge jugador
 		bool isCollidingX = false;
 		bool isCollidingY = false;
 
 		Vector2 playerVelocity = { 0.0f, 0.0f };
 
-		if (IsKeyDown(KEY_RIGHT)) BManPos.x += 2.0f;
+		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += 2.0f;  }
 		if (IsKeyDown(KEY_LEFT)) BManPos.x -= 2.0f;
-		if (IsKeyDown(KEY_UP)) BManPos.y -= 2.0f;
-		if (IsKeyDown(KEY_DOWN)) BManPos.y += 2.0f;
+		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png");}
+		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 2.0f; BMan = LoadTexture("Sprites/walkFront.png"); }
 		player.position = BManPos;
 		camera.target = (Vector2){ player.position.x + 20, player.position.y + 20 };
 		
 		
 		frameContador++;
-
 		if (frameContador >= (60 / frameSpeed))
 		{
 			frameContador = 0;
@@ -123,78 +126,78 @@ int main()
 
 			if (currentFrame > 5) currentFrame = 0;
 
-			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //canvia mida del display
+			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //MIDA DISPLAY FRAME
 		}
 		
 		
-		if (BManPos.x > 555 && BManPos.x < 685) {
-			camera.target = (Vector2){ player.position.x + 20, (float)(screenHeight / 2) - 20 };
-		}
-		// drawing
-		for (int i = 0; i < numBlocks; i++) 
-		{
-			DrawRectangleRec(blocks[i], GRAY);
-		}
-		DrawRectangleLinesEx(player.collider, 2, RED);
-		if (isCollidingX || isCollidingY) 
-		{
-			DrawText("Collision Detected!", 350, 10, 20, RED);
-		}
+		//COMENÇA A DIBUIXAR
+		
 		BeginDrawing();
 		BeginMode2D(camera);
-		// Setup the back buffer for drawing (clear color and depth buffers)
-			ClearBackground(RAYWHITE);
+		
+			ClearBackground(RAYWHITE);// Setup the back buffer for drawing (clear color and depth buffers)
+		
+		//___TOT EL QUE S'HAGI DE MOSTRAR PER PANTALLA DAVALL D'AIXO___
 
-		// draw our texture to the screen
+			if (BManPos.x > 555 && BManPos.x < 685) {
+				camera.target = (Vector2){ player.position.x + 20, (float)(screenHeight / 2) - 20 };
+			}
+			// drawing
+			for (int i = 0; i < numBlocks; i++)
+			{
+				DrawRectangleRec(blocks[i], GRAY);
+			}
+			DrawRectangleLinesEx(player.collider, 2, RED);
+			if (isCollidingX || isCollidingY)
+			{
+				DrawText("Collision Detected!", 350, 10, 20, RED);
+			}
+			
 			DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 			DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
-		//DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		//DrawTextureV(BMan, BManPos, WHITE);
+	
 			DrawTextureRec(BMan, frameRec, BManPos, WHITE);
-		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
-		DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		DrawTextureV(BMan, BManPos, WHITE);
 
-		Rectangle futureColliderX = player.collider;
-		futureColliderX.x += playerVelocity.x;
-		for (int i = 0; i < numBlocks; i++) {
-			if (CheckCollision(futureColliderX, blocks[i])) 
-			{
-				isCollidingX = true;
-				break; 
+			Rectangle futureColliderX = player.collider;
+			futureColliderX.x += playerVelocity.x;
+			for (int i = 0; i < numBlocks; i++) {
+				if (CheckCollision(futureColliderX, blocks[i])) 
+				{
+					isCollidingX = true;
+					break; 
+				}
 			}
-		}
 
-		Rectangle futureColliderY = player.collider;
-		futureColliderY.y += playerVelocity.y;
-		for (int i = 0; i < numBlocks; i++) {
-			if (CheckCollision(futureColliderY, blocks[i])) 
-			{
-				isCollidingY = true;
-				break; 
+			Rectangle futureColliderY = player.collider;
+			futureColliderY.y += playerVelocity.y;
+			for (int i = 0; i < numBlocks; i++) {
+				if (CheckCollision(futureColliderY, blocks[i])) 
+				{
+					isCollidingY = true;
+					break; 
+				}
 			}
-		}
 
-		if(!isCollidingX) 
-		{
-			player.position.x += playerVelocity.x;
-		}
-		if (!isCollidingY) 
-		{
-			player.position.y += playerVelocity.y;
-		}
+			if(!isCollidingX) 
+			{
+				player.position.x += playerVelocity.x;
+			}
+			if (!isCollidingY) 
+			{
+				player.position.y += playerVelocity.y;
+			}
 
-		player.collider.x = player.position.x;
-		player.collider.y = player.position.y;
+			player.collider.x = player.position.x;
+			player.collider.y = player.position.y;
 
-		// end the frame and get ready for the next one (display frame, poll input, etc...)
-		EndDrawing();
+		
+		EndDrawing(); // end the frame and get ready for the next one (display frame, poll input, etc...)
 	}
 
 	// cleanup
 	// unload our texture so it can be cleaned up
 	UnloadTexture(BMan);
+	UnloadTexture(Blocs);
 	UnloadTexture(Fons);
 
 	// destroy the window and cleanup the OpenGL context

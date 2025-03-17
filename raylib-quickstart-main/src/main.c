@@ -60,6 +60,13 @@ int main()
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 
+	//blocs:
+
+	Vector2 blocPos = { 400.0f, 200.0f };
+	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)Blocs.width, (float)Blocs.height };
+	entity bloc = { .texture = Blocs, .position = blocPos, .collider = blocCollider };
+
+
 	//els meus canvis
 	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width, (float)BMan.height };
 	entity player = { .texture = BMan, .position = BManPos, .collider = playerCollider };
@@ -75,6 +82,9 @@ int main()
 	// game loop
 	while (!WindowShouldClose()) // run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
+
+		bloc.collider.x = bloc.position.x;
+		bloc.collider.y = bloc.position.y;
 
 		if (IsKeyDown(KEY_RIGHT)) BManPos.x += 2.0f;
 		if (IsKeyDown(KEY_LEFT)) BManPos.x -= 2.0f;

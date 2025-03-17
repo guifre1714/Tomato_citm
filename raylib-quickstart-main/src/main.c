@@ -14,7 +14,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 typedef struct entity {
 	Texture texture;
 	Vector2 position;
-	Rectangle collider;
+	//Rectangle collider;
 } entity;
 int main()
 {
@@ -48,8 +48,14 @@ int main()
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 
-	entity player = { .texture = BMan,  .position = BManPos, .collider = {};
+	entity player = { .texture = BMan,  .position = BManPos };
 	
+	Camera2D camera = { 0 };
+	camera.target = (Vector2){ player.position.x + 20.0f, player.position.y + 20.0f };
+	camera.offset = (Vector2){ screenWidth / 2.0f, screenHeight / 2.0f };
+	camera.rotation = 0.0f;
+	camera.zoom = 5.0f;
+
 	SetTargetFPS(60);
 
 	// game loop
@@ -60,10 +66,11 @@ int main()
 		if (IsKeyDown(KEY_LEFT)) BManPos.x -= 2.0f;
 		if (IsKeyDown(KEY_UP)) BManPos.y -= 2.0f;
 		if (IsKeyDown(KEY_DOWN)) BManPos.y += 2.0f;
-
+		player.position = BManPos;
+		camera.target = (Vector2){ player.position.x + 20, player.position.y + 20 };
 		// drawing
 		BeginDrawing();
-
+		BeginMode2D(camera);
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(RAYWHITE);
 

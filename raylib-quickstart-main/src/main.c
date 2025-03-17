@@ -115,7 +115,6 @@ int main()
 		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png");}
 		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 2.0f; BMan = LoadTexture("Sprites/walkFront.png"); }
 		player.position = BManPos;
-		camera.target = (Vector2){ player.position.x + 20, player.position.y + 20 };
 		
 		
 		frameContador++;

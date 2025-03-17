@@ -65,7 +65,7 @@ int main()
 	Vector2 blocPos = { 400.0f, 200.0f };
 	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)Blocs.width, (float)Blocs.height };
 	entity bloc = { .texture = Blocs, .position = blocPos, .collider = blocCollider };
-
+	//hola
 
 	//els meus canvis
 	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width, (float)BMan.height };

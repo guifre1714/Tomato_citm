@@ -59,6 +59,8 @@ int main()
 	Texture2D BMan = LoadTexture("Sprites/idle.png");
 	BMan = LoadTexture("Sprites/walkFront.png");
 	BMan = LoadTexture("Sprites/walkBack.png");
+	BMan = LoadTexture("Sprites/walkLeft.png");
+	BMan = LoadTexture("Sprites/walkRight.png");
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
@@ -110,8 +112,8 @@ int main()
 
 		Vector2 playerVelocity = { 0.0f, 0.0f };
 
-		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += 2.0f;  }
-		if (IsKeyDown(KEY_LEFT)) BManPos.x -= 2.0f;
+		if (IsKeyDown(KEY_RIGHT)) {BManPos.x += 2.0f; { BMan = LoadTexture("Sprites/walkRight.png"); }
+		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 2.0f; BMan = LoadTexture("Sprites/walkLeft.png"); }
 		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png");}
 		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 2.0f; BMan = LoadTexture("Sprites/walkFront.png"); }
 		player.position = BManPos;

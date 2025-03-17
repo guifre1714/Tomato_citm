@@ -14,8 +14,17 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 typedef struct entity {
 	Texture texture;
 	Vector2 position;
-	//Rectangle collider;
+	Rectangle collider;
 } entity;
+
+bool CheckCollision(Rectangle rec1, Rectangle rec2) 
+{
+	return (rec1.x < rec2.x + rec2.width &&
+		rec1.x + rec1.width > rec2.x &&
+		rec1.y < rec2.y + rec2.height &&
+		rec1.y + rec1.height > rec2.y);
+}
+
 int main()
 {
 	//BASURERO DE CODI
@@ -32,6 +41,8 @@ int main()
 	const int screenWidth = 1280;
 	const int screenHeight = 800;
 
+
+
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
@@ -45,11 +56,16 @@ int main()
 	
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
 	Texture BMan = LoadTexture("Sprites/bomberman.png");
+	Texture Blocs = LoadTexture("Sprites/bomberman.png"); //són amb el que colisionen
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
 
-	entity player = { .texture = BMan,  .position = BManPos };
-	
+	/*entity player = { .texture = BMan,  .position = BManPos, .collider = {};*/
+
+	//els meus canvis
+	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width, (float)BMan.height };
+	entity player = { .texture = BMan, .position = BManPos, .collider = playerCollider };
+
 	Camera2D camera = { 0 };
 	camera.target = (Vector2){ player.position.x + 20.0f, player.position.y + 20.0f };
 	camera.offset = (Vector2){ screenWidth / 2.0f, screenHeight / 2.0f };

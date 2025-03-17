@@ -59,13 +59,14 @@ int main()
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
+	int currentFrame = 0;
 
 	//blocs:
 
 	Vector2 blocPos = { 400.0f, 200.0f };
 	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)Blocs.width, (float)Blocs.height };
 	entity bloc = { .texture = Blocs, .position = blocPos, .collider = blocCollider };
-
+	//hola
 
 	//els meus canvis
 	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width, (float)BMan.height };
@@ -100,6 +101,7 @@ int main()
 
 		// draw our texture to the screen
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
+		DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
 		//DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		DrawTextureV(BMan, BManPos, WHITE);
 

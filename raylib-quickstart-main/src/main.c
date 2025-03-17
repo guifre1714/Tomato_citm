@@ -55,19 +55,23 @@ int main()
 	// Load a texture from the resources directory
 	
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
-	Texture2D BMan = LoadTexture("Sprites/walkf1.png");
+	Texture2D BMan = LoadTexture("Sprites/walkFront.png");
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
 
-	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };
+	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
+	
+	//frames
 	int currentFrame = 0;
+	int frameContador = 0;
+	int frameSpeed = 4; //marca la velocitat dels FPS
 
 	//blocs:
 
 	Vector2 blocPos = { 400.0f, 200.0f };
 	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)Blocs.width, (float)Blocs.height };
 	entity bloc = { .texture = Blocs, .position = blocPos, .collider = blocCollider };
-	//hola
-
+	//prova:
+	Rectangle frameRec = { 0.0f, 0.0f, (float)BMan.width / 3, (float)BMan.height };
 	//els meus canvis
 	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width, (float)BMan.height };
 	entity player = { .texture = BMan, .position = BManPos, .collider = playerCollider };
@@ -86,24 +90,40 @@ int main()
 
 		bloc.collider.x = bloc.position.x;
 		bloc.collider.y = bloc.position.y;
-
+		//moviment personatge jugador
 		if (IsKeyDown(KEY_RIGHT)) BManPos.x += 2.0f;
 		if (IsKeyDown(KEY_LEFT)) BManPos.x -= 2.0f;
 		if (IsKeyDown(KEY_UP)) BManPos.y -= 2.0f;
 		if (IsKeyDown(KEY_DOWN)) BManPos.y += 2.0f;
 		player.position = BManPos;
 		camera.target = (Vector2){ player.position.x + 20, player.position.y + 20 };
+		
+		
+		frameContador++;
+
+		if (frameContador >= (60 / frameSpeed))
+		{
+			frameContador = 0;
+			currentFrame++;
+
+			if (currentFrame > 5) currentFrame = 0;
+
+			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //canvia mida del display
+		}
+		
+		
 		// drawing
 		BeginDrawing();
 		BeginMode2D(camera);
 		// Setup the back buffer for drawing (clear color and depth buffers)
-		ClearBackground(RAYWHITE);
+			ClearBackground(RAYWHITE);
 
 		// draw our texture to the screen
-		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
+			DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
+			DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
 		//DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		DrawTextureV(BMan, BManPos, WHITE);
+		//DrawTextureV(BMan, BManPos, WHITE);
+			DrawTextureRec(BMan, frameRec, BManPos, WHITE);
 
 		// end the frame and get ready for the next one (display frame, poll input, etc...)
 		EndDrawing();
@@ -111,6 +131,7 @@ int main()
 
 	// cleanup
 	// unload our texture so it can be cleaned up
+	UnloadTexture(BMan);
 	UnloadTexture(Fons);
 
 	// destroy the window and cleanup the OpenGL context

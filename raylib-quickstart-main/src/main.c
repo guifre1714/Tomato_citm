@@ -112,13 +112,13 @@ int main()
 
 		Vector2 playerVelocity = { 0.0f, 0.0f };
 
-		if (IsKeyDown(KEY_RIGHT)) {BManPos.x += 2.0f; { BMan = LoadTexture("Sprites/walkRight.png"); }
+		if (IsKeyDown(KEY_RIGHT)) {BManPos.x += 2.0f; BMan = LoadTexture("Sprites/walkRight.png"); }
 		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 2.0f; BMan = LoadTexture("Sprites/walkLeft.png"); }
-		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png");}
+		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png"); }
 		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 2.0f; BMan = LoadTexture("Sprites/walkFront.png"); }
 		player.position = BManPos;
-		
-		
+
+
 		frameContador++;
 		if (frameContador >= (60 / frameSpeed))
 		{
@@ -129,16 +129,16 @@ int main()
 
 			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //MIDA DISPLAY FRAME
 		}
-		
-		
-		//COMENÇA A DIBUIXAR
-		
-		BeginDrawing();
-		BeginMode2D(camera);
-		
+
+
+			//COMENÇA A DIBUIXAR
+
+			BeginDrawing();
+			BeginMode2D(camera);
+
 			ClearBackground(RAYWHITE);// Setup the back buffer for drawing (clear color and depth buffers)
-		
-		//___TOT EL QUE S'HAGI DE MOSTRAR PER PANTALLA DAVALL D'AIXO___
+
+			//___TOT EL QUE S'HAGI DE MOSTRAR PER PANTALLA DAVALL D'AIXO___
 
 			if (BManPos.x > 555 && BManPos.x < 685) {
 				camera.target = (Vector2){ player.position.x + 20, (float)(screenHeight / 2) - 20 };
@@ -153,37 +153,37 @@ int main()
 			{
 				DrawText("Collision Detected!", 350, 10, 20, RED);
 			}
-			
+
 			DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 			DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
-	
+
 			DrawTextureRec(BMan, frameRec, BManPos, WHITE);
 
 			Rectangle futureColliderX = player.collider;
 			futureColliderX.x += playerVelocity.x;
 			for (int i = 0; i < numBlocks; i++) {
-				if (CheckCollision(futureColliderX, blocks[i])) 
+				if (CheckCollision(futureColliderX, blocks[i]))
 				{
 					isCollidingX = true;
-					break; 
+					break;
 				}
 			}
 
 			Rectangle futureColliderY = player.collider;
 			futureColliderY.y += playerVelocity.y;
 			for (int i = 0; i < numBlocks; i++) {
-				if (CheckCollision(futureColliderY, blocks[i])) 
+				if (CheckCollision(futureColliderY, blocks[i]))
 				{
 					isCollidingY = true;
-					break; 
+					break;
 				}
 			}
 
-			if(!isCollidingX) 
+			if (!isCollidingX)
 			{
 				player.position.x += playerVelocity.x;
 			}
-			if (!isCollidingY) 
+			if (!isCollidingY)
 			{
 				player.position.y += playerVelocity.y;
 			}
@@ -191,17 +191,16 @@ int main()
 			player.collider.x = player.position.x;
 			player.collider.y = player.position.y;
 
-		
-		EndDrawing(); // end the frame and get ready for the next one (display frame, poll input, etc...)
-	}
 
-	// cleanup
-	// unload our texture so it can be cleaned up
-	UnloadTexture(BMan);
-	UnloadTexture(Blocs);
-	UnloadTexture(Fons);
+			EndDrawing(); // end the frame and get ready for the next one (display frame, poll input, etc...)
+		}
+		// cleanup
+		// unload our texture so it can be cleaned up
+		UnloadTexture(BMan);
+		UnloadTexture(Blocs);
+		UnloadTexture(Fons);
 
-	// destroy the window and cleanup the OpenGL context
-	CloseWindow();
-	return 0;
+		// destroy the window and cleanup the OpenGL context
+		CloseWindow();
+		return 0;
 }

@@ -61,7 +61,9 @@ int main()
 	BMan = LoadTexture("Sprites/walkBack.png");
 	BMan = LoadTexture("Sprites/walkLeft.png");
 	BMan = LoadTexture("Sprites/walkRight.png");
+	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
+	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
 	
@@ -69,7 +71,7 @@ int main()
 	int currentFrame = 0;
 	int frameContador = 0;
 	int frameSpeed = 4; //marca la velocitat dels FPS
-
+	bool dead = false;
 	//blocs:
 
 	Vector2 blocPos = { 400.0f, 200.0f };
@@ -77,6 +79,7 @@ int main()
 	entity bloc = { .texture = Blocs, .position = blocPos, .collider = blocCollider };
 	//prova:
 	Rectangle frameRec = { 0.0f, 0.0f, (float)BMan.width / 3, (float)BMan.height }; //MIDA DISPLAY FRAME
+	//Rectangle deathRec = { 0.0f, 0.0f, (float)BMan.width / 7, (float)BMan.height }; //s'hauria de fer un altra textura amb la seva propia mida
 	Rectangle blocks[] = 
 	{
 		{ 200.0f, 150.0f, 100.0f, 50.0f }, // Block 1
@@ -112,12 +115,15 @@ int main()
 
 		Vector2 playerVelocity = { 0.0f, 0.0f };
 
-		if(IsKeyUp){BMan= LoadTexture("Sprites/idle.png");}
+		if(IsKeyUp){BMan= LoadTexture("Sprites/idle.png");}//animacio bman quiet
+
+		if (IsKeyPressed(KEY_Z)) { dead = true; BMan = LoadTexture("Sprites/death");}//no va
 
 		if (IsKeyDown(KEY_RIGHT)) {BManPos.x += 2.0f; BMan = LoadTexture("Sprites/walkRight.png"); }
 		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 2.0f; BMan = LoadTexture("Sprites/walkLeft.png"); }
 		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png"); }
 		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 2.0f; BMan = LoadTexture("Sprites/walkFront.png"); }
+
 		player.position = BManPos;
 
 
@@ -127,6 +133,11 @@ int main()
 			frameContador = 0;
 			currentFrame++;
 
+			if (dead=true) {
+				if (currentFrame > 8) currentFrame = 0;
+
+				deathRec.x = (float)currentFrame * (float)BMan.width / 7; //MIDA DISPLAY FRAME
+			}
 			if (currentFrame > 5) currentFrame = 0;
 
 			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //MIDA DISPLAY FRAME

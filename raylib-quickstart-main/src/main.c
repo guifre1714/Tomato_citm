@@ -112,6 +112,8 @@ int main()
 
 		Vector2 playerVelocity = { 0.0f, 0.0f };
 
+		if(IsKeyUp){BMan= LoadTexture("Sprites/idle.png");}
+
 		if (IsKeyDown(KEY_RIGHT)) {BManPos.x += 2.0f; BMan = LoadTexture("Sprites/walkRight.png"); }
 		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 2.0f; BMan = LoadTexture("Sprites/walkLeft.png"); }
 		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png"); }

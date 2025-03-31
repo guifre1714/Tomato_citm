@@ -49,12 +49,20 @@ int main()
 
 	// Create the window and OpenGL context
 	InitWindow(screenWidth, screenHeight, "Bomberman Test");
+	InitAudioDevice();
 
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
 
 	// Load a texture from the resources directory
-	
+	Music startMusic = LoadMusicStream("music/02. Stage Start.mp3");
+	Music bgm = LoadMusicStream("music/03. Main BGM.mp3");
+	Music currentMusic = startMusic;
+	int music = 0;
+
+	PlayMusicStream(currentMusic);
+	float timePlayedMusic = 0.0f;
+
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
 	Texture2D BMan = LoadTexture("Sprites/idle.png");
 	BMan = LoadTexture("Sprites/walkFront.png");
@@ -105,7 +113,7 @@ int main()
 	// game loop
 	while (!WindowShouldClose()) // run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
-
+		UpdateMusicStream(currentMusic);
 		bloc.collider.x = bloc.position.x;
 		bloc.collider.y = bloc.position.y;
 
@@ -133,11 +141,11 @@ int main()
 			frameContador = 0;
 			currentFrame++;
 
-			if (dead=true) {
-				if (currentFrame > 8) currentFrame = 0;
+			//if (dead=true) {
+			//	if (currentFrame > 8) currentFrame = 0;
 
-				deathRec.x = (float)currentFrame * (float)BMan.width / 7; //MIDA DISPLAY FRAME
-			}
+			//	deathRec.x = (float)currentFrame * (float)BMan.width / 7; //MIDA DISPLAY FRAME
+			//}
 			if (currentFrame > 5) currentFrame = 0;
 
 			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //MIDA DISPLAY FRAME
@@ -204,14 +212,33 @@ int main()
 			player.collider.x = player.position.x;
 			player.collider.y = player.position.y;
 
+			timePlayedMusic = GetMusicTimePlayed(currentMusic) / GetMusicTimeLength(currentMusic);
 
-			EndDrawing(); // end the frame and get ready for the next one (display frame, poll input, etc...)
-		}
+			if (timePlayedMusic > 1.0f) {
+				if (music == 0) {
+
+					StopMusicStream(currentMusic);
+					currentMusic = bgm;
+					music = 1;
+
+					PlayMusicStream(currentMusic);
+				}
+				else {
+					timePlayedMusic = 1.0f;
+				}
+			}
+			EndDrawing();
+	}
 		// cleanup
 		// unload our texture so it can be cleaned up
 		UnloadTexture(BMan);
 		UnloadTexture(Blocs);
 		UnloadTexture(Fons);
+		UnloadMusicStream(currentMusic);
+		UnloadMusicStream(startMusic);
+		UnloadMusicStream(bgm);
+
+		CloseAudioDevice();
 
 		// destroy the window and cleanup the OpenGL context
 		CloseWindow();

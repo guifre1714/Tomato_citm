@@ -64,14 +64,28 @@ int main()
 	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
+	
+	int animFrames = 0;
+	Image imDeadAnim = LoadImageAnim("resources/dead.gif", &animFrames);
+	Texture2D texDeadAnim = LoadTextureFromImage(imDeadAnim);
+
+
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
 	
-	//frames
+	//frames animacions base
 	int currentFrame = 0;
 	int frameContador = 0;
 	int frameSpeed = 4; //marca la velocitat dels FPS
 	bool dead = false;
+
+	//frames animacio/gif mort
+	unsigned int nextFrameDataOffset = 0;  
+
+	int currentAnimFrame = 0;       
+	int frameDelay = 8;             
+	int frameCounter = 0;
+
 	//blocs:
 
 	Vector2 blocPos = { 400.0f, 200.0f };
@@ -117,7 +131,7 @@ int main()
 
 		if(IsKeyUp){BMan= LoadTexture("Sprites/idle.png");}//animacio bman quiet
 
-		if (IsKeyPressed(KEY_Z)) { dead = true; BMan = LoadTexture("Sprites/death");}//no va
+		if (IsKeyPressed(KEY_Z)) { dead = true;}//no va
 
 		if (IsKeyDown(KEY_RIGHT)) {BManPos.x += 2.0f; BMan = LoadTexture("Sprites/walkRight.png"); }
 		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 2.0f; BMan = LoadTexture("Sprites/walkLeft.png"); }
@@ -134,13 +148,32 @@ int main()
 			currentFrame++;
 
 			if (dead=true) {
-				if (currentFrame > 8) currentFrame = 0;
+				//if (currentFrame > 8) currentFrame = 0;
 
-				deathRec.x = (float)currentFrame * (float)BMan.width / 7; //MIDA DISPLAY FRAME
+				//deathRec.x = (float)currentFrame * (float)BMan.width / 7; //MIDA DISPLAY FRAME
+
 			}
 			if (currentFrame > 5) currentFrame = 0;
 
 			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //MIDA DISPLAY FRAME
+		}
+
+		if (dead = true) {
+			frameCounter++;
+			if (frameCounter >= frameDelay)
+			{
+				currentAnimFrame++;
+				if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
+
+				// Get memory offset position for next frame data in image.data
+				nextFrameDataOffset = imDeadAnim.width * imDeadAnim.height * 4 * currentAnimFrame;
+
+				// Update GPU texture data with next frame image data
+				// WARNING: Data size (frame size) and pixel format must match already created texture
+				UpdateTexture(texDeadAnim, ((unsigned char*)imDeadAnim.data) + nextFrameDataOffset);
+
+				frameCounter = 0;
+			}
 		}
 
 
@@ -171,6 +204,11 @@ int main()
 			DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
 
 			DrawTextureRec(BMan, frameRec, BManPos, WHITE);
+
+			if(dead=true)
+			{	
+				DrawTexture(texDeadAnim, GetScreenWidth() / 2 - texDeadAnim.width / 2, 140, WHITE);
+			}
 
 			Rectangle futureColliderX = player.collider;
 			futureColliderX.x += playerVelocity.x;
@@ -212,6 +250,9 @@ int main()
 		UnloadTexture(BMan);
 		UnloadTexture(Blocs);
 		UnloadTexture(Fons);
+
+		UnloadTexture(texDeadAnim);   // Unload texture
+		UnloadImage(imDeadAnim);
 
 		// destroy the window and cleanup the OpenGL context
 		CloseWindow();

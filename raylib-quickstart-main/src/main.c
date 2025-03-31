@@ -49,12 +49,20 @@ int main()
 
 	// Create the window and OpenGL context
 	InitWindow(screenWidth, screenHeight, "Bomberman Test");
+	InitAudioDevice();
 
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
 
 	// Load a texture from the resources directory
-	
+	Music startMusic = LoadMusicStream("music/02. Stage Start.mp3");
+	Music bgm = LoadMusicStream("music/03. Main BGM.mp3");
+	Music currentMusic = startMusic;
+	int music = 0;
+
+	PlayMusicStream(currentMusic);
+	float timePlayedMusic = 0.0f;
+
 	Texture Fons = LoadTexture("Sprites/Fons.png");//cal afegir el nom de cada carpeta on esta la imatge
 	Texture2D BMan = LoadTexture("Sprites/idle.png");
 	BMan = LoadTexture("Sprites/walkFront.png");
@@ -62,7 +70,7 @@ int main()
 	BMan = LoadTexture("Sprites/walkLeft.png");
 	BMan = LoadTexture("Sprites/walkRight.png");
 	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
-	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //són amb el que colisionen
+	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //sï¿½n amb el que colisionen
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
 	
 	int animFrames = 0;
@@ -119,7 +127,7 @@ int main()
 	// game loop
 	while (!WindowShouldClose()) // run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
-
+		UpdateMusicStream(currentMusic);
 		bloc.collider.x = bloc.position.x;
 		bloc.collider.y = bloc.position.y;
 
@@ -177,7 +185,7 @@ int main()
 		}
 
 
-			//COMENÇA A DIBUIXAR
+			//COMENï¿½A A DIBUIXAR
 
 			BeginDrawing();
 			BeginMode2D(camera);
@@ -242,14 +250,33 @@ int main()
 			player.collider.x = player.position.x;
 			player.collider.y = player.position.y;
 
+			timePlayedMusic = GetMusicTimePlayed(currentMusic) / GetMusicTimeLength(currentMusic);
 
-			EndDrawing(); // end the frame and get ready for the next one (display frame, poll input, etc...)
-		}
+			if (timePlayedMusic > 1.0f) {
+				if (music == 0) {
+
+					StopMusicStream(currentMusic);
+					currentMusic = bgm;
+					music = 1;
+
+					PlayMusicStream(currentMusic);
+				}
+				else {
+					timePlayedMusic = 1.0f;
+				}
+			}
+			EndDrawing();
+	}
 		// cleanup
 		// unload our texture so it can be cleaned up
 		UnloadTexture(BMan);
 		UnloadTexture(Blocs);
 		UnloadTexture(Fons);
+		UnloadMusicStream(currentMusic);
+		UnloadMusicStream(startMusic);
+		UnloadMusicStream(bgm);
+
+		CloseAudioDevice();
 
 		UnloadTexture(texDeadAnim);   // Unload texture
 		UnloadImage(imDeadAnim);

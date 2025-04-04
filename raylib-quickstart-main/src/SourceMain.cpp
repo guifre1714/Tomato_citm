@@ -202,6 +202,7 @@ int main()
 		if (BManPos.x > 555 && BManPos.x < 685) {
 			camera.target.x = player.position.x + 20;
 			camera.target.y = (float)(screenHeight / 2) - 20;
+			camera.target = { player.position.x + 20, screenHeight / 2 - 20 };
 		}
 		// drawing
 		for (int i = 0; i < numBlocks; i++)

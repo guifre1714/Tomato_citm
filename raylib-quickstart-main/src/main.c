@@ -77,10 +77,9 @@ int main()
 	Image imDeadAnim = LoadImageAnim("resources/dead.gif", &animFrames);
 	Texture2D texDeadAnim = LoadTextureFromImage(imDeadAnim);
 
-
-
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
 	
+
 	//frames animacions base
 	int currentFrame = 0;
 	int frameContador = 0;
@@ -113,7 +112,7 @@ int main()
 	//hola
 
 	//els meus canvis
-	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width, (float)BMan.height };
+	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width/3, (float)BMan.height };
 	entity player = { .texture = BMan, .position = BManPos, .collider = playerCollider };
 
 	Camera2D camera = { 0 };
@@ -127,7 +126,10 @@ int main()
 	// game loop
 	while (!WindowShouldClose()) // run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
-		UpdateMusicStream(currentMusic);
+		player.texture = BMan;
+		player.position=BManPos;
+
+		/*UpdateMusicStream(currentMusic);*/
 		bloc.collider.x = bloc.position.x;
 		bloc.collider.y = bloc.position.y;
 
@@ -140,6 +142,7 @@ int main()
 		if(IsKeyUp){BMan= LoadTexture("Sprites/idle.png");}//animacio bman quiet
 
 		if (IsKeyPressed(KEY_Z)) { dead = true;}//no va
+		if (IsKeyPressed(KEY_X)) { dead = true; }//no va
 
 		if (IsKeyDown(KEY_RIGHT)) {BManPos.x += 2.0f; BMan = LoadTexture("Sprites/walkRight.png"); }
 		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 2.0f; BMan = LoadTexture("Sprites/walkLeft.png"); }
@@ -250,9 +253,9 @@ int main()
 			player.collider.x = player.position.x;
 			player.collider.y = player.position.y;
 
-			timePlayedMusic = GetMusicTimePlayed(currentMusic) / GetMusicTimeLength(currentMusic);
+			/*timePlayedMusic = GetMusicTimePlayed(currentMusic) / GetMusicTimeLength(currentMusic);*/
 
-			if (timePlayedMusic > 1.0f) {
+			/*if (timePlayedMusic > 1.0f) {
 				if (music == 0) {
 
 					StopMusicStream(currentMusic);
@@ -264,7 +267,7 @@ int main()
 				else {
 					timePlayedMusic = 1.0f;
 				}
-			}
+			}*/
 			EndDrawing();
 	}
 		// cleanup
@@ -272,9 +275,9 @@ int main()
 		UnloadTexture(BMan);
 		UnloadTexture(Blocs);
 		UnloadTexture(Fons);
-		UnloadMusicStream(currentMusic);
+		/*UnloadMusicStream(currentMusic);
 		UnloadMusicStream(startMusic);
-		UnloadMusicStream(bgm);
+		UnloadMusicStream(bgm);*/
 
 		CloseAudioDevice();
 

@@ -74,18 +74,26 @@ int main()
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //son amb el que colisionen
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
 
+	Texture2D globustxt = LoadTexture("Sprites/altg.png");
+
 	int animFrames = 0;
 	Image imDeadAnim = LoadImageAnim("resources/dead.gif", &animFrames);
 	Texture2D texDeadAnim = LoadTextureFromImage(imDeadAnim);
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
+	Vector2 globusPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio enemic globus
 
-
-	//frames animacions base
-	int currentFrame = 0;
-	int frameContador = 0;
-	int frameSpeed = 4; //marca la velocitat dels FPS
+	//frames animacions base BOMBERMAN
+	int currentFrameB = 0;
+	int frameContadorB = 0;
+	int frameSpeedB = 4; //marca la velocitat dels FPS
 	bool dead = false;
+
+	//framws animacions ENEMICS
+	int currentFrameE = 0;
+	int frameContadorE = 0;
+	int frameSpeedE = 4; //marca la velocitat dels FPS
+	//bool dead = false;
 
 	//frames animacio/gif mort
 	unsigned int nextFrameDataOffset = 0;
@@ -94,14 +102,20 @@ int main()
 	int frameDelay = 8;
 	int frameCounter = 0;
 
-	//blocs:
-
+	
+	//BOMBERMAN:
+	Rectangle frameRecB = { 0.0f, 0.0f, (float)BMan.width / 3, (float)BMan.height }; //MIDA DISPLAY FRAME
+	//Rectangle deathRec = { 0.0f, 0.0f, (float)BMan.width / 7, (float)BMan.height }; //s'hauria de fer un altra textura amb la seva propia mida
+	
+	//ENEMICS:
+	Rectangle frameRecE = { 0.0f, 0.0f, (float)globustxt.width / 6, (float)globustxt.height }; //MIDA DISPLAY FRAME
+	
+	
+	//BLOCS:
 	Vector2 blocPos = { 400.0f, 200.0f };
 	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)Blocs.width, (float)Blocs.height };
 	entity bloc = { bloc.texture = Blocs, bloc.position = blocPos, bloc.collider = blocCollider };
-	//prova:
-	Rectangle frameRec = { 0.0f, 0.0f, (float)BMan.width / 3, (float)BMan.height }; //MIDA DISPLAY FRAME
-	//Rectangle deathRec = { 0.0f, 0.0f, (float)BMan.width / 7, (float)BMan.height }; //s'hauria de fer un altra textura amb la seva propia mida
+
 	Rectangle blocks[] =
 	{
 		{ 200.0f, 150.0f, 100.0f, 50.0f }, // Block 1
@@ -115,6 +129,8 @@ int main()
 	//els meus canvis
 	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width / 3, (float)BMan.height };
 	entity player = { player.texture = BMan, player.position = BManPos, player.collider = playerCollider };
+
+	entity globus = { globus.texture = globustxt, globus.position = globusPos };
 
 	Camera2D camera = { 0 };
 	camera.target.x = player.position.x + 20.0f;
@@ -131,6 +147,9 @@ int main()
 	{
 		player.texture = BMan;
 		player.position = BManPos;
+
+		globus.position = globusPos;
+		globus.texture = globustxt;
 
 		/*UpdateMusicStream(currentMusic);*/
 		bloc.collider = { bloc.position.x, bloc.position.y };
@@ -151,14 +170,14 @@ int main()
 		if (IsKeyDown(KEY_UP)) { BManPos.y -= 1.3f; BMan = LoadTexture("Sprites/walkBack.png"); }
 		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 1.3f; BMan = LoadTexture("Sprites/walkFront.png"); }
 
-		player.position = BManPos;
+		
 
-
-		frameContador++;
-		if (frameContador >= (60 / frameSpeed))
+		//ANIMACIO BOMBERMAN
+		frameContadorB++;
+		if (frameContadorB >= (60 / frameSpeedB))
 		{
-			frameContador = 0;
-			currentFrame++;
+			frameContadorB = 0;
+			currentFrameB++;
 
 			if (dead = true) {
 				//if (currentFrame > 8) currentFrame = 0;
@@ -166,31 +185,45 @@ int main()
 				//deathRec.x = (float)currentFrame * (float)BMan.width / 7; //MIDA DISPLAY FRAME
 
 			}
-			if (currentFrame > 5) currentFrame = 0;
+			if (currentFrameB > 5) currentFrameB = 0;
 
-			frameRec.x = (float)currentFrame * (float)BMan.width / 3; //MIDA DISPLAY FRAME
-		}
-
-		if (dead = true) {
-			frameCounter++;
-			if (frameCounter >= frameDelay)
-			{
-				currentAnimFrame++;
-				if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
-
-				// Get memory offset position for next frame data in image.data
-				nextFrameDataOffset = imDeadAnim.width * imDeadAnim.height * 4 * currentAnimFrame;
-
-				// Update GPU texture data with next frame image data
-				// WARNING: Data size (frame size) and pixel format must match already created texture
-				UpdateTexture(texDeadAnim, ((unsigned char*)imDeadAnim.data) + nextFrameDataOffset);
-
-				frameCounter = 0;
-			}
+			frameRecB.x = (float)currentFrameB * (float)BMan.width / 3; //MIDA DISPLAY FRAME
 		}
 
 
-		//COMEN�A A DIBUIXAR
+		//ANIMACIO ENEMIC GLOBUS
+		frameContadorE++;
+		if (frameContadorE >= (60 / frameSpeedE))
+		{
+			frameContadorE = 0;
+			currentFrameE++;
+
+			
+			if (currentFrameE > 5) currentFrameE = 0;
+
+			frameRecE.x = (float)currentFrameE * (float)globustxt.width / 6; //MIDA DISPLAY FRAME
+		}
+
+		//if (dead = true) {
+		//	frameCounter++;
+		//	if (frameCounter >= frameDelay)
+		//	{
+		//		currentAnimFrame++;
+		//		if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
+
+		//		// Get memory offset position for next frame data in image.data
+		//		nextFrameDataOffset = imDeadAnim.width * imDeadAnim.height * 4 * currentAnimFrame;
+
+		//		// Update GPU texture data with next frame image data
+		//		// WARNING: Data size (frame size) and pixel format must match already created texture
+		//		UpdateTexture(texDeadAnim, ((unsigned char*)imDeadAnim.data) + nextFrameDataOffset);
+
+		//		frameCounter = 0;
+		//	}
+		//}
+
+
+		//COMENCA A DIBUIXAR
 
 		BeginDrawing();
 		BeginMode2D(camera);
@@ -216,12 +249,14 @@ int main()
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
 
-		DrawTextureRec(BMan, frameRec, BManPos, WHITE);
+		DrawTextureRec(BMan, frameRecB, BManPos, WHITE);
 
-		if (dead = true)
+		DrawTextureRec(globustxt, frameRecB, globusPos, WHITE);
+
+		/*if (dead = true)
 		{
 			DrawTexture(texDeadAnim, GetScreenWidth() / 2 - texDeadAnim.width / 2, 140, WHITE);
-		}
+		}*/
 
 		Rectangle futureColliderX = player.collider;
 		futureColliderX.x += playerVelocity.x;

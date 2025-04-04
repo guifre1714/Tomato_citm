@@ -132,8 +132,7 @@ int main()
 		player.position = BManPos;
 
 		/*UpdateMusicStream(currentMusic);*/
-		bloc.collider.x = bloc.position.x;
-		bloc.collider.y = bloc.position.y;
+		bloc.collider = { bloc.position.x, bloc.position.y };
 
 		//moviment personatge jugador
 		bool isCollidingX = false;
@@ -200,9 +199,7 @@ int main()
 		//___TOT EL QUE S'HAGI DE MOSTRAR PER PANTALLA DAVALL D'AIXO___
 
 		if (BManPos.x > 555 && BManPos.x < 685) {
-			camera.target.x = player.position.x + 20;
-			camera.target.y = (float)(screenHeight / 2) - 20;
-			camera.target = { player.position.x + 20, screenHeight / 2 - 20 };
+			camera.target = { player.position.x + 20, (float)screenHeight / 2 - 20 };
 		}
 		// drawing
 		for (int i = 0; i < numBlocks; i++)
@@ -254,8 +251,7 @@ int main()
 			player.position.y += playerVelocity.y;
 		}
 
-		player.collider.x = player.position.x;
-		player.collider.y = player.position.y;
+		player.collider = { player.position.x, player.position.y };
 
 		/*timePlayedMusic = GetMusicTimePlayed(currentMusic) / GetMusicTimeLength(currentMusic);*/
 

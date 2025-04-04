@@ -17,6 +17,7 @@ typedef struct entity {
 	Rectangle collider;
 } entity;
 
+
 bool CheckCollision(Rectangle rec1, Rectangle rec2)
 {
 	return (rec1.x < rec2.x + rec2.width &&
@@ -70,7 +71,7 @@ int main()
 	BMan = LoadTexture("Sprites/walkLeft.png");
 	BMan = LoadTexture("Sprites/walkRight.png");
 	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
-	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //s�n amb el que colisionen
+	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //son amb el que colisionen
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
 
 	int animFrames = 0;
@@ -145,10 +146,10 @@ int main()
 		if (IsKeyPressed(KEY_Z)) { dead = true; }//no va
 		if (IsKeyPressed(KEY_X)) { dead = true; }//no va
 
-		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += 2.0f; BMan = LoadTexture("Sprites/walkRight.png"); }
-		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 2.0f; BMan = LoadTexture("Sprites/walkLeft.png"); }
-		if (IsKeyDown(KEY_UP)) { BManPos.y -= 2.0f; BMan = LoadTexture("Sprites/walkBack.png"); }
-		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 2.0f; BMan = LoadTexture("Sprites/walkFront.png"); }
+		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += 1.3f; BMan = LoadTexture("Sprites/walkRight.png"); }
+		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 1.3f; BMan = LoadTexture("Sprites/walkLeft.png"); }
+		if (IsKeyDown(KEY_UP)) { BManPos.y -= 1.3f; BMan = LoadTexture("Sprites/walkBack.png"); }
+		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 1.3f; BMan = LoadTexture("Sprites/walkFront.png"); }
 
 		player.position = BManPos;
 

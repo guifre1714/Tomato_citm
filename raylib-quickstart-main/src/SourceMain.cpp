@@ -242,6 +242,7 @@ int main()
 
 		if (bombPos.x != -1.0f && bombPos.y != -1.0f) 
 		{
+			printf("Drawing bomb at position: (%f, %f)\n", bombPos.x, bombPos.y);
 			DrawTexture(Bomb, bombPos.x - Bomb.width / 2, bombPos.y - Bomb.height / 2);  
 		}
 
@@ -333,6 +334,7 @@ int main()
 
 	UnloadTexture(texDeadAnim);   // Unload texture
 	UnloadImage(imDeadAnim);
+	UnloadTexture(Bomb);
 
 	// destroy the window and cleanup the OpenGL context
 	CloseWindow();

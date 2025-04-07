@@ -65,13 +65,7 @@ int main()
 	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
 	Texture BlocDalt = LoadTexture("Sprites/blocDaltbaix.png"); //son amb el que colisionen
 	Texture BlocLateral = LoadTexture("Sprites/blocsLateral.png");
-	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
-	//comprovador
-	/*if (bombTexture.id == 0) 
-	{
-		printf("Failed to load bomb sprite!\n");
-		return 1; 
-	}*/
+	Texture2D Bomb = LoadTexture("Sprites/singleBomb.png");
 
 	Texture2D globustxt = LoadTexture("Sprites/altg.png");
 
@@ -112,6 +106,9 @@ int main()
 	
 	//ENEMICS:
 	Rectangle frameRecE = { 0.0f, 0.0f, (float)globustxt.width / 6, (float)globustxt.height }; //MIDA DISPLAY FRAME
+
+	//BOMBA:
+	Rectangle frameRecBomb = { 0.0f, 0.0f, (float)Bomb.width / 3, (float)Bomb.height };
 	
 	
 	//BLOCS:
@@ -167,19 +164,25 @@ int main()
 		bool isCollidingX = false;
 		bool isCollidingY = false;
 
+		bool actBomb = false;
+
 		Vector2 playerVelocity = { 0.0f, 0.0f };
 
 		if (IsKeyUp) { BMan = LoadTexture("Sprites/idle.png"); }//animacio bman quiet
 
-		if (IsKeyPressed(KEY_Z)) { dead = true; }//no va
-		if (IsKeyPressed(KEY_X)) { dead = true; }//no va
+		//if (IsKeyPressed(KEY_Z)) { dead = true; }//no va
+		//if (IsKeyPressed(KEY_X)) { dead = true; }//no va
 
 		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += 1.3f; BMan = LoadTexture("Sprites/walkRight.png"); }
 		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= 1.3f; BMan = LoadTexture("Sprites/walkLeft.png"); }
 		if (IsKeyDown(KEY_UP)) { BManPos.y -= 1.3f; BMan = LoadTexture("Sprites/walkBack.png"); }
 		if (IsKeyDown(KEY_DOWN)) { BManPos.y += 1.3f; BMan = LoadTexture("Sprites/walkFront.png"); }
 
-		
+		if (IsKeyDown(KEY_Z) && !actBomb) 
+		{
+			actBomb = true;
+
+		}
 
 		//ANIMACIO BOMBERMAN
 		frameContadorB++;
@@ -242,7 +245,7 @@ int main()
 
 		//___TOT EL QUE S'HAGI DE MOSTRAR PER PANTALLA DAVALL D'AIXO___
 
-		//marcellus II
+		if (actBomb=true) DrawTextureRec(Bomb, frameRecBomb, BManPos, WHITE);
 
 		/*if (bombPos.x != -1.0f && bombPos.y != -1.0f) 
 		{

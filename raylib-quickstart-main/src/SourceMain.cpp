@@ -11,11 +11,14 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "resource_dir.h" // utility header for SearchAndSetResourceDir
 
-typedef struct entity {
+class entity{
+public:
 	Texture texture;
 	Vector2 position;
 	Rectangle collider;
-} entity;
+};
+
+
 
 
 bool CheckCollision(Rectangle rec1, Rectangle rec2)

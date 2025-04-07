@@ -28,17 +28,6 @@ bool CheckCollision(Rectangle rec1, Rectangle rec2)
 
 int main()
 {
-	//BASURERO DE CODI
-	// 
-	// draw some text using the default font
-	//DrawText("Jajaja aixo es una pestanya normal", 200, 200, 20, WHITE);
-	//DrawTexture(BMan, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-	//DrawTextureV(BMan, BManPos, WHITE);
-
-
-
-
-
 	//CODI OFICIAL FUNCIONAL
 	const int screenWidth = 1280;
 	const int screenHeight = 800;
@@ -73,6 +62,12 @@ int main()
 	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
 	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //son amb el que colisionen
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
+	//comprovador
+	/*if (bombTexture.id == 0) 
+	{
+		printf("Failed to load bomb sprite!\n");
+		return 1; 
+	}*/
 
 	Texture2D globustxt = LoadTexture("Sprites/altg.png");
 
@@ -82,6 +77,10 @@ int main()
 
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
 	Vector2 globusPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio enemic globus
+
+	//JO. MARCEL, MEU
+	Vector2 bombPos = { -1.0f, -1.0f };
+
 
 	//frames animacions base BOMBERMAN
 	int currentFrameB = 0;
@@ -145,6 +144,12 @@ int main()
 	// game loop
 	while (!WindowShouldClose()) // run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
+		//MARCEL
+		if (IsKeyPressed(KEY_C)) 
+		{
+			bombPos = mainCharacterPos;
+		}
+
 		player.texture = BMan;
 		player.position = BManPos;
 
@@ -204,7 +209,8 @@ int main()
 			frameRecE.x = (float)currentFrameE * (float)globustxt.width / 6; //MIDA DISPLAY FRAME
 		}
 
-		//if (dead = true) {
+		//if (dead = true) 
+		// {
 		//	frameCounter++;
 		//	if (frameCounter >= frameDelay)
 		//	{
@@ -231,6 +237,14 @@ int main()
 		ClearBackground(RAYWHITE);// Setup the back buffer for drawing (clear color and depth buffers)
 
 		//___TOT EL QUE S'HAGI DE MOSTRAR PER PANTALLA DAVALL D'AIXO___
+
+		//marcellus II
+
+		if (bombPos.x != -1.0f && bombPos.y != -1.0f) 
+		{
+			DrawTexture(Bomb, bombPos.x - Bomb.width / 2, bombPos.y - Bomb.height / 2);  
+		}
+
 
 		if (BManPos.x > 555 && BManPos.x < 685) {
 			camera.target = { player.position.x + 20, (float)screenHeight / 2 - 20 };

@@ -66,6 +66,7 @@ int main()
 	Texture BlocDalt = LoadTexture("Sprites/blocDaltbaix.png"); //son amb el que colisionen
 	Texture BlocLateral = LoadTexture("Sprites/blocsLateral.png");
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
+	Texture BlocSol = LoadTexture("Sprites/blocIndividual.png");
 	//comprovador
 	/*if (bombTexture.id == 0) 
 	{
@@ -125,6 +126,11 @@ int main()
 		{ 400.0f, 300.0f, 150.0f, 75.0f }, // Block 2
 		{ 600.0f, 450.0f, 100.0f, 100.0f }  // Block 3
 	};
+
+	/*entity blocs[70];
+	for (int i = 0; i < 69; i++) {
+		blocs[i].texture = BlocSol, blocs[i].position.x = 32 * i + 1;
+	}*/
 
 	int numBlocks = sizeof(blocks) / sizeof(blocks[0]);
 	//hola

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Raylib example file.
 This is an example main file for a simple raylib project.
 Use this as a starting point or replace it with your code.
@@ -11,7 +11,8 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "resource_dir.h" // utility header for SearchAndSetResourceDir
 
-class entity{
+class entity
+{
 public:
 	Texture texture;
 	Vector2 position;
@@ -79,7 +80,6 @@ int main()
 	//JO. MARCEL, MEU
 	Vector2 bombPos = { -1.0f, -1.0f };
 
-
 	//frames animacions base BOMBERMAN
 	int currentFrameB = 0;
 	int frameContadorB = 0;
@@ -103,6 +103,9 @@ int main()
 	//BOMBERMAN:
 	Rectangle frameRecB = { 0.0f, 0.0f, (float)BMan.width / 3, (float)BMan.height }; //MIDA DISPLAY FRAME
 	//Rectangle deathRec = { 0.0f, 0.0f, (float)BMan.width / 7, (float)BMan.height }; //s'hauria de fer un altra textura amb la seva propia mida
+	Vector2 characterPos = { 100.0f, 100.0f };
+	float characterSpeed = 5.0f;
+	Vector2 characterSize = { 50.0f, 50.0f };
 	
 	//ENEMICS:
 	Rectangle frameRecE = { 0.0f, 0.0f, (float)globustxt.width / 6, (float)globustxt.height }; //MIDA DISPLAY FRAME
@@ -112,7 +115,8 @@ int main()
 	
 	
 	//BLOCS:
-	Vector2 blocPos = { 400.0f, 200.0f };
+	Vector2 wallSize = { (float)BlocLateral.width, (float)BlocLateral.height };
+	Vector2 blocPos = { 400.0f, 300.0f };
 	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)BlocDalt.width, (float)BlocDalt.height };
 	entity bloc = { bloc.texture = BlocDalt, bloc.position = blocPos, bloc.collider = blocCollider };
 
@@ -150,6 +154,16 @@ int main()
 		{
 			bombPos = BManPos;
 		}*/
+
+		Vector2 nextPos = characterPos;
+
+		Rectangle characterRect = { nextPos.x, nextPos.y, characterSize.x, characterSize.y };
+		Rectangle wallRect = { blocPos.x, blocPos.y, blocPos.x, blocPos.y };
+
+		if (!CheckCollisionRecs(characterRect, wallRect)) 
+		{
+			characterPos = nextPos;
+		}
 
 		player.texture = BMan;
 		player.position = BManPos;
@@ -249,6 +263,10 @@ int main()
 
 		/*if (bombPos.x != -1.0f && bombPos.y != -1.0f) 
 		{
+
+			printf("Drawing bomb at position: (%f, %f)\n", bombPos.x, bombPos.y);
+			DrawTexture(Bomb, bombPos.x - Bomb.width / 2, bombPos.y - Bomb.height / 2);  
+		}
 			DrawTexture(Bomb, bombPos.x - Bomb.width / 2, bombPos.y - Bomb.height / 2, WHITE);  
 		}*/
 
@@ -322,6 +340,10 @@ int main()
 
 		player.collider = { player.position.x, player.position.y };
 
+		DrawRectangleV(characterPos, characterSize, BLUE);
+
+		DrawTexture(BlocLateral, blocPos.x - BlocLateral.width / 2, blocPos.y - BlocLateral.height / 2, WHITE);
+
 		/*timePlayedMusic = GetMusicTimePlayed(currentMusic) / GetMusicTimeLength(currentMusic);*/
 
 		/*if (timePlayedMusic > 1.0f) {
@@ -344,6 +366,7 @@ int main()
 	UnloadTexture(BMan);
 	UnloadTexture(BlocDalt);
 	UnloadTexture(Fons);
+	UnloadTexture(BlocLateral);
 	/*UnloadMusicStream(currentMusic);
 	UnloadMusicStream(startMusic);
 	UnloadMusicStream(bgm);*/

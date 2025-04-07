@@ -1,4 +1,4 @@
-﻿/*
+/*
 Raylib example file.
 This is an example main file for a simple raylib project.
 Use this as a starting point or replace it with your code.
@@ -11,11 +11,14 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "resource_dir.h" // utility header for SearchAndSetResourceDir
 
-typedef struct entity {
+class entity{
+public:
 	Texture texture;
 	Vector2 position;
 	Rectangle collider;
-} entity;
+};
+
+
 
 
 bool CheckCollision(Rectangle rec1, Rectangle rec2)
@@ -60,7 +63,8 @@ int main()
 	BMan = LoadTexture("Sprites/walkLeft.png");
 	BMan = LoadTexture("Sprites/walkRight.png");
 	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
-	Texture Blocs = LoadTexture("Sprites/blocsfons.png"); //son amb el que colisionen
+	Texture BlocDalt = LoadTexture("Sprites/blocDaltbaix.png"); //son amb el que colisionen
+	Texture BlocLateral = LoadTexture("Sprites/blocsLateral.png");
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
 	//comprovador
 	/*if (bombTexture.id == 0) 
@@ -112,8 +116,8 @@ int main()
 	
 	//BLOCS:
 	Vector2 blocPos = { 400.0f, 200.0f };
-	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)Blocs.width, (float)Blocs.height };
-	entity bloc = { bloc.texture = Blocs, bloc.position = blocPos, bloc.collider = blocCollider };
+	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)BlocDalt.width, (float)BlocDalt.height };
+	entity bloc = { bloc.texture = BlocDalt, bloc.position = blocPos, bloc.collider = blocCollider };
 
 	Rectangle blocks[] =
 	{
@@ -145,10 +149,10 @@ int main()
 	while (!WindowShouldClose()) // run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		//MARCEL
-		if (IsKeyPressed(KEY_C)) 
+		/*if (IsKeyPressed(KEY_C)) 
 		{
-			bombPos = mainCharacterPos;
-		}
+			bombPos = BManPos;
+		}*/
 
 		player.texture = BMan;
 		player.position = BManPos;
@@ -240,11 +244,20 @@ int main()
 
 		//marcellus II
 
-		if (bombPos.x != -1.0f && bombPos.y != -1.0f) 
+		/*if (bombPos.x != -1.0f && bombPos.y != -1.0f) 
 		{
+
 			printf("Drawing bomb at position: (%f, %f)\n", bombPos.x, bombPos.y);
 			DrawTexture(Bomb, bombPos.x - Bomb.width / 2, bombPos.y - Bomb.height / 2);  
 		}
+			DrawTexture(Bomb, bombPos.x - Bomb.width / 2, bombPos.y - Bomb.height / 2, WHITE);  
+		}*/
+
+		/*if (IsKeyPressed(KEY_C))
+		{
+			bombPos = BManPos;
+			DrawTexture(Bomb, bombPos, WHITE);
+		}*/
 
 
 		if (BManPos.x > 555 && BManPos.x < 685) {
@@ -261,8 +274,14 @@ int main()
 			DrawText("Collision Detected!", 350, 10, 20, RED);
 		}
 
-		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		DrawTexture(Blocs, screenWidth / 2 - Blocs.width / 2, screenHeight / 2 - Blocs.height / 2, WHITE);
+		//DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
+		DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 - (BlocDalt.height*6.5), WHITE);
+		DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 + (BlocDalt.height*5.5), WHITE);
+
+		DrawTexture(BlocLateral, screenWidth / 2 - (BlocLateral.width *15.5), screenHeight / 2 - BlocLateral.height/2, WHITE);
+		DrawTexture(BlocLateral, screenWidth / 2 + (BlocLateral.width * 14.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
+
+
 
 		DrawTextureRec(BMan, frameRecB, BManPos, WHITE);
 
@@ -324,7 +343,7 @@ int main()
 	// cleanup
 	// unload our texture so it can be cleaned up
 	UnloadTexture(BMan);
-	UnloadTexture(Blocs);
+	UnloadTexture(BlocDalt);
 	UnloadTexture(Fons);
 	/*UnloadMusicStream(currentMusic);
 	UnloadMusicStream(startMusic);

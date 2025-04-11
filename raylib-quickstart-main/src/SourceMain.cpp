@@ -37,7 +37,7 @@ public:
 class Player {
 public:
 	Vector2 BManPos;
-	float width = 40, height = 40;
+	float width, height;
 	float speed = 1.3f;
 	Texture2D BManText;
 
@@ -104,6 +104,67 @@ public:
 		}
 	}
 };
+
+class Enemy {
+public:
+	Vector2 BManPos;
+	float width = 40, height = 40;
+	float speed = 1.3f;
+	Texture2D BManText;
+
+	//frames animacions base BOMBERMAN
+	int currentFrameB = 0;
+	int frameContadorB = 0;
+	int frameSpeedB = 4; //marca la velocitat dels FPS
+	bool dead = false;
+
+	Player(float x, float y, Texture2D BManTexture)
+	{
+		this->BManPos = { x,y };
+		this->BManText = BManTexture;
+	}
+
+	Rectangle getRect() const {
+		return { BManPos.x, BManPos.y, width, height };
+	}
+
+	Rectangle frameRecB = { 0.0f, 0.0f, (float)BManText.width / 3, (float)BManText.height }; //MIDA DISPLAY FRAME
+
+	void animacio() {
+		
+	}
+
+	void draw() const {
+		DrawTextureRec(globustxt, frameRecB, globusPos, WHITE);
+	}
+
+	void moveAndCollide(const std::vector<Bloc>& blocs) {
+		// Guardem la posició anterior
+		Vector2 oldPos = BManPos;
+
+		// Moviment
+		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += speed; BManText = LoadTexture("Sprites/walkRight.png"); }
+		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= speed; BManText = LoadTexture("Sprites/walkLeft.png"); }
+		if (IsKeyDown(KEY_UP)) { BManPos.y -= speed; BManText = LoadTexture("Sprites/walkBack.png"); }
+		if (IsKeyDown(KEY_DOWN)) { BManPos.y += speed; BManText = LoadTexture("Sprites/walkFront.png"); }
+
+
+		// Comprovem col·lisió amb blocs
+		for (const Bloc& bloc : blocs) {
+			if (CheckCollisionRecs(getRect(), bloc.getRect())) {
+				// Si hi ha col·lisió, retornem a la posició anterior
+				BManPos = oldPos;
+				break;
+			}
+		}
+	}
+};
+
+
+
+
+
+
 //
 //int main() {
 //	const int screenWidth = 800;
@@ -249,7 +310,7 @@ int main()
 	
 	
 	Player bomberman(100.0f, 100.0f, BMan);
-	
+	Enemy globus(100.0f, 100.0f, globustxt);
 
 	//entity player = { player.texture = BMan, player.position = BManPos, player.collider = playerCollider };
 	
@@ -406,9 +467,10 @@ int main()
 		DrawTexture(BlocLateral, screenWidth / 2 + (BlocLateral.width * 14.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
 
 
-
+		bomberman.draw();
 		DrawTextureRec(BMan, frameRecB, BManPos, WHITE);
 
+		enemy.draw();
 		DrawTextureRec(globustxt, frameRecB, globusPos, WHITE);
 
 		/*if (dead = true)

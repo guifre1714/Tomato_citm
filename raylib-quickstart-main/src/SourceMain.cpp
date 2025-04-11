@@ -8,8 +8,67 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 */
 
 #include "raylib.h"
+#include <vector>
+#include <iostream>
 
 #include "resource_dir.h" // utility header for SearchAndSetResourceDir
+
+class Bloc {
+public:
+	float x, y;
+	float width, height;
+
+	Bloc(float x, float y, float width = 40, float height = 40)
+		: x(x), y(y), width(width), height(height) {}
+
+	Rectangle getRect() const {
+		return { x, y, width, height };
+	}
+
+	void draw() const {
+		DrawRectangleRec(getRect(), DARKGRAY);
+	}
+};
+
+class Player {
+public:
+	float x, y;
+	float width = 40, height = 40;
+	float speed = 4.0f;
+
+	Player(float startX, float startY)
+		: x(startX), y(startY) {}
+
+	Rectangle getRect() const {
+		return { x, y, width, height };
+	}
+
+	void draw() const {
+		DrawRectangleRec(getRect(), BLUE);
+	}
+
+	void moveAndCollide(const std::vector<Bloc>& blocs) {
+		// Guardem la posició anterior
+		float oldX = x;
+		float oldY = y;
+
+		// Moviment
+		if (IsKeyDown(KEY_RIGHT)) x += speed;
+		if (IsKeyDown(KEY_LEFT)) x -= speed;
+		if (IsKeyDown(KEY_DOWN)) y += speed;
+		if (IsKeyDown(KEY_UP)) y -= speed;
+
+		// Comprovem col·lisió amb cada bloc
+		for (const Bloc& bloc : blocs) {
+			if (CheckCollisionRecs(getRect(), bloc.getRect())) {
+				// Si hi ha col·lisió, tornem a la posició anterior
+				x = oldX;
+				y = oldY;
+				break; // No cal seguir mirant més blocs
+			}
+		}
+	}
+};
 
 class entity
 {
@@ -18,9 +77,6 @@ public:
 	Vector2 position;
 	Rectangle collider;
 };
-
-
-
 
 bool CheckCollision(Rectangle rec1, Rectangle rec2)
 {

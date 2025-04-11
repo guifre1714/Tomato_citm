@@ -257,8 +257,8 @@ int main()
 	//entity globus = { globus.texture = globustxt, globus.position = globusPos };
 
 	Camera2D camera = { 0 };
-	camera.target.x = player.position.x + 20.0f;
-	camera.target.y = player.position.y + 20.0f;
+	camera.target.x = bomberman.BManPos.x + 20.0f;
+	camera.target.y = bomberman.BManPos.y + 20.0f;
 	camera.offset.x = screenWidth / 2.0f;
 	camera.offset.y = screenHeight / 2.0f;
 	camera.rotation = 0.0f;

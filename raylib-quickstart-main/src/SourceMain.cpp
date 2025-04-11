@@ -15,14 +15,18 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 class Bloc {
 public:
-	Vector2 pos;
+	Vector2 BlocPos;
 	float width, height;
 
 	Bloc(float x, float y, float width = 40, float height = 40)
-		: pos{ x, y }, width(width), height(height) {}
+	{
+		this->BlocPos = { x,y };
+		this->width = width;
+		this->height = height;
+	}
 
 	Rectangle getRect() const {
-		return { pos.x, pos.y, width, height };
+		return { BlocPos.x, BlocPos.y, width, height };
 	}
 
 	void draw() const {
@@ -37,15 +41,11 @@ public:
 	float speed = 1.3f;
 	Texture2D BManText;
 
-	
-
 	//frames animacions base BOMBERMAN
 	int currentFrameB = 0;
 	int frameContadorB = 0;
 	int frameSpeedB = 4; //marca la velocitat dels FPS
 	bool dead = false;
-
-	
 
 	Player(float x, float y, Texture2D BManTexture)
 	{	

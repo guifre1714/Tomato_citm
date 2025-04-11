@@ -75,7 +75,7 @@ int main()
 		printf("Failed to load bomb sprite!\n");
 		return 1; 
 	}*/
-	Texture2D Bomb = LoadTexture("Sprites/singleBomb.png");
+	//Texture2D Bomb = LoadTexture("Sprites/singleBomb.png");
 
 	Texture2D globustxt = LoadTexture("Sprites/altg.png");
 
@@ -305,7 +305,7 @@ int main()
 			DrawText("Collision Detected!", 350, 10, 20, RED);
 		}
 
-		//DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
+		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 - (BlocDalt.height*6.5), WHITE);
 		DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 + (BlocDalt.height*5.5), WHITE);
 

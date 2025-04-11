@@ -13,60 +13,97 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "resource_dir.h" // utility header for SearchAndSetResourceDir
 
-//class Bloc {
-//public:
-//	Vector2 pos;
-//	float width, height;
-//
-//	Bloc(float x, float y, float width = 40, float height = 40)
-//		: pos{ x, y }, width(width), height(height) {}
-//
-//	Rectangle getRect() const {
-//		return { pos.x, pos.y, width, height };
-//	}
-//
-//	void draw() const {
-//		DrawRectangleRec(getRect(), DARKGRAY);
-//	}
-//};
-//
-//class Player {
-//public:
-//	Vector2 pos;
-//	float width = 40, height = 40;
-//	float speed = 4.0f;
-//
-//	Player(float x, float y)
-//		: pos{ x, y } {}
-//
-//	Rectangle getRect() const {
-//		return { pos.x, pos.y, width, height };
-//	}
-//
-//	void draw() const {
-//		DrawRectangleRec(getRect(), BLUE);
-//	}
-//
-//	void moveAndCollide(const std::vector<Bloc>& blocs) {
-//		// Guardem la posició anterior
-//		Vector2 oldPos = pos;
-//
-//		// Moviment
-//		if (IsKeyDown(KEY_RIGHT)) pos.x += speed;
-//		if (IsKeyDown(KEY_LEFT)) pos.x -= speed;
-//		if (IsKeyDown(KEY_DOWN)) pos.y += speed;
-//		if (IsKeyDown(KEY_UP)) pos.y -= speed;
-//
-//		// Comprovem col·lisió amb blocs
-//		for (const Bloc& bloc : blocs) {
-//			if (CheckCollisionRecs(getRect(), bloc.getRect())) {
-//				// Si hi ha col·lisió, retornem a la posició anterior
-//				pos = oldPos;
-//				break;
-//			}
-//		}
-//	}
-//};
+class Bloc {
+public:
+	Vector2 pos;
+	float width, height;
+
+	Bloc(float x, float y, float width = 40, float height = 40)
+		: pos{ x, y }, width(width), height(height) {}
+
+	Rectangle getRect() const {
+		return { pos.x, pos.y, width, height };
+	}
+
+	void draw() const {
+		DrawRectangleRec(getRect(), DARKGRAY);
+	}
+};
+
+class Player {
+public:
+	Vector2 BManPos;
+	float width = 40, height = 40;
+	float speed = 1.3f;
+	Texture2D BManText;
+
+	
+
+	//frames animacions base BOMBERMAN
+	int currentFrameB = 0;
+	int frameContadorB = 0;
+	int frameSpeedB = 4; //marca la velocitat dels FPS
+	bool dead = false;
+
+	
+
+	Player(float x, float y, Texture2D BManTexture)
+	{	
+		this->BManPos = { x,y };
+		this->BManText = BManTexture;
+	}
+
+	Rectangle getRect() const {
+		return { BManPos.x, BManPos.y, width, height };
+	}
+
+	Rectangle frameRecB = { 0.0f, 0.0f, (float)BManText.width / 3, (float)BManText.height }; //MIDA DISPLAY FRAME
+
+	void animacio() {
+		//ANIMACIO BOMBERMAN
+		frameContadorB++;
+		if (frameContadorB >= (60 / frameSpeedB))
+		{
+			frameContadorB = 0;
+			currentFrameB++;
+
+			//if (dead = true) {
+			//	//if (currentFrame > 8) currentFrame = 0;
+
+			//	//deathRec.x = (float)currentFrame * (float)BMan.width / 7; //MIDA DISPLAY FRAME
+
+			//}
+			if (currentFrameB > 5) currentFrameB = 0;
+
+			frameRecB.x = (float)currentFrameB * (float)BManText.width / 3; //MIDA DISPLAY FRAME
+		}
+	}
+
+	void draw() const {
+		DrawTextureRec(BManText, frameRecB, BManPos, WHITE);
+	}
+
+	void moveAndCollide(const std::vector<Bloc>& blocs) {
+		// Guardem la posició anterior
+		Vector2 oldPos = BManPos;
+
+		// Moviment
+		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += speed; BManText = LoadTexture("Sprites/walkRight.png"); }
+		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= speed; BManText = LoadTexture("Sprites/walkLeft.png"); }
+		if (IsKeyDown(KEY_UP)) { BManPos.y -= speed; BManText = LoadTexture("Sprites/walkBack.png"); }
+		if (IsKeyDown(KEY_DOWN)) { BManPos.y += speed; BManText = LoadTexture("Sprites/walkFront.png"); }
+
+
+		// Comprovem col·lisió amb blocs
+		for (const Bloc& bloc : blocs) {
+			if (CheckCollisionRecs(getRect(), bloc.getRect())) {
+				// Si hi ha col·lisió, retornem a la posició anterior
+				BManPos = oldPos;
+				break;
+			}
+		}
+	}
+};
 //
 //int main() {
 //	const int screenWidth = 800;
@@ -104,21 +141,19 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 //
 //	return 0;
 //}
-class entity
-{
-public:
-	Texture texture;
-	Vector2 position;
-	Rectangle collider;
-};
 
-bool CheckCollision(Rectangle rec1, Rectangle rec2)
-{
-	return (rec1.x < rec2.x + rec2.width &&
-		rec1.x + rec1.width > rec2.x &&
-		rec1.y < rec2.y + rec2.height &&
-		rec1.y + rec1.height > rec2.y);
-}
+
+
+
+//class entity
+//{
+//public:
+//	Texture texture;
+//	Vector2 position;
+//	Rectangle collider;
+//};
+
+
 
 int main()
 {
@@ -213,32 +248,13 @@ int main()
 	Rectangle frameRecBomb = { 0.0f, 0.0f, (float)Bomb.width / 3, (float)Bomb.height };
 	
 	
-	//BLOCS:
-	Vector2 wallSize = { (float)BlocLateral.width, (float)BlocLateral.height };
-	Vector2 blocPos = { 400.0f, 300.0f };
-	Rectangle blocCollider = { blocPos.x, blocPos.y, (float)BlocDalt.width, (float)BlocDalt.height };
-	entity bloc = { bloc.texture = BlocDalt, bloc.position = blocPos, bloc.collider = blocCollider };
+	Player bomberman(100.0f, 100.0f, BMan);
+	
 
-	Rectangle blocks[] =
-	{
-		{ 200.0f, 150.0f, 100.0f, 50.0f }, // Block 1
-		{ 400.0f, 300.0f, 150.0f, 75.0f }, // Block 2
-		{ 600.0f, 450.0f, 100.0f, 100.0f }  // Block 3
-	};
+	//entity player = { player.texture = BMan, player.position = BManPos, player.collider = playerCollider };
+	
 
-	/*entity blocs[70];
-	for (int i = 0; i < 69; i++) {
-		blocs[i].texture = BlocSol, blocs[i].position.x = 32 * i + 1;
-	}*/
-
-	int numBlocks = sizeof(blocks) / sizeof(blocks[0]);
-	//hola
-
-	//els meus canvis
-	Rectangle playerCollider = { BManPos.x, BManPos.y, (float)BMan.width / 3, (float)BMan.height };
-	entity player = { player.texture = BMan, player.position = BManPos, player.collider = playerCollider };
-
-	entity globus = { globus.texture = globustxt, globus.position = globusPos };
+	//entity globus = { globus.texture = globustxt, globus.position = globusPos };
 
 	Camera2D camera = { 0 };
 	camera.target.x = player.position.x + 20.0f;
@@ -262,12 +278,9 @@ int main()
 		Vector2 nextPos = characterPos;
 
 		Rectangle characterRect = { nextPos.x, nextPos.y, characterSize.x, characterSize.y };
-		Rectangle wallRect = { blocPos.x, blocPos.y, blocPos.x, blocPos.y };
+		
 
-		if (!CheckCollisionRecs(characterRect, wallRect)) 
-		{
-			characterPos = nextPos;
-		}
+		
 
 		player.texture = BMan;
 		player.position = BManPos;
@@ -276,11 +289,9 @@ int main()
 		globus.texture = globustxt;
 
 		/*UpdateMusicStream(currentMusic);*/
-		bloc.collider = { bloc.position.x, bloc.position.y };
+		
 
-		//moviment personatge jugador
-		bool isCollidingX = false;
-		bool isCollidingY = false;
+		
 
 		bool actBomb = false;
 
@@ -385,15 +396,7 @@ int main()
 			camera.target = { player.position.x + 20, (float)screenHeight / 2 - 20 };
 		}
 		// drawing
-		for (int i = 0; i < numBlocks; i++)
-		{
-			DrawRectangleRec(blocks[i], GRAY);
-		}
-		DrawRectangleLinesEx(player.collider, 2, RED);
-		if (isCollidingX || isCollidingY)
-		{
-			DrawText("Collision Detected!", 350, 10, 20, RED);
-		}
+		
 
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 - (BlocDalt.height*6.5), WHITE);
@@ -413,36 +416,7 @@ int main()
 			DrawTexture(texDeadAnim, GetScreenWidth() / 2 - texDeadAnim.width / 2, 140, WHITE);
 		}*/
 
-		Rectangle futureColliderX = player.collider;
-		futureColliderX.x += playerVelocity.x;
-		for (int i = 0; i < numBlocks; i++) {
-			if (CheckCollision(futureColliderX, blocks[i]))
-			{
-				isCollidingX = true;
-				break;
-			}
-		}
-
-		Rectangle futureColliderY = player.collider;
-		futureColliderY.y += playerVelocity.y;
-		for (int i = 0; i < numBlocks; i++) {
-			if (CheckCollision(futureColliderY, blocks[i]))
-			{
-				isCollidingY = true;
-				break;
-			}
-		}
-
-		if (!isCollidingX)
-		{
-			player.position.x += playerVelocity.x;
-		}
-		if (!isCollidingY)
-		{
-			player.position.y += playerVelocity.y;
-		}
-
-		player.collider = { player.position.x, player.position.y };
+		
 
 		DrawRectangleV(characterPos, characterSize, BLUE);
 

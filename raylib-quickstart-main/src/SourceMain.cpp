@@ -18,6 +18,7 @@ public:
 	Vector2 BlocPos;
 	float width, height;
 
+	Bloc();
 	Bloc(float x, float y, float width = 40, float height = 40)
 	{
 		this->BlocPos = { x,y };
@@ -47,6 +48,7 @@ public:
 	int frameSpeedB = 4; //marca la velocitat dels FPS
 	bool dead = false;
 
+	Player();
 	Player(float x, float y, Texture2D BManTexture)
 	{	
 		this->BManPos = { x,y };
@@ -107,61 +109,54 @@ public:
 
 class Enemy {
 public:
-	Vector2 BManPos;
+	Vector2 globusPos;
 	float width = 40, height = 40;
 	float speed = 1.3f;
-	Texture2D BManText;
+	Texture2D globustxt;
 
-	//frames animacions base BOMBERMAN
-	int currentFrameB = 0;
-	int frameContadorB = 0;
-	int frameSpeedB = 4; //marca la velocitat dels FPS
-	bool dead = false;
+	//frames animacions ENEMICS
+	int currentFrameE = 0;
+	int frameContadorE = 0;
+	int frameSpeedE = 4; //marca la velocitat dels FPS
+	//bool dead = false;
 
-	Player(float x, float y, Texture2D BManTexture)
+	Enemy();
+	Enemy(float x, float y, Texture2D globustxt)
 	{
-		this->BManPos = { x,y };
-		this->BManText = BManTexture;
+		this->globusPos = { x,y };
+		this->globustxt = globustxt;
 	}
 
 	Rectangle getRect() const {
-		return { BManPos.x, BManPos.y, width, height };
+		return { globusPos.x, globusPos.y, width, height };
 	}
 
-	Rectangle frameRecB = { 0.0f, 0.0f, (float)BManText.width / 3, (float)BManText.height }; //MIDA DISPLAY FRAME
+	Rectangle frameRecE = { 0.0f, 0.0f, (float)globustxt.width / 3, (float)globustxt.height }; //MIDA DISPLAY FRAME
 
 	void animacio() {
 		
 	}
 
 	void draw() const {
-		DrawTextureRec(globustxt, frameRecB, globusPos, WHITE);
+		DrawTextureRec(globustxt, frameRecE, globusPos, WHITE);
 	}
 
 	void moveAndCollide(const std::vector<Bloc>& blocs) {
 		// Guardem la posició anterior
-		Vector2 oldPos = BManPos;
+		Vector2 oldPos = globusPos;
 
 		// Moviment
-		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += speed; BManText = LoadTexture("Sprites/walkRight.png"); }
-		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= speed; BManText = LoadTexture("Sprites/walkLeft.png"); }
-		if (IsKeyDown(KEY_UP)) { BManPos.y -= speed; BManText = LoadTexture("Sprites/walkBack.png"); }
-		if (IsKeyDown(KEY_DOWN)) { BManPos.y += speed; BManText = LoadTexture("Sprites/walkFront.png"); }
-
 
 		// Comprovem col·lisió amb blocs
 		for (const Bloc& bloc : blocs) {
 			if (CheckCollisionRecs(getRect(), bloc.getRect())) {
 				// Si hi ha col·lisió, retornem a la posició anterior
-				BManPos = oldPos;
+				globusPos = oldPos;
 				break;
 			}
 		}
 	}
 };
-
-
-
 
 
 
@@ -205,23 +200,11 @@ public:
 
 
 
-
-//class entity
-//{
-//public:
-//	Texture texture;
-//	Vector2 position;
-//	Rectangle collider;
-//};
-
-
-
 int main()
 {
 	//CODI OFICIAL FUNCIONAL
 	const int screenWidth = 1280;
 	const int screenHeight = 800;
-
 
 
 	// Tell the window to use vsync and work on high DPI displays
@@ -254,14 +237,6 @@ int main()
 	Texture BlocLateral = LoadTexture("Sprites/blocsLateral.png");
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
 	Texture BlocSol = LoadTexture("Sprites/blocIndividual.png");
-
-	//comprovador
-	/*if (bombTexture.id == 0) 
-	{
-		printf("Failed to load bomb sprite!\n");
-		return 1; 
-	}*/
-	//Texture2D Bomb = LoadTexture("Sprites/singleBomb.png");
 
 	Texture2D globustxt = LoadTexture("Sprites/altg.png");
 
@@ -336,18 +311,20 @@ int main()
 			bombPos = BManPos;
 		}*/
 
+		Player bomberman;
+		Enemy globus;
+		Bloc blocs;
+
 		Vector2 nextPos = characterPos;
 
 		Rectangle characterRect = { nextPos.x, nextPos.y, characterSize.x, characterSize.y };
 		
 
-		
+		bomberman.BManText = BMan;
+		bomberman.BManPos = BManPos;
 
-		player.texture = BMan;
-		player.position = BManPos;
-
-		globus.position = globusPos;
-		globus.texture = globustxt;
+		globus.globusPos = globusPos;
+		globus.globustxt = globustxt;
 
 		/*UpdateMusicStream(currentMusic);*/
 		
@@ -454,7 +431,7 @@ int main()
 
 
 		if (BManPos.x > 555 && BManPos.x < 685) {
-			camera.target = { player.position.x + 20, (float)screenHeight / 2 - 20 };
+			camera.target = { bomberman.BManPos.x + 20, (float)screenHeight / 2 - 20 };
 		}
 		// drawing
 		
@@ -470,7 +447,7 @@ int main()
 		bomberman.draw();
 		DrawTextureRec(BMan, frameRecB, BManPos, WHITE);
 
-		enemy.draw();
+		globus.draw();
 		DrawTextureRec(globustxt, frameRecB, globusPos, WHITE);
 
 		/*if (dead = true)
@@ -482,7 +459,7 @@ int main()
 
 		DrawRectangleV(characterPos, characterSize, BLUE);
 
-		DrawTexture(BlocLateral, blocPos.x - BlocLateral.width / 2, blocPos.y - BlocLateral.height / 2, WHITE);
+		DrawTexture(BlocLateral, blocs.BlocPos.x - BlocLateral.width / 2, blocs.BlocPos.y - BlocLateral.height / 2, WHITE);
 
 		/*timePlayedMusic = GetMusicTimePlayed(currentMusic) / GetMusicTimeLength(currentMusic);*/
 

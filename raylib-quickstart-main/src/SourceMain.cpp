@@ -160,7 +160,60 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 
 
+////class Bloc {
+//public:
+//    Vector2 pos;
+//    float width, height;
 //
+//    Bloc(float x, float y, float width = 40, float height = 40)
+//        : pos{ x, y }, width(width), height(height) {}
+//
+//    Rectangle getRect() const {
+//        return { pos.x, pos.y, width, height };
+//    }
+//
+//    void draw() const {
+//        DrawRectangleRec(getRect(), DARKGRAY);
+//    }
+//};
+//
+//class Player {
+//public:
+//    Vector2 pos;
+//    float width = 40, height = 40;
+//    float speed = 4.0f;
+//
+//    Player(float x, float y)
+//        : pos{ x, y } {}
+//
+//    Rectangle getRect() const {
+//        return { pos.x, pos.y, width, height };
+//    }
+//
+//    void draw() const {
+//        DrawRectangleRec(getRect(), BLUE);
+//    }
+//
+//    void moveAndCollide(const std::vector<Bloc>& blocs) {
+//        // Guardem la posició anterior
+//        Vector2 oldPos = pos;
+//
+//        // Moviment
+//        if (IsKeyDown(KEY_RIGHT)) pos.x += speed;
+//        if (IsKeyDown(KEY_LEFT)) pos.x -= speed;
+//        if (IsKeyDown(KEY_DOWN)) pos.y += speed;
+//        if (IsKeyDown(KEY_UP)) pos.y -= speed;
+//
+//        // Comprovem col·lisió amb blocs
+//        for (const Bloc& bloc : blocs) {
+//            if (CheckCollisionRecs(getRect(), bloc.getRect())) {
+//                // Si hi ha col·lisió, retornem a la posició anterior
+//                pos = oldPos;
+//                break;
+//            }
+//        }
+//    }
+//};
 //int main() {
 //	const int screenWidth = 800;
 //	const int screenHeight = 600;

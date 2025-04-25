@@ -38,22 +38,18 @@ public:
 class Player {
 public:
 	Vector2 BManPos;
-	float width, height;
-	float speed = 1.3f;
+	float width;
+	float height;
+	float speed;
 	Texture2D BManText;
 
 	//frames animacions base BOMBERMAN
 	int currentFrameB = 0;
 	int frameContadorB = 0;
 	int frameSpeedB = 4; //marca la velocitat dels FPS
-	bool dead = false;
+	/*bool dead = false;*/
 
-	Player() {};
-	Player(float x, float y, Texture2D BManTexture)
-	{	
-		this->BManPos = { x,y };
-		this->BManText = BManTexture;
-	}
+	Player(Vector2 pos, Texture2D bmText, float h, float w, float sp) :BManPos(pos), BManText(bmText), height(h), width(w), speed(sp) {};
 
 	Rectangle getRect() const {
 		return { BManPos.x, BManPos.y, width, height };
@@ -85,9 +81,9 @@ public:
 		DrawTextureRec(BManText, frameRecB, BManPos, WHITE);
 	}
 
-	void moveAndCollide(const std::vector<Bloc>& blocs) {
+	void move() {
 		// Guardem la posició anterior
-		Vector2 oldPos = BManPos;
+		/*Vector2 oldPos = BManPos;*/
 
 		// Moviment
 		if (IsKeyUp) { BManText = LoadTexture("Sprites/idle.png"); }//animacio bman quiet
@@ -97,6 +93,20 @@ public:
 		if (IsKeyDown(KEY_UP)) { BManPos.y -= speed; BManText = LoadTexture("Sprites/walkBack.png"); }
 		if (IsKeyDown(KEY_DOWN)) { BManPos.y += speed; BManText = LoadTexture("Sprites/walkFront.png"); }
 
+
+		//// Comprovem col·lisió amb blocs
+		//for (const Bloc& bloc : blocs) {
+		//	if (CheckCollisionRecs(getRect(), bloc.getRect())) {
+		//		// Si hi ha col·lisió, retornem a la posició anterior
+		//		BManPos = oldPos;
+		//		break;
+		//	}
+		//}
+	}
+
+	void collide(const std::vector<Bloc>& blocs)
+	{
+		Vector2 oldPos = BManPos;
 
 		// Comprovem col·lisió amb blocs
 		for (const Bloc& bloc : blocs) {
@@ -111,10 +121,11 @@ public:
 
 class Enemy {
 public:
-	Vector2 globusPos;
+	Vector2 enemyPos;
 	float width = 40, height = 40;
 	float speed = 1.3f;
-	Texture2D globustxt;
+	Texture2D enemyTxt;
+	float puntuacio;
 
 	//frames animacions ENEMICS
 	int currentFrameE = 0;
@@ -123,37 +134,49 @@ public:
 	//bool dead = false;
 
 	Enemy() {};
-	Enemy(float x, float y, Texture2D globustxt)
+	Enemy(float x, float y, float puntuacio, Texture2D enemyTxt)
 	{
-		this->globusPos = { x,y };
-		this->globustxt = globustxt;
+		this->enemyPos = { x,y };
+		this->puntuacio = puntuacio;
+		this->enemyTxt = enemyTxt;
 	}
 
 	Rectangle getRect() const {
-		return { globusPos.x, globusPos.y, width, height };
+		return { enemyPos.x, enemyPos.y, width, height };
 	}
 
-	Rectangle frameRecE = { 0.0f, 0.0f, (float)globustxt.width / 3, (float)globustxt.height }; //MIDA DISPLAY FRAME
+	Rectangle frameRecE = { 0.0f, 0.0f, (float)enemyTxt.width / 3, (float)enemyTxt.height }; //MIDA DISPLAY FRAME
 
 	void animacio() {
+		frameContadorE++;
+			if (frameContadorE >= (60 / frameSpeedE))
+			{
+				frameContadorE = 0;
+				currentFrameE++;
 		
+					
+				if (currentFrameE > 5) currentFrameE = 0;
+		
+				frameRecE.x = (float)currentFrameE * (float)enemyTxt.width / 6; //MIDA DISPLAY FRAME
+			}
 	}
 
 	void draw() const {
-		DrawTextureRec(globustxt, frameRecE, globusPos, WHITE);
+		DrawTextureRec(enemyTxt, frameRecE, enemyPos, WHITE);
 	}
 
 	void moveAndCollide(const std::vector<Bloc>& blocs) {
 		// Guardem la posició anterior
-		Vector2 oldPos = globusPos;
+		Vector2 oldPos = enemyPos;
 
 		// Moviment
+		//(...)
 
 		// Comprovem col·lisió amb blocs
 		for (const Bloc& bloc : blocs) {
 			if (CheckCollisionRecs(getRect(), bloc.getRect())) {
 				// Si hi ha col·lisió, retornem a la posició anterior
-				globusPos = oldPos;
+				enemyPos = oldPos;
 				break;
 			}
 		}
@@ -175,7 +198,6 @@ int main()
 	SearchAndSetResourceDir("resources");
 
 	//creacio classes
-	Player bomberman;
 	Bloc blocs;
 	Enemy globus;
 
@@ -202,6 +224,7 @@ int main()
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
 	Vector2 globusPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio enemic globus
 
+	Player bomberman(BManPos, BMan, 40, 40, 13.3);
 
 	//animacions
 	
@@ -247,14 +270,16 @@ int main()
 		Vector2 nextPos = characterPos;
 		Rectangle characterRect = { nextPos.x, nextPos.y, characterSize.x, characterSize.y };
 
-
 		//assignar totes les variables a les classes
 		bomberman.BManText = BMan;
 		bomberman.BManPos = BManPos;
 
-		globus.globusPos = globusPos;
-		globus.globustxt = globustxt;
+		globus.enemyPos = globusPos;
+		globus.enemyTxt = globustxt;
 
+		//funcions entitats
+		bomberman.move();
+		bomberman.animacio();
 
 		BeginDrawing();
 		BeginMode2D(camera);
@@ -269,12 +294,11 @@ int main()
 		DrawTexture(BlocLateral, screenWidth / 2 - (BlocLateral.width * 15.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
 		DrawTexture(BlocLateral, screenWidth / 2 + (BlocLateral.width * 14.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
 
+		bomberman.draw();
+		/*DrawTextureRec(BMan, frameRecB, BManPos, WHITE);*/
 
-		/*bomberman.draw();*/
-		DrawTextureRec(BMan, frameRecB, BManPos, WHITE);
-
-		/*globus.draw();*/
-		DrawTextureRec(globustxt, frameRecB, globusPos, WHITE);
+		globus.draw();
+		/*DrawTextureRec(globustxt, frameRecB, globusPos, WHITE);*/
 
 		DrawRectangleV(characterPos, characterSize, BLUE);
 		EndDrawing();

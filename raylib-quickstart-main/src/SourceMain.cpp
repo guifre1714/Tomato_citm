@@ -40,7 +40,7 @@ public:
 	Vector2 BManPos;
 	float width;
 	float height;
-	float speed;
+	float speed = 1.3f;
 	Texture2D BManText;
 
 	//frames animacions base BOMBERMAN
@@ -86,12 +86,12 @@ public:
 		/*Vector2 oldPos = BManPos;*/
 
 		// Moviment
-		if (IsKeyUp) { BManText = LoadTexture("Sprites/idle.png"); }//animacio bman quiet
+		//if (IsKeyUp) { BManText = LoadTexture("Sprites/idle.png"); }//animacio bman quiet
 
-		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += speed; BManText = LoadTexture("Sprites/walkRight.png"); }
-		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= speed; BManText = LoadTexture("Sprites/walkLeft.png"); }
-		if (IsKeyDown(KEY_UP)) { BManPos.y -= speed; BManText = LoadTexture("Sprites/walkBack.png"); }
-		if (IsKeyDown(KEY_DOWN)) { BManPos.y += speed; BManText = LoadTexture("Sprites/walkFront.png"); }
+		//if (IsKeyDown(KEY_RIGHT)) { BManPos.x += speed; BManText = LoadTexture("Sprites/walkRight.png"); }
+		//if (IsKeyDown(KEY_LEFT)) { BManPos.x -= speed; BManText = LoadTexture("Sprites/walkLeft.png"); }
+		//if (IsKeyDown(KEY_UP)) { BManPos.y -= speed; BManText = LoadTexture("Sprites/walkBack.png"); }
+		//if (IsKeyDown(KEY_DOWN)) { BManPos.y += speed; BManText = LoadTexture("Sprites/walkFront.png"); }
 
 
 		//// Comprovem col·lisió amb blocs
@@ -212,10 +212,10 @@ int main()
 	BMan = LoadTexture("Sprites/walkRight.png");
 	//BMan = LoadTexture("Sprites/death.png"); //s'hauria de fer un altra textura2D
 	
-	Texture BlocDalt = LoadTexture("Sprites/blocDaltbaix.png"); //son amb el que colisionen
-	Texture BlocLateral = LoadTexture("Sprites/blocsLateral.png");
+	//Texture BlocDalt = LoadTexture("Sprites/blocDaltbaix.png"); //son amb el que colisionen
+	//Texture BlocLateral = LoadTexture("Sprites/blocsLateral.png");
 	Texture2D Bomb = LoadTexture("Sprites/bomb.png");
-	Texture BlocSol = LoadTexture("Sprites/blocIndividual.png");
+	/*Texture BlocSol = LoadTexture("Sprites/blocIndividual.png");*/
 
 	Texture2D globustxt = LoadTexture("Sprites/altg.png");
 
@@ -224,7 +224,7 @@ int main()
 	Vector2 BManPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio bomberman
 	Vector2 globusPos = { (float)screenWidth / 2, (float)screenHeight / 2 };//posicio enemic globus
 
-	Player bomberman(BManPos, BMan, 40, 40, 13.3);
+	Player bomberman(BManPos, BMan, 40, 40, 1.3);
 
 	//animacions
 	
@@ -278,7 +278,26 @@ int main()
 		globus.enemyTxt = globustxt;
 
 		//funcions entitats
-		bomberman.move();
+		// Guardem la posició anterior
+		Vector2 oldPos = BManPos;
+
+		// Moviment
+		if (IsKeyUp) { bomberman.BManText = LoadTexture("Sprites/idle.png"); }//animacio bman quiet
+
+		if (IsKeyDown(KEY_RIGHT)) { BManPos.x += bomberman.speed; bomberman.BManText = LoadTexture("Sprites/walkRight.png"); }
+		if (IsKeyDown(KEY_LEFT)) { BManPos.x -= bomberman.speed; bomberman.BManText = LoadTexture("Sprites/walkLeft.png"); }
+		if (IsKeyDown(KEY_UP)) { BManPos.y -= bomberman.speed; bomberman.BManText = LoadTexture("Sprites/walkBack.png"); }
+		if (IsKeyDown(KEY_DOWN)) { BManPos.y += bomberman.speed; bomberman.BManText = LoadTexture("Sprites/walkFront.png"); }
+
+
+		// Comprovem col·lisió amb blocs
+		//for (const Bloc& bloc : blocs) {
+		//	if (CheckCollisionRecs(getRect(), bloc.getRect())) {
+		//		// Si hi ha col·lisió, retornem a la posició anterior
+		//		BManPos = oldPos;
+		//		break;
+		//	}
+		//}
 		bomberman.animacio();
 
 		BeginDrawing();
@@ -287,12 +306,11 @@ int main()
 		ClearBackground(RAYWHITE);
 
 		// drawing
-		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 - (BlocDalt.height * 6.5), WHITE);
-		DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 + (BlocDalt.height * 5.5), WHITE);
-
-		DrawTexture(BlocLateral, screenWidth / 2 - (BlocLateral.width * 15.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
-		DrawTexture(BlocLateral, screenWidth / 2 + (BlocLateral.width * 14.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
+		//DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
+		//DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 - (BlocDalt.height * 6.5), WHITE);
+		//DrawTexture(BlocDalt, screenWidth / 2 - BlocDalt.width / 2, screenHeight / 2 + (BlocDalt.height * 5.5), WHITE);
+		//DrawTexture(BlocLateral, screenWidth / 2 - (BlocLateral.width * 15.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
+		//DrawTexture(BlocLateral, screenWidth / 2 + (BlocLateral.width * 14.5), screenHeight / 2 - BlocLateral.height / 2, WHITE);
 
 		bomberman.draw();
 		/*DrawTextureRec(BMan, frameRecB, BManPos, WHITE);*/
@@ -306,9 +324,9 @@ int main()
 
 	// unload textures per a netejar
 	UnloadTexture(BMan);
-	UnloadTexture(BlocDalt);
+	/*UnloadTexture(BlocDalt);*/
 	UnloadTexture(Fons);
-	UnloadTexture(BlocLateral);
+	/*UnloadTexture(BlocLateral);*/
 
 	CloseWindow();
 	return 0;

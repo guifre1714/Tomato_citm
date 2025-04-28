@@ -47,13 +47,7 @@ public:
 	int frameContadorB = 0;
 	int frameSpeedB = 4; //marca la velocitat dels FPS
 	bool dead = false;
-
-	Player() {};
-	Player(float x, float y, Texture2D BManTexture)
-	{	
-		this->BManPos = { x,y };
-		this->BManText = BManTexture;
-	}
+	
 
 	Rectangle getRect() const {
 		return { BManPos.x, BManPos.y, width, height };

@@ -12,5 +12,5 @@ public:
 
 private:
 	Player bomberman;
-	//holaaa
+	
 };

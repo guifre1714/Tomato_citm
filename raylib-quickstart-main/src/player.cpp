@@ -6,5 +6,11 @@ Player::Player() {
 	bmanPos.x = 100;
 	bmanPos.y = 100;
 }
-//papapapappapa
-//aa
+
+Player::~Player() {
+	UnloadTexture(bmanTXT);
+}
+
+void Player::Draw() {
+	DrawTextureV(bmanTXT, bmanPos, WHITE);
+}

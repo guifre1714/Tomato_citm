@@ -3,13 +3,14 @@
 #include <iostream>
 
 #include "resource_dir.h"
+#include <game.hpp>
 
 
 int main()
 {
 	//basics per a funcionar
-	const int screenWidth = 1280;
-	const int screenHeight = 800;
+	const int screenWidth = 1000;
+	const int screenHeight = 500;
 
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
@@ -17,6 +18,7 @@ int main()
 	InitAudioDevice();
 
 	SearchAndSetResourceDir("resources");
+	SetTargetFPS(60);
 
 	//load textures
 
@@ -24,24 +26,23 @@ int main()
 
 	//camara
 
-
+	Game game;
 
 	while (!WindowShouldClose())
 	{
 		//input
 
-
-
 		//update
-
 
 		//render(draw)
 
+		BeginDrawing();
+		ClearBackground(WHITE);
+		game.Draw();
 
-
+		EndDrawing();
 	}
 
-	//UnloadTexture();
 
 	CloseWindow();
 	return 0;

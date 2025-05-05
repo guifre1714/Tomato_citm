@@ -17,7 +17,6 @@ class Bloc {
 public:
 	Vector2 BlocPos;
 	float width, height;
-
 	Bloc() {};
 	Bloc(float x, float y, float width = 40, float height = 40)
 	{

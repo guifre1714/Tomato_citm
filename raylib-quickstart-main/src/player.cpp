@@ -14,3 +14,16 @@ Player::~Player() {
 void Player::Draw() {
 	DrawTextureV(bmanTXT, bmanPos, WHITE);
 }
+
+void Player::MoveUp() {
+	bmanPos.y -= 1.3f;
+}
+void Player::MoveDown() {
+	bmanPos.y += 1.3f;
+}
+void Player::MoveLeft() {
+	bmanPos.x -= 1.3f;
+}
+void Player::MoveRight() {
+	bmanPos.x += 1.3f;
+}

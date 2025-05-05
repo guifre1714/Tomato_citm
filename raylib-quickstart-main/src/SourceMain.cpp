@@ -35,6 +35,7 @@ int main()
 		//update
 
 		//render(draw)
+		game.HandleInput();
 
 		BeginDrawing();
 		ClearBackground(WHITE);

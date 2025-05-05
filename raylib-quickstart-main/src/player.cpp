@@ -6,3 +6,5 @@ Player::Player() {
 	bmanPos.x = 100;
 	bmanPos.y = 100;
 }
+//papapapappapa
+//aa

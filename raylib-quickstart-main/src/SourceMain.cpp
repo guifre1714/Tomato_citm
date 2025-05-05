@@ -9,8 +9,8 @@
 int main()
 {
 	//basics per a funcionar
-	const int screenWidth = 1000;
-	const int screenHeight = 500;
+	const int screenWidth = 1280;
+	const int screenHeight = 800;
 
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 

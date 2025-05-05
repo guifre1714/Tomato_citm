@@ -3,8 +3,8 @@
 Player::Player() {
 
 	bmanTXT = LoadTexture("Sprites/base.png");
-	bmanPos.x = 100;
-	bmanPos.y = 100;
+	bmanPos.x = 50;
+	bmanPos.y = 50;
 }
 
 Player::~Player() {

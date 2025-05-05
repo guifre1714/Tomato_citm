@@ -7,4 +7,15 @@ public:
 	~Player();
 
 	void Draw();
+
+	void MoveUp();
+	void MoveDown();
+	void MoveLeft();
+	void MoveRight();
+
+	void placeBomb();
+
+private:
+	Texture2D bmanTXT;
+	Vector2 bmanPos;
 };

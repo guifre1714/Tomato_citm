@@ -1,4 +1,5 @@
-#include <player.hpp>
+#include <player.h>
+
 
 Player::Player() {
 

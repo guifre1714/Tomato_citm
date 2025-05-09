@@ -1,5 +1,8 @@
 #pragma once
+#include <bomb.h>
 #include "raylib.h"
+
+
 
 class Player {
 public:
@@ -18,4 +21,5 @@ public:
 private:
 	Texture2D bmanTXT;
 	Vector2 bmanPos;
+	Bomb bombs;
 };

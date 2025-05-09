@@ -1,5 +1,5 @@
 #pragma once
-#include <bomb.h>
+
 #include "raylib.h"
 
 
@@ -9,6 +9,7 @@ public:
 	Player();
 	~Player();
 
+	void Animation();
 	void Draw();
 
 	void MoveUp();
@@ -16,10 +17,14 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
-	void placeBomb();
+	//void placeBomb();
 
 private:
 	Texture2D bmanTXT;
 	Vector2 bmanPos;
-	Bomb bombs;
+	Rectangle frameRecB = { 0.0f, 0.0f, (float)bmanTXT.width / 3, (float)bmanTXT.height };//rectangle q marca la mida de display dels frames
+
+	int currentFrameB = 0;
+	int frameContadorB = 0;
+	int frameSpeedB = 4; //marca la velocitat dels FPS
 };

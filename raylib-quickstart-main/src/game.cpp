@@ -14,6 +14,9 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
+	
+	bomberman.Animation();
+
 	if (IsKeyDown(KEY_LEFT)) {
 		bomberman.MoveLeft();
 	}
@@ -26,4 +29,10 @@ void Game::HandleInput() {
 	else if (IsKeyDown(KEY_DOWN)) {
 		bomberman.MoveDown();
 	}
+	
+}
+
+void Game::Update() {
+	
+
 }

@@ -1,8 +1,10 @@
 #include <player.h>
-
+#include <vector>
+#include <collider.h>
+#include <game.h>
+using namespace std;
 
 Player::Player() {
-
 	bmanTXT = LoadTexture("Sprites/base.png");
 	bmanPos.x = 410;
 	bmanPos.y = 312;
@@ -28,3 +30,11 @@ void Player::MoveLeft() {
 void Player::MoveRight() {
 	bmanPos.x += 1.3f;
 }
+
+//bool Player::Collide() {
+//	bool col;
+//	Rectangle bmanCol = { bmanPos.x, bmanPos.y, 12, 16 };
+//	/*for (int i = 0; i <= 1; i++) {
+//		col = CheckCollisionRecs(bmanCol, );
+//	}*/
+//}

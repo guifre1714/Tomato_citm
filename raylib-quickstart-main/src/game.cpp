@@ -1,8 +1,11 @@
 #include<game.h>
+#include <vector>
+using namespace std;
 
 Game::Game()
 {
-
+	col1.col = { 16, 16, 16, 16 };
+	colliders.insert(colliders.begin(), col1);
 }
 
 Game::~Game() {

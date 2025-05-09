@@ -1,6 +1,6 @@
 #pragma once
-#include <bomb.h>
 #include "raylib.h"
+#include <game.h>
 
 
 
@@ -16,10 +16,9 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
-	void placeBomb();
+	//bool Collide();
 
 private:
 	Texture2D bmanTXT;
 	Vector2 bmanPos;
-	Bomb bombs;
 };

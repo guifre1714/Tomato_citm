@@ -1,3 +1,2 @@
-#pragma once
-#include <bomb.h>
+//#include <bomb.h>
 

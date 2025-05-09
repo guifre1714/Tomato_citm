@@ -10,7 +10,6 @@
 int main()
 {   
 	//MARCEL
-	SetTargetFPS(60);
 
 	int puntuacio = 0;
 
@@ -38,7 +37,6 @@ int main()
 	while (!WindowShouldClose())
 	{
 		//marcel
-		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
 		std::string puntuacioText = "Score: " + std::to_string(puntuacio);
@@ -57,12 +55,6 @@ int main()
 
 		BeginDrawing();
 		ClearBackground(WHITE);
-
-		std::string puntuacioText = "Score: " + std::to_string(puntuacio);
-
-		int textWidth = MeasureText(puntuacioText.c_str(), 20);
-
-		DrawText(puntuacioText.c_str(), screenWidth - textWidth - 20, 20, 20, BLACK);
 		
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();

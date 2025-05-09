@@ -4,7 +4,7 @@
 #include <string>
 
 #include "resource_dir.h"
-#include <game.hpp>
+#include <game.h>
 
 
 int main()

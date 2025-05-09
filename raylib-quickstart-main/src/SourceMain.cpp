@@ -9,8 +9,7 @@
 
 int main()
 {   
-	//MARCEL
-	SetTargetFPS(60);
+	//MARCEL//puntuacio
 
 	int puntuacio = 0;
 
@@ -37,8 +36,7 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		//marcel
-		BeginDrawing();
+		//marcel//puntuacio
 		ClearBackground(RAYWHITE);
 
 		std::string puntuacioText = "Score: " + std::to_string(puntuacio);

@@ -21,5 +21,4 @@ public:
 private:
 	Texture2D bmanTXT;
 	Vector2 bmanPos;
-	//Bomb bombs;
 };

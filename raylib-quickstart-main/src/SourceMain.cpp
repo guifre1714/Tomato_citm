@@ -19,6 +19,7 @@ int main()
 
 	SearchAndSetResourceDir("resources");
 	SetTargetFPS(60);
+	Texture Fons = LoadTexture("Sprites/Fons.png");
 
 	//load textures
 
@@ -39,7 +40,10 @@ int main()
 
 		BeginDrawing();
 		ClearBackground(WHITE);
+		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();
+		
+
 
 		EndDrawing();
 	}

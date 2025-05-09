@@ -1,13 +1,19 @@
 #include "raylib.h"
 #include <vector>
 #include <iostream>
+#include <string>
 
 #include "resource_dir.h"
 #include <game.hpp>
 
 
 int main()
-{
+{   
+	//MARCEL
+	SetTargetFPS(60);
+
+	int puntuacio = 0;
+
 	//basics per a funcionar
 	const int screenWidth = 1280;
 	const int screenHeight = 800;
@@ -31,6 +37,17 @@ int main()
 
 	while (!WindowShouldClose())
 	{
+		//marcel
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		std::string puntuacioText = "Score: " + std::to_string(puntuacio);
+
+		int textWidth = MeasureText(puntuacioText.c_str(), 20);
+
+		DrawText(puntuacioText.c_str(), screenWidth - textWidth - 20, 20, 20, BLACK);
+
+
 		//input
 
 		//update

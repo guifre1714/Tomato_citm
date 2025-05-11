@@ -6,10 +6,19 @@ using namespace std;
 
 Player::Player() {
 	bmanTXT = LoadTexture("Sprites/base.png");
+
+	
 	bmanPos.x = 410;
 	bmanPos.y = 312;
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 16 };
+
 	instantiateColliders();
+
+	colliders.insert(colliders.end(), col1);
+	colliders.insert(colliders.end(), col2);
+	aux = 0;
+
+
 }
 
 Player::~Player() {

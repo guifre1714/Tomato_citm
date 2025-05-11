@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include <collider.h>
 using namespace std;
 
 class Player {
@@ -14,9 +15,17 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
-	//bool Collide();
+	bool Collide();
 
+	int aux;
+	string dir;
+
+	vector <Collider> colliders;
+
+	Collider col1;
+	Collider col2;
 private:
 	Texture2D bmanTXT;
 	Vector2 bmanPos;
+	Rectangle bmanCol;
 };

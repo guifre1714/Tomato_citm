@@ -13,9 +13,6 @@ public:
 	void Update();
 	void HandleInput();
 
-	vector <Collider> colliders;
-
-	Collider col1;
 private:
 	Player bomberman;
 };

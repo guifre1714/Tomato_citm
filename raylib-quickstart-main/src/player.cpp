@@ -6,8 +6,15 @@ using namespace std;
 
 Player::Player() {
 	bmanTXT = LoadTexture("Sprites/base.png");
-	bmanPos.x = 410.0f;
-	bmanPos.y = 312.0f;
+
+	
+	bmanPos.x = 410;
+	bmanPos.y = 312;
+	bmanCol = { bmanPos.x, bmanPos.y, 12, 16 };
+	colliders.insert(colliders.end(), col1);
+	colliders.insert(colliders.end(), col2);
+	aux = 0;
+
 }
 
 Player::~Player() {
@@ -19,22 +26,51 @@ void Player::Draw() {
 }
 
 void Player::MoveUp() {
-	bmanPos.y -= 1.3f;
+	dir = "up";
+	if (!Collide()) {
+		bmanPos.y -= 1.3f;
+	}
 }
 void Player::MoveDown() {
-	bmanPos.y += 1.3f;
+	dir = "down";
+	if (!Collide()) {
+		bmanPos.y += 1.3f;
+	}
 }
 void Player::MoveLeft() {
-	bmanPos.x -= 1.3f;
+	dir = "left";
+	if (!Collide()) {
+		bmanPos.x -= 1.3f;
+	}
 }
 void Player::MoveRight() {
-	bmanPos.x += 1.3f;
+	dir = "right";
+	if (!Collide()) {
+		bmanPos.x += 1.3f;
+	}
 }
 
-//bool Player::Collide() {
-//	bool col;
-//	Rectangle bmanCol = { bmanPos.x, bmanPos.y, 12, 16 };
-//	/*for (int i = 0; i <= 1; i++) {
-//		col = CheckCollisionRecs(bmanCol, );
-//	}*/
-//}
+bool Player::Collide() {
+	bool col;
+	if (dir == "up") {
+		bmanCol.y = bmanPos.y - 1.3f;
+		bmanCol.x = bmanPos.x;
+	}
+	else if (dir == "down") {
+		bmanCol.y = bmanPos.y + 1.3f;
+		bmanCol.x = bmanPos.x;
+	}
+	else if (dir == "left") {
+		bmanCol.x = bmanPos.x - 1.3f;
+		bmanCol.y = bmanPos.y;
+	}
+	else {
+		bmanCol.x = bmanPos.x + 1.3f;
+		bmanCol.y = bmanPos.y;
+	}
+	for (int i = 0; i < colliders.size(); i++) {
+		col = CheckCollisionRecs(bmanCol, colliders[i].col);
+		if (col) return true;
+	}
+	if (!col) return false;
+}

@@ -4,8 +4,7 @@ using namespace std;
 
 Game::Game()
 {
-	col1.col = { 16, 16, 16, 16 };
-	colliders.insert(colliders.begin(), col1);
+
 }
 
 Game::~Game() {
@@ -13,6 +12,7 @@ Game::~Game() {
 }
 
 void Game::Draw() {
+	DrawRectangleRec(bomberman.colliders[0].col, GOLD);
 	bomberman.Draw();
 }
 

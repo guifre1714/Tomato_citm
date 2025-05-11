@@ -6,12 +6,11 @@
 #include "resource_dir.h"
 #include <game.h>
 
+using namespace std;
+
 
 int main()
 {   
-	//MARCEL
-
-	int puntuacio = 0;
 
 	//basics per a funcionar
 	const int screenWidth = 1280;
@@ -24,9 +23,9 @@ int main()
 
 	SearchAndSetResourceDir("resources");
 	SetTargetFPS(60);
-	Texture Fons = LoadTexture("Sprites/Fons.png");
 
 	//load textures
+	Texture Fons = LoadTexture("Sprites/Fons.png");
 
 	//vectors
 
@@ -34,16 +33,14 @@ int main()
 
 	Game game;
 
+	int puntuacio = 0;
+
 	while (!WindowShouldClose())
 	{
-		//marcel
-		ClearBackground(RAYWHITE);
-
-		std::string puntuacioText = "Score: " + std::to_string(puntuacio);
-
+		string puntuacioText = "Score: " + to_string(puntuacio);
 		int textWidth = MeasureText(puntuacioText.c_str(), 20);
 
-		DrawText(puntuacioText.c_str(), screenWidth - textWidth - 20, 20, 20, BLACK);
+		
 
 
 		//input
@@ -58,6 +55,7 @@ int main()
 		
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();
+		DrawText(puntuacioText.c_str(), screenWidth - textWidth - 20, 20, 20, BLACK);
 		
 
 

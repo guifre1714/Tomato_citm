@@ -8,7 +8,7 @@ Player::Player() {
 	bmanTXT = LoadTexture("Sprites/base.png");
 
 	
-	bmanPos.x = 410;
+	bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
 	bmanPos.y = 312;
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 16 };
 

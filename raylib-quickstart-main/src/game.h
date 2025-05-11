@@ -14,5 +14,4 @@ public:
 	void HandleInput();
 
 	Player bomberman;
-	
 };

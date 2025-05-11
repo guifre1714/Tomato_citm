@@ -1,8 +1,6 @@
 #pragma once
 #include "raylib.h"
-#include <game.h>
-
-
+using namespace std;
 
 class Player {
 public:

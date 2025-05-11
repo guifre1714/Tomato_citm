@@ -16,9 +16,6 @@ Player::Player() {
 
 	colliders.insert(colliders.end(), col1);
 	colliders.insert(colliders.end(), col2);
-	aux = 0;
-
-
 }
 
 Player::~Player() {

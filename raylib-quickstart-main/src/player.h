@@ -18,7 +18,8 @@ public:
 
 	//bool Collide();
 
-private:
 	Texture2D bmanTXT;
 	Vector2 bmanPos;
+
+	
 };

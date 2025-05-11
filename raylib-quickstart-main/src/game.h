@@ -16,6 +16,7 @@ public:
 	vector <Collider> colliders;
 
 	Collider col1;
-private:
 	Player bomberman;
+private:
+	
 };

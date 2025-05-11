@@ -6,8 +6,8 @@ using namespace std;
 
 Player::Player() {
 	bmanTXT = LoadTexture("Sprites/base.png");
-	bmanPos.x = 410;
-	bmanPos.y = 312;
+	bmanPos.x = 410.0f;
+	bmanPos.y = 312.0f;
 }
 
 Player::~Player() {

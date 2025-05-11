@@ -17,7 +17,8 @@ public:
 
 	bool Collide();
 
-	int aux;
+	void instantiateColliders();
+
 	string dir;
 
 	vector <Collider> colliders;

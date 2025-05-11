@@ -9,9 +9,7 @@ Player::Player() {
 	bmanPos.x = 410;
 	bmanPos.y = 312;
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 16 };
-	colliders.insert(colliders.end(), col1);
-	colliders.insert(colliders.end(), col2);
-	aux = 0;
+	instantiateColliders();
 }
 
 Player::~Player() {
@@ -70,4 +68,11 @@ bool Player::Collide() {
 		if (col) return true;
 	}
 	if (!col) return false;
+}
+
+void Player::instantiateColliders() {
+	col1.col = { 16, 0, 16, 16 };
+	colliders.insert(colliders.end(), col1);
+	col2.col = { 0, 16,16,16 };
+	colliders.insert(colliders.end(), col2);
 }

@@ -34,6 +34,7 @@ int main()
 	Game game;
 
 	int puntuacio = 0;
+	int vida = 3;
 
 	Camera2D camera = { 0 };
 	camera.target.x = 608;
@@ -45,8 +46,12 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		string puntuacioText = "Score: " + to_string(puntuacio);
-		int textWidth = MeasureText(puntuacioText.c_str(), 20);
+		//interficie superior
+		string puntuacioText = to_string(puntuacio);
+		int textw1 = MeasureText(puntuacioText.c_str(), 500);
+
+		string vidaText = "Left " + to_string(vida-1);
+		int textw2 = MeasureText(vidaText.c_str(), 40);
 
 		
 
@@ -62,14 +67,15 @@ int main()
 		BeginDrawing();
 		ClearBackground(WHITE);
 			
-		BeginMode2D(camera);
+		/*BeginMode2D(camera);*/
 		//cal ajustar mida per a que quadri ! ! ! ! ! ! ! ! ! !  ! !  ! ! ! 
 		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 652) {
 			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
 		}
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();
-		DrawText(puntuacioText.c_str(), screenWidth - textWidth - 20, 20, 20, BLACK);
+		DrawText(puntuacioText.c_str(), screenWidth - textw1 - 50, 50, 50, BLACK);
+		DrawText(vidaText.c_str(), screenWidth - textw2 - 400, 230, 30, BLACK);
 		
 
 		EndMode2D();

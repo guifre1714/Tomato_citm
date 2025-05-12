@@ -53,7 +53,7 @@ int main()
 	{
 		
 		
-
+#pragma region Animacions Bomberman
 		//ANIMACIO BOMBERMAN
 		//game.bomberman.frameContadorB++;
 		//if (game.bomberman.frameContadorB >= (60 / game.bomberman.frameSpeedB))
@@ -65,11 +65,15 @@ int main()
 
 		//	game.bomberman.frameRecB.x = (float)game.bomberman.currentFrameB * (float)game.bomberman.bmanTXT.width / 3; //MIDA DISPLAY FRAME
 		//}
-		
-		game.bomberman.frameRecB.x += 12.0f;
-		if (game.bomberman.frameRecB.x>36.0f) {
-			game.bomberman.frameRecB.x == 0;
+
+		//anim
+		game.bomberman.frameRecB.x += 12.0f; //passa al seguent frame
+		if (game.bomberman.frameRecB.x > 36.0f) { //si arriba al final del spritesheet-
+			game.bomberman.frameRecB.x == 0;	//-torna al 1r frame
 		}
+#pragma endregion
+
+		
 			
 
 		//interficie superior

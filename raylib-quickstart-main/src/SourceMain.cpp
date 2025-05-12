@@ -90,6 +90,7 @@ int main()
 		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 652)
 		{
 			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20 };
+		
 		}
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();

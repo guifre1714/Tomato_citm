@@ -24,23 +24,11 @@ Player::~Player() {
 	UnloadTexture(bmanTXT);
 }
 
-void Player::Animation() {
-	frameContadorB++;
-	if (frameContadorB >= (60 / frameSpeedB))
-	{
-		frameContadorB = 0;
-		currentFrameB++;
-
-		if (currentFrameB > 5) currentFrameB = 0;
-
-		frameRecB.x = (float)currentFrameB * (float)bmanTXT.width / 3; //MIDA DISPLAY FRAME
-	}
-}
 
 void Player::Draw() {
 	
 
-	DrawTextureRec(bmanTXT, frameRecB, bmanPos, WHITE);
+	DrawTextureV(bmanTXT, bmanPos, WHITE);
 }
 
 void Player::MoveUp() {

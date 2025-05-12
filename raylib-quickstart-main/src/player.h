@@ -8,7 +8,6 @@ public:
 	Player();
 	~Player();
 
-	void Animation();
 	void Draw();
 
 	void MoveUp();

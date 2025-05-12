@@ -42,7 +42,7 @@ int main()
 	camera.offset.x = screenWidth / 2.0f;
 	camera.offset.y = screenHeight / 2.0f;
 	camera.rotation = 0.0f;
-	camera.zoom = 3.0f;
+	camera.zoom = 3.5f;
 
 	while (!WindowShouldClose())
 	{
@@ -67,10 +67,10 @@ int main()
 		BeginDrawing();
 		ClearBackground(WHITE);
 			
-		/*BeginMode2D(camera);*/
+		BeginMode2D(camera);
 		//cal ajustar mida per a que quadri ! ! ! ! ! ! ! ! ! !  ! !  ! ! ! 
-		if (game.bomberman.bmanPos.x > 555 && game.bomberman.bmanPos.x < 600) {
-			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
+		if (game.bomberman.bmanPos.x > 555 && game.bomberman.bmanPos.x < 594) {
+			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 68};
 		}
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();

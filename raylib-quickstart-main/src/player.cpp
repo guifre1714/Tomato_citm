@@ -6,7 +6,7 @@ using namespace std;
 
 Player::Player() {
 
-	bmanTXT = LoadTexture("Sprites/walkRight.png");
+	bmanTXT = LoadTexture("Sprites/idle.png");
 
 	vel = 0.8f;
 
@@ -15,13 +15,13 @@ Player::Player() {
 	
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 15 };
 
-	//frameRecB = { bmanPos.x, bmanPos.y, 12.0f, 16.0f };
-	frameRecB = { 24.0f, 0.0f, 12.0f, 16.0f };
+	frameRecB = { 0.0f, 0.0f, 12.0f, 16.0f };
 
 	int currentFrameB = 0;
 	int frameContadorB = 0;
-	int frameSpeedB = 4; //marca la velocitat dels FPS
+	int frameSpeedB = 8; //marca la velocitat dels FPS
 
+	
 	instantiateColliders();
 
 	colliders.insert(colliders.end(), col1);
@@ -39,6 +39,7 @@ void Player::Draw() {
 }
 
 void Player::MoveUp() {
+	bmanTXT = LoadTexture("Sprites/walkBack.png");
 	dir = "up";
 	if (!Collide()) {
 		bmanPos.y -= vel;
@@ -46,13 +47,14 @@ void Player::MoveUp() {
 
 }
 void Player::MoveDown() {
+	bmanTXT = LoadTexture("Sprites/walkFront.png");
 	dir = "down";
 	if (!Collide()) {
 		bmanPos.y += vel;
 	}
 }
 void Player::MoveLeft() {
-	//bmanTXT = LoadTexture("Sprites/walkLeft.png");
+	bmanTXT = LoadTexture("Sprites/walkLeft.png");
 	dir = "left";
 	if (!Collide()) {
 		bmanPos.x -= vel;
@@ -60,7 +62,7 @@ void Player::MoveLeft() {
 }
 void Player::MoveRight() {
 	
-	//bmanTXT = LoadTexture("Sprites/walkRight.png");
+	bmanTXT = LoadTexture("Sprites/walkRight.png");
 	dir = "right";
 	if (!Collide()) {
 		bmanPos.x += vel;

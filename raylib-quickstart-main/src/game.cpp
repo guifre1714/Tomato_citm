@@ -8,7 +8,7 @@ Game::Game()
 }
 
 Game::~Game() {
-
+	bomberman.~Player();
 }
 
 void Game::Draw() {

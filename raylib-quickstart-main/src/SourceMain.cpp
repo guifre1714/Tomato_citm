@@ -29,7 +29,6 @@ int main()
 
 	//vectors
 
-	//camara
 
 	Game game;
 
@@ -54,23 +53,35 @@ int main()
 		
 		
 #pragma region Animacions Bomberman
-		//ANIMACIO BOMBERMAN
-		//game.bomberman.frameContadorB++;
-		//if (game.bomberman.frameContadorB >= (60 / game.bomberman.frameSpeedB))
-		//{
-		//	game.bomberman.frameContadorB = 0;
-		//	game.bomberman.currentFrameB++;
-		//}
-		//if (game.bomberman.currentFrameB > 5) game.bomberman.currentFrameB = 0; {
-
-		//	game.bomberman.frameRecB.x = (float)game.bomberman.currentFrameB * (float)game.bomberman.bmanTXT.width / 3; //MIDA DISPLAY FRAME
+		//ELENA DESCOBRINT COM FUNCIONA (massa rapid)
+		//game.bomberman.frameRecB.x += 12.0f; //passa al seguent frame
+		//if (game.bomberman.frameRecB.x > 36.0f) { //si arriba al final del spritesheet-
+		//	game.bomberman.frameRecB.x == 0;	//-torna al 1r frame
 		//}
 
-		//anim
-		game.bomberman.frameRecB.x += 12.0f; //passa al seguent frame
-		if (game.bomberman.frameRecB.x > 36.0f) { //si arriba al final del spritesheet-
-			game.bomberman.frameRecB.x == 0;	//-torna al 1r frame
+		//INTENT 1 (no es mou)
+		game.bomberman.frameContadorB += 1;
+		if (game.bomberman.frameContadorB >= (60 / game.bomberman.frameSpeedB)) {
+			game.bomberman.frameContadorB = 0;
+			game.bomberman.currentFrameB += 1;
+
+			if (game.bomberman.currentFrameB > 3) {
+				game.bomberman.currentFrameB = 0;
+			}
+			game.bomberman.frameRecB.x = (float)game.bomberman.currentFrameB * 12;
 		}
+
+		//INTENT 2 (massa rapid)
+	/*	game.bomberman.frameRecB.x += 12.0f; 
+		game.bomberman.frameContadorB++;
+		if (game.bomberman.frameContadorB >= 3) {
+
+			game.bomberman.frameContadorB = 0;
+			game.bomberman.frameRecB.x == 0.0f;
+			if (game.bomberman.frameRecB.x > 36.0f) {
+				game.bomberman.frameRecB.x == 0;
+			}
+		}*/		
 #pragma endregion
 
 		

@@ -1,5 +1,8 @@
 #pragma once
+#include <vector>
 #include <player.h>
+#include <collider.h>
+using namespace std;
 
 class Game {
 public:
@@ -10,7 +13,5 @@ public:
 	void Update();
 	void HandleInput();
 
-private:
 	Player bomberman;
-	
 };

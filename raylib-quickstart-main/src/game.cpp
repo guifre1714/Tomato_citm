@@ -1,8 +1,10 @@
 #include<game.h>
+#include <vector>
+using namespace std;
 
 Game::Game()
 {
-
+	
 }
 
 Game::~Game() {
@@ -10,6 +12,7 @@ Game::~Game() {
 }
 
 void Game::Draw() {
+	DrawRectangleRec(bomberman.colliders[0].col, GOLD);
 	bomberman.Draw();
 }
 

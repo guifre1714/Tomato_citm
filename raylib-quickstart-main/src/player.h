@@ -31,4 +31,10 @@ public:
 
 	Rectangle bmanCol;
 
+	int currentFrameB;
+	int frameContadorB ;
+	int frameSpeedB ; //marca la velocitat dels FPS
+
+	Rectangle frameRecB;
+
 };

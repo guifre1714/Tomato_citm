@@ -34,11 +34,10 @@ int main()
 	Game game;
 
 	int puntuacio = 0;
-	int vida = 3;
 
 	Camera2D camera = { 0 };
 	camera.target.x = 608;
-	camera.target.y = screenHeight / 2.0f - 20;
+	camera.target.y = screenHeight/2.0f-20;
 	camera.offset.x = screenWidth / 2.0f;
 	camera.offset.y = screenHeight / 2.0f;
 	camera.rotation = 0.0f;
@@ -46,36 +45,40 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		//interficie superior
-		string puntuacioText = to_string(puntuacio);
-		int textw1 = MeasureText(puntuacioText.c_str(), 500);
+		string puntuacioText = "Score: " + to_string(puntuacio);
+		int textWidth = MeasureText(puntuacioText.c_str(), 20);
 
-		string vidaText = "Left " + to_string(vida-1);
-		int textw2 = MeasureText(vidaText.c_str(), 40);
-
-		
-
-
-		//input
-
-		//update
-
-		//render(draw)
 		game.HandleInput();
+
+		//ANIMACIO BOMBERMAN
+		//game.bomberman.frameContadorB++;
+		//if (game.bomberman.frameContadorB >= (60 / game.bomberman.frameSpeedB))
+		//{
+		//	game.bomberman.frameContadorB = 0;
+		//	game.bomberman.currentFrameB++;
+		//}
+		//if (game.bomberman.currentFrameB > 5) game.bomberman.currentFrameB = 0; {
+
+		//	game.bomberman.frameRecB.x = (float)game.bomberman.currentFrameB * (float)game.bomberman.bmanTXT.width / 3; //MIDA DISPLAY FRAME
+		//}
 		
+		game.bomberman.frameRecB.x += 12.0f;
+		if (game.bomberman.frameRecB.x>36.0f) {
+			game.bomberman.frameRecB.x == 0;
+		}
+
 
 		BeginDrawing();
 		ClearBackground(WHITE);
 			
-		/*BeginMode2D(camera);*/
+		BeginMode2D(camera);
 		//cal ajustar mida per a que quadri ! ! ! ! ! ! ! ! ! !  ! !  ! ! ! 
 		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 652) {
 			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
 		}
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();
-		DrawText(puntuacioText.c_str(), screenWidth - textw1 - 50, 50, 50, BLACK);
-		DrawText(vidaText.c_str(), screenWidth - textw2 - 400, 230, 30, BLACK);
+		DrawText(puntuacioText.c_str(), screenWidth - textWidth - 20, 20, 20, BLACK);
 		
 
 		EndMode2D();

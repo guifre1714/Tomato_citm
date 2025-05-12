@@ -42,7 +42,7 @@ int main()
 	camera.offset.x = screenWidth / 2.0f;
 	camera.offset.y = screenHeight / 2.0f;
 	camera.rotation = 0.0f;
-	camera.zoom = 3.5f;
+	camera.zoom = 3.0f;
 
 	while (!WindowShouldClose())
 	{
@@ -69,8 +69,6 @@ int main()
 			
 		BeginMode2D(camera);
 		//cal ajustar mida per a que quadri ! ! ! ! ! ! ! ! ! !  ! !  ! ! ! 
-		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 654) {
-			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 68};
 		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 652) {
 			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
 		}

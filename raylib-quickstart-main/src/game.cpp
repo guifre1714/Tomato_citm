@@ -12,8 +12,9 @@ Game::~Game() {
 }
 
 void Game::Draw() {
-	/*DrawRectangleRec(bomberman.colliders[2].col, GOLD);
-	DrawRectangleRec(bomberman.colliders[3].col, GOLD);*/
+	for (int i = 0; i < bomberman.colliders.size(); i++) {
+		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
+	}
 	bomberman.Draw();
 }
 

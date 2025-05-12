@@ -37,7 +37,7 @@ int main()
 	int vida = 3;
 	int contador = 200;               
 	float temps = 0.0f;
-	const int fontSize = 20;
+	const int fontSize = 65;
 
 	Camera2D camera = { 0 };
 	camera.target.x = 608;
@@ -94,14 +94,16 @@ int main()
 		}
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();
-		DrawText(puntuacioText.c_str(), screenWidth - textw1 - 620, 230, 20, BLACK);
-		DrawText(vidaText.c_str(), screenWidth - textw2 - 380, 230, 20, BLACK);
-		DrawText(contadortext, (screenWidth - textWidth) / 2.6, screenHeight / 3 - fontSize / 2, fontSize,BLACK);
-		DrawText(TIMEText.c_str(), screenWidth - textw4 - 720, 230, 20, BLACK);
+		
 
 
 
 		EndMode2D();
+		DrawText(puntuacioText.c_str(), screenWidth - textw1 - 550, 32, 65, BLACK);
+		DrawText(vidaText.c_str(), screenWidth - textw2 - 110, 32, 65, BLACK);
+		DrawText(contadortext, (screenWidth - textWidth) / 5, screenHeight / 11 - fontSize / 2, fontSize, BLACK);
+		DrawText(TIMEText.c_str(), screenWidth - textw4 - 1105, 32, 65, BLACK);
+
 		EndDrawing();
 
 	}

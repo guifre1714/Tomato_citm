@@ -26,8 +26,6 @@ Player::~Player() {
 
 
 void Player::Draw() {
-	
-
 	DrawTextureV(bmanTXT, bmanPos, WHITE);
 }
 
@@ -83,8 +81,12 @@ bool Player::Collide() {
 }
 
 void Player::instantiateColliders() {
-	col1.col = { 16, 0, 16, 16 };
+	col1.col = { 408, 256, 464, 16 };
 	colliders.insert(colliders.end(), col1);
-	col2.col = { 0, 16,16,16 };
+	col2.col = { 408, 448, 464, 16 };
 	colliders.insert(colliders.end(), col2);
+	col3.col = { 392, 256, 16, 300 };
+	colliders.insert(colliders.end(), col3);
+	col4.col = { 872, 256, 16, 300 };
+	colliders.insert(colliders.end(), col4);
 }

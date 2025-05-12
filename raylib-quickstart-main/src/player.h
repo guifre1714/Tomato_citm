@@ -25,6 +25,8 @@ public:
 
 	Collider col1;
 	Collider col2;
+	Collider col3;
+	Collider col4;
 
 	Texture2D bmanTXT;
 	Vector2 bmanPos;

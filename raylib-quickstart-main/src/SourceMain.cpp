@@ -67,9 +67,9 @@ int main()
 		BeginDrawing();
 		ClearBackground(WHITE);
 			
-		/*BeginMode2D(camera);*/
+		BeginMode2D(camera);
 		//cal ajustar mida per a que quadri ! ! ! ! ! ! ! ! ! !  ! !  ! ! ! 
-		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 652) {
+		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 654) {
 			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
 		}
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);

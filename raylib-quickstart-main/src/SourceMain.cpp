@@ -37,8 +37,8 @@ int main()
 	int vida = 3;
 
 	Camera2D camera = { 0 };
-	camera.target.x = game.bomberman.bmanPos.x + 20.0f;
-	camera.target.y = game.bomberman.bmanPos.y + 20.0f;
+	camera.target.x = 608;
+	camera.target.y = screenHeight / 2.0f - 20;
 	camera.offset.x = screenWidth / 2.0f;
 	camera.offset.y = screenHeight / 2.0f;
 	camera.rotation = 0.0f;
@@ -71,6 +71,8 @@ int main()
 		//cal ajustar mida per a que quadri ! ! ! ! ! ! ! ! ! !  ! !  ! ! ! 
 		if (game.bomberman.bmanPos.x > 555 && game.bomberman.bmanPos.x < 594) {
 			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 68};
+		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 652) {
+			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
 		}
 		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
 		game.Draw();

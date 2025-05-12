@@ -48,6 +48,8 @@ int main()
 	camera.rotation = 0.0f;
 	camera.zoom = 3.0f;
 
+	PlayMusicStream(game.bgm);
+
 	while (!WindowShouldClose())
 	{
 		
@@ -85,7 +87,7 @@ int main()
 #pragma endregion
 
 		
-			
+		UpdateMusicStream(game.bgm);
 
 		//interficie superior
 		float delta = GetFrameTime();

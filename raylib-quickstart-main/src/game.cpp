@@ -4,11 +4,14 @@ using namespace std;
 
 Game::Game()
 {
-	
+	bgm = LoadMusicStream("music/03. Main BGM.mp3");
+	walk = LoadMusicStream("SFX/walk.wav");
 }
 
 Game::~Game() {
 	bomberman.~Player();
+	UnloadMusicStream(bgm);
+	UnloadMusicStream(walk);
 }
 
 void Game::Draw() {

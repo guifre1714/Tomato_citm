@@ -14,4 +14,6 @@ public:
 	void HandleInput();
 
 	Player bomberman;
+	Music bgm;
+	Music walk;
 };

@@ -11,7 +11,7 @@ Player::Player() {
 	
 	bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
 
-	bmanPos.y = 312;
+	bmanPos.y = 272;
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 16 };
 
 	instantiateColliders();

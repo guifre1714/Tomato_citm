@@ -19,6 +19,8 @@ Player::Player() {
 	int currentFrameB = 0;
 	int frameContadorB = 0;
 	int frameSpeedB = 8; //marca la velocitat dels FPS
+	
+	int totalFrames=3;
 
 	
 	instantiateColliders();
@@ -33,15 +35,15 @@ Player::~Player() {
 
 
 void Player::Draw() {
-	frameContadorB += 1;
+	frameContadorB ++;
 	if (frameContadorB >= (60 / frameSpeedB)) {
 		frameContadorB = 0;
-		currentFrameB += 1;
+		currentFrameB ++;
 
 		if (currentFrameB > 3) {
 			currentFrameB = 0;
 		}
-		frameRecB.x = (float)currentFrameB * 12;
+		frameRecB.x = (float)currentFrameB * 12;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
 	}
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 }

@@ -5,17 +5,66 @@
 
 #include "resource_dir.h"
 #include <game.h>
+#include <menu.h>
 
 using namespace std;
 
+//basics per a funcionar
+const int screenWidth = 1280;
+const int screenHeight = 720;
+
+int screen = 0;
+vector <Screen*> screens;
+//interficie
+int puntuacio = 0;
+int vida = 3;
+int contador = 200;
+float temps = 0.0f;
+const int fontSize = 65;
+
+//Càmera
+Camera2D camera = { 0 };
+
+
+void loadNextScreen() {
+	StopMusicStream(screens[screen]->bgm);
+	if (screen != screens.size() - 1) {
+		screen++;
+		camera.target.x = 608;
+		camera.target.y = screenHeight / 2.0f - 20;
+		camera.offset.x = screenWidth / 2.0f;
+		camera.offset.y = screenHeight / 2.0f;
+		camera.rotation = 0.0f;
+		camera.zoom = 3.0f;
+		screens[screen]->bomberman.bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
+		screens[screen]->bomberman.bmanPos.y = 272;
+
+		screens[screen]->bomberman.bmanCol = { screens[screen]->bomberman.bmanPos.x, screens[screen]->bomberman.bmanPos.y, 12, 15 };
+
+		screens[screen]->bomberman.frameRecB = { 0.0f, 0.0f, 12.0f, 16.0f };
+
+		screens[screen]->bomberman.currentFrameB = 0;
+		screens[screen]->bomberman.frameContadorB = 0;
+		screens[screen]->bomberman.frameSpeedB = 8; //marca la velocitat dels FPS
+	}
+	else { 
+		screen = 0; 
+		camera.target.x = screenWidth / 2.0f;
+		camera.target.y = screenHeight / 2.0f;
+		camera.offset.x = screenWidth / 2.0f;
+		camera.offset.y = screenHeight / 2.0f;
+		camera.rotation = 0.0f;
+		camera.zoom = 3.0f;
+	}
+	PlayMusicStream(screens[screen]->bgm);
+	puntuacio = 0;
+	vida = 3;
+	contador = 200;
+	temps = 0.0f;
+}
 
 int main()
 {
-
-	//basics per a funcionar
-	const int screenWidth = 1280;
-	const int screenHeight = 720;
-
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
 	InitWindow(screenWidth, screenHeight, "Bomberman Test");
@@ -24,70 +73,63 @@ int main()
 	SearchAndSetResourceDir("resources");
 	SetTargetFPS(60);
 
-	//load textures
-	Texture Fons = LoadTexture("Sprites/Fons.png");
-
 	//vectors
+	Menu menu;
+	Game level1, level2, level3, level4;
+	screens.insert(screens.end(), &menu);
+	screens.insert(screens.end(), &level1);
+	screens.insert(screens.end(), &level2);
+	screens.insert(screens.end(), &level3);
+	screens.insert(screens.end(), &level4);
 
+	PlayMusicStream(screens[screen]->bgm);
 
-	Game game;
-
-	//interficie
-	int puntuacio = 0;
-	int vida = 3;
-	int contador = 200;
-	float temps = 0.0f;
-	const int fontSize = 65;
-
-	//Càmera
-	Camera2D camera = { 0 };
-	camera.target.x = 608;
-	camera.target.y = screenHeight/2.0f-20;
+	camera.target.x = screenWidth / 2.0f;
+	camera.target.y = screenHeight / 2.0f;
 	camera.offset.x = screenWidth / 2.0f;
 	camera.offset.y = screenHeight / 2.0f;
 	camera.rotation = 0.0f;
 	camera.zoom = 3.0f;
 
-	PlayMusicStream(game.bgm);
-
 	while (!WindowShouldClose())
 	{
-		
-		
+		if (screen != 0) {
 #pragma region Animacions Bomberman
-		//ELENA DESCOBRINT COM FUNCIONA (massa rapid)
-		//game.bomberman.frameRecB.x += 12.0f; //passa al seguent frame
-		//if (game.bomberman.frameRecB.x > 36.0f) { //si arriba al final del spritesheet-
-		//	game.bomberman.frameRecB.x == 0;	//-torna al 1r frame
-		//}
+			//ELENA DESCOBRINT COM FUNCIONA (massa rapid)
+			//game.bomberman.frameRecB.x += 12.0f; //passa al seguent frame
+			//if (game.bomberman.frameRecB.x > 36.0f) { //si arriba al final del spritesheet-
+			//	game.bomberman.frameRecB.x == 0;	//-torna al 1r frame
+			//}
 
-		//INTENT 1 (no es mou)
-		game.bomberman.frameContadorB += 1;
-		if (game.bomberman.frameContadorB >= (60 / game.bomberman.frameSpeedB)) {
-			game.bomberman.frameContadorB = 0;
-			game.bomberman.currentFrameB += 1;
+			//INTENT 1 (no es mou)
+			screens[screen]->bomberman.frameContadorB += 1;
+			if (screens[screen]->bomberman.frameContadorB >= (60 / screens[screen]->bomberman.frameSpeedB)) {
+				screens[screen]->bomberman.frameContadorB = 0;
+				screens[screen]->bomberman.currentFrameB += 1;
 
-			if (game.bomberman.currentFrameB > 3) {
-				game.bomberman.currentFrameB = 0;
+				if (screens[screen]->bomberman.currentFrameB > 3) {
+					screens[screen]->bomberman.currentFrameB = 0;
+				}
+				screens[screen]->bomberman.frameRecB.x = (float)screens[screen]->bomberman.currentFrameB * 12;
 			}
-			game.bomberman.frameRecB.x = (float)game.bomberman.currentFrameB * 12;
+
+			//INTENT 2 (massa rapid)
+		/*	game.bomberman.frameRecB.x += 12.0f;
+			game.bomberman.frameContadorB++;
+			if (game.bomberman.frameContadorB >= 3) {
+
+				game.bomberman.frameContadorB = 0;
+				game.bomberman.frameRecB.x == 0.0f;
+				if (game.bomberman.frameRecB.x > 36.0f) {
+					game.bomberman.frameRecB.x == 0;
+				}
+			}*/
+#pragma endregion
+		} if (IsKeyPressed(KEY_ENTER)) {
+			loadNextScreen();
 		}
 
-		//INTENT 2 (massa rapid)
-	/*	game.bomberman.frameRecB.x += 12.0f; 
-		game.bomberman.frameContadorB++;
-		if (game.bomberman.frameContadorB >= 3) {
-
-			game.bomberman.frameContadorB = 0;
-			game.bomberman.frameRecB.x == 0.0f;
-			if (game.bomberman.frameRecB.x > 36.0f) {
-				game.bomberman.frameRecB.x == 0;
-			}
-		}*/		
-#pragma endregion
-
-		
-		UpdateMusicStream(game.bgm);
+		UpdateMusicStream(screens[screen]->bgm);
 
 		//interficie superior
 		float delta = GetFrameTime();
@@ -106,30 +148,30 @@ int main()
 		string TIMEText = "TIME ";
 		int textw4 = MeasureText(TIMEText.c_str(), 50);
 
-		game.HandleInput();
-
+		screens[screen]->HandleInput();
 
 		BeginDrawing();
-		ClearBackground(WHITE);
-
+		
+		if (screen != 0 && screen < 5) {
+			ClearBackground(GRAY);
+			DrawText(puntuacioText.c_str(), screenWidth - textw1 - 550, 32, 65, BLACK);
+			DrawText(vidaText.c_str(), screenWidth - textw2 - 110, 32, 65, BLACK);
+			DrawText(contadortext, (screenWidth - textWidth) / 5, screenHeight / 11 - fontSize / 2, fontSize, BLACK);
+			DrawText(TIMEText.c_str(), screenWidth - textw4 - 1105, 32, 65, BLACK);
+		} else { ClearBackground(BLACK); }
 		//INICI CÀMERA (estàtic respecte a la càmera)
 		BeginMode2D(camera);
-		if (game.bomberman.bmanPos.x >= 588 && game.bomberman.bmanPos.x <= 652) 
+		if (screens[screen]->bomberman.bmanPos.x >= 588 && screens[screen]->bomberman.bmanPos.x <= 652 && screen != 0)
 		{
-			camera.target = { game.bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
+			camera.target = { screens[screen]->bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
 		}
-		DrawTexture(Fons, screenWidth / 2 - Fons.width / 2, screenHeight / 2 - Fons.height / 2, WHITE);
-		game.Draw();
+		DrawTexture(screens[screen]->Fons, screenWidth / 2 - screens[screen]->Fons.width / 2, screenHeight / 2 - screens[screen]->Fons.height / 2, WHITE);
+		screens[screen]->Draw();
 
 		//FINAL CÀMERA (estàtic respecte a la pantalla)
 		EndMode2D();
-		DrawText(puntuacioText.c_str(), screenWidth - textw1 - 550, 32, 65, BLACK);
-		DrawText(vidaText.c_str(), screenWidth - textw2 - 110, 32, 65, BLACK);
-		DrawText(contadortext, (screenWidth - textWidth) / 5, screenHeight / 11 - fontSize / 2, fontSize, BLACK);
-		DrawText(TIMEText.c_str(), screenWidth - textw4 - 1105, 32, 65, BLACK);
 
 		EndDrawing();
-
 	}
 
 		CloseWindow();

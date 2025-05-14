@@ -1,17 +1,14 @@
 #include <vector>
-#include <player.h>
-#include <collider.h>
 #include <screen.h>
 using namespace std;
 
-class Game : public Screen{
+class Menu : public Screen {
 public:
-	Game();
-	~Game();
+	Menu();
+	~Menu();
 
 	void Draw();
 	void Update();
 	void HandleInput();
-
-	//Music walk;
+	int selected;
 };

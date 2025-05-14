@@ -7,7 +7,6 @@ using namespace std;
 Player::Player() {
 
 	bmanTXT = LoadTexture("Sprites/idle.png");
-
 	vel = 0.8f;
 
 	bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
@@ -34,8 +33,8 @@ Player::~Player() {
 
 
 void Player::Draw() {
-	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 
+	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 }
 
 void Player::MoveUp() {

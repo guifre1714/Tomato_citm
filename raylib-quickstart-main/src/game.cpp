@@ -5,14 +5,17 @@ using namespace std;
 
 Game::Game()
 {
+	Player player;
+	bomberman = player;
+	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
-	walk = LoadMusicStream("SFX/walk.wav");
+	//walk = LoadMusicStream("SFX/walk.wav");
 }
 
 Game::~Game() {
 	bomberman.~Player();
-	UnloadMusicStream(bgm);
-	UnloadMusicStream(walk);
+	//UnloadMusicStream(bgm);
+	//UnloadMusicStream(walk);
 }
 
 void Game::Draw() {
@@ -23,7 +26,6 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
-
 	if (IsKeyDown(KEY_LEFT)) {
 		bomberman.MoveLeft();
 	}
@@ -34,9 +36,10 @@ void Game::HandleInput() {
 		bomberman.MoveUp();
 	}
 	else if (IsKeyDown(KEY_DOWN)) {
+
 		bomberman.MoveDown();
+
 	}
-	
 }
 
 void Game::Update() {

@@ -33,7 +33,16 @@ Player::~Player() {
 
 
 void Player::Draw() {
+	frameContadorB += 1;
+	if (frameContadorB >= (60 / frameSpeedB)) {
+		frameContadorB = 0;
+		currentFrameB += 1;
 
+		if (currentFrameB > 3) {
+			currentFrameB = 0;
+		}
+		frameRecB.x = (float)currentFrameB * 12;
+	}
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 }
 

@@ -13,5 +13,5 @@ public:
 	void Update();
 	void HandleInput();
 
-	//Music walk;
+	Sound walk;
 };

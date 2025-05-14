@@ -54,10 +54,10 @@ void loadNextScreen() {
 		camera.offset.y = screenHeight / 2.0f;
 		camera.rotation = 0.0f;
 		camera.zoom = 3.0f;
+		puntuacio = 0;
+		vida = 3;
 	}
 	PlayMusicStream(screens[screen]->bgm);
-	puntuacio = 0;
-	vida = 3;
 	contador = 200;
 	temps = 0.0f;
 }
@@ -92,39 +92,7 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		if (screen != 0) {
-#pragma region Animacions Bomberman
-			//ELENA DESCOBRINT COM FUNCIONA (massa rapid)
-			//game.bomberman.frameRecB.x += 12.0f; //passa al seguent frame
-			//if (game.bomberman.frameRecB.x > 36.0f) { //si arriba al final del spritesheet-
-			//	game.bomberman.frameRecB.x == 0;	//-torna al 1r frame
-			//}
-
-			//INTENT 1 (no es mou)
-			screens[screen]->bomberman.frameContadorB += 1;
-			if (screens[screen]->bomberman.frameContadorB >= (60 / screens[screen]->bomberman.frameSpeedB)) {
-				screens[screen]->bomberman.frameContadorB = 0;
-				screens[screen]->bomberman.currentFrameB += 1;
-
-				if (screens[screen]->bomberman.currentFrameB > 3) {
-					screens[screen]->bomberman.currentFrameB = 0;
-				}
-				screens[screen]->bomberman.frameRecB.x = (float)screens[screen]->bomberman.currentFrameB * 12;
-			}
-
-			//INTENT 2 (massa rapid)
-		/*	game.bomberman.frameRecB.x += 12.0f;
-			game.bomberman.frameContadorB++;
-			if (game.bomberman.frameContadorB >= 3) {
-
-				game.bomberman.frameContadorB = 0;
-				game.bomberman.frameRecB.x == 0.0f;
-				if (game.bomberman.frameRecB.x > 36.0f) {
-					game.bomberman.frameRecB.x == 0;
-				}
-			}*/
-#pragma endregion
-		} if (IsKeyPressed(KEY_ENTER)) {
+		if (IsKeyPressed(KEY_ENTER) && screen == 0) {
 			loadNextScreen();
 		}
 

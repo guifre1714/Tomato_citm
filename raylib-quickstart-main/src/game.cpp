@@ -1,5 +1,6 @@
 #include<game.h>
 #include <vector>
+#include <string>
 using namespace std;
 
 Game::Game()
@@ -39,6 +40,5 @@ void Game::HandleInput() {
 }
 
 void Game::Update() {
-	
 
 }

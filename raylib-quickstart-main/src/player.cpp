@@ -105,9 +105,9 @@ void Player::instantiateColliders() {
 	col4.col = { 872, 256, 16, 300 };
 	colliders.insert(colliders.end(), col4);
 	#pragma endregion
-	col5.col = { 424, 288, 15, 15 }; //{x, y, alçada, amplada}
+	col5.col = { 425, 289, 13, 13 }; //{x, y, alçada, amplada} has de: {+1, +1, 13, 13}
 	colliders.insert(colliders.end(), col5);
-	col6.col = { 456, 288, 15, 15 };
+	col6.col = { 457, 289, 13, 13 };
 	colliders.insert(colliders.end(), col6);
 	col7.col = { 488, 288, 15, 15 };
 	colliders.insert(colliders.end(), col7);

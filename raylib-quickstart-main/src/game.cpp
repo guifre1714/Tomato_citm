@@ -19,6 +19,7 @@ Game::~Game() {
 }
 
 void Game::Draw() {
+	//BUCLE FOR PER PINTAR ELS COLLIDERS DE LES CAIXES
 	/*for (int i = 0; i < bomberman.colliders.size(); i++) {
 		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
 	}*/
@@ -38,7 +39,9 @@ void Game::HandleInput() {
 	else if (IsKeyDown(KEY_DOWN)) {
 
 		bomberman.MoveDown();
-
+	}
+	else {
+		bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
 	}
 }
 

@@ -25,7 +25,6 @@ const int fontSize = 65;
 //Càmera
 Camera2D camera = { 0 };
 
-
 void loadNextScreen() {
 	StopMusicStream(screens[screen]->bgm);
 	if (screen != screens.size() - 1) {
@@ -173,8 +172,6 @@ int main()
 
 		EndDrawing();
 	}
-
-		CloseWindow();
-		return 0;
-	
+	CloseWindow();
+	return 0;
 }

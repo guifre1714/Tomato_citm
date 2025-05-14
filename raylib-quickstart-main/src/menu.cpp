@@ -8,7 +8,6 @@ using namespace std;
 Menu::Menu()
 {
 	bgm = LoadMusicStream("music/01. Title Screen.mp3");
-	selected = 0;
 	Fons = LoadTexture("Sprites/menu/titol.png");
 }
 

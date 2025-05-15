@@ -9,4 +9,6 @@ public:
 	~Bomba();
 
 	Rectangle colVert, colHor;
+	Vector2 bombPos;
+	Texture bombTEXT;
 };

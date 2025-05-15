@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include <bomba.h>
 #include <collider.h>
 using namespace std;
 
@@ -104,9 +105,8 @@ public:
 #pragma endregion
 
 	Texture2D bmanTXT;
-	Texture2D bombTEXT;
-	Vector2 bombPos;
 	Vector2 bmanPos;
+	vector <Bomba> bombs;
 
 	Rectangle bmanCol;
 

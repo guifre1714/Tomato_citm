@@ -5,6 +5,7 @@
 #include <bomba.h>
 
 Player::Player() {
+	bombExist = false;
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	vel = 0.8f;
 
@@ -30,7 +31,6 @@ Player::Player() {
 
 Player::~Player() {
 	UnloadTexture(bmanTXT);
-	UnloadTexture(bombTEXT);
 }
 
 
@@ -46,7 +46,7 @@ void Player::Draw() {
 		frameRecB.x = (float)currentFrameB * 12;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
 	}
 	if (bombExist) {
-		DrawTextureRec(bombTEXT, { 0.0f, 0.0f, 16.0f, 16.0f }, bombPos, WHITE);
+		/*DrawTextureRec(bombs[0].bombTEXT, { 0.0f, 0.0f, 16.0f, 16.0f }, bombs[0].bombPos, WHITE);*/
 	}
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 }
@@ -268,7 +268,7 @@ void Player::instantiateColliders() {
 }
 void Player::createBomb() {
 	Bomba bomb;
+	/*bombs[0] = bomb;*/
 	bombExist = true;
-	bombTEXT = LoadTexture("Sprites/bomb.png");
-	bombPos = bmanPos;
+	bomb.bombPos = bmanPos;
 }

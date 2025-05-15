@@ -1,4 +1,5 @@
 #include<game.h>
+#include<bomba.h>
 #include <vector>
 #include <string>
 using namespace std;
@@ -10,6 +11,7 @@ Game::Game()
 {
 	Player player;
 	bomberman = player;
+	j = 120;
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
@@ -64,14 +66,15 @@ void Game::HandleInput() {
 		bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
 	}
 	if (IsKeyPressed(KEY_X)) {
-		if (j > 20) {
+		if (j > 120) {
 			bomberman.createBomb();
 			PlaySound(bomb);
 			j = 0;
 		}
 	}
-	if (j > 120) {
+	if (j > 120 && bomberman.bombExist == true) {
 		bomberman.bombExist = false;
+		/*bomberman.bombs[0].~Bomba();*/
 	}
 	i++;
 	j++;

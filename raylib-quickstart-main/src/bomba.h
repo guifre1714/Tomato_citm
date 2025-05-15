@@ -5,10 +5,17 @@ using namespace std;
 
 class Bomba {
 public:
-	Bomba();
+	Bomba(Vector2 pos);
 	~Bomba();
 
-	Rectangle colVert, colHor;
+	void Draw();
 	Vector2 bombPos;
 	Texture bombTEXT;
+	Rectangle frameRec;
+
+	int currentFrame;
+	int frameContador;
+	int frameSpeed;
+
+	int totalFrames;
 };

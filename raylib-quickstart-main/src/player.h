@@ -112,7 +112,8 @@ public:
 
 	int currentFrameB;
 	int frameContadorB ;
-	int frameSpeedB ; //marca la velocitat dels FPS
+	int frameSpeedB; //marca la velocitat dels FPS
+	int totalFrames;
 
 	bool bombExist;
 

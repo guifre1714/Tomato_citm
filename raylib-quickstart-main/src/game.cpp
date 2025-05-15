@@ -4,6 +4,7 @@
 using namespace std;
 
 int i = 0;
+int j = 0;
 
 Game::Game()
 {
@@ -12,6 +13,7 @@ Game::Game()
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
+	bomb = LoadSound("SFX/bomb.wav");
 }
 
 Game::~Game() {
@@ -29,7 +31,6 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
-	cout << i;
 	if (IsKeyDown(KEY_LEFT)) {
 		bomberman.MoveLeft();
 		if (i > 20) {
@@ -62,7 +63,18 @@ void Game::HandleInput() {
 	else {
 		bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
 	}
+	if (IsKeyPressed(KEY_X)) {
+		if (j > 20) {
+			bomberman.createBomb();
+			PlaySound(bomb);
+			j = 0;
+		}
+	}
+	if (j > 120) {
+		bomberman.bombExist = false;
+	}
 	i++;
+	j++;
 }
 
 void Game::Update() {

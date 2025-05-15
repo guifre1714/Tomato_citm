@@ -18,6 +18,7 @@ public:
 	bool Collide();
 
 	void instantiateColliders();
+	void createBomb();
 
 	float vel;
 
@@ -103,6 +104,8 @@ public:
 #pragma endregion
 
 	Texture2D bmanTXT;
+	Texture2D bombTEXT;
+	Vector2 bombPos;
 	Vector2 bmanPos;
 
 	Rectangle bmanCol;
@@ -110,6 +113,8 @@ public:
 	int currentFrameB;
 	int frameContadorB ;
 	int frameSpeedB ; //marca la velocitat dels FPS
+
+	bool bombExist;
 
 	Rectangle frameRecB;
 

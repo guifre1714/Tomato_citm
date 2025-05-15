@@ -2,10 +2,9 @@
 #include <vector>
 #include <collider.h>
 #include <game.h>
-using namespace std;
+#include <bomba.h>
 
 Player::Player() {
-
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	vel = 0.8f;
 
@@ -31,6 +30,7 @@ Player::Player() {
 
 Player::~Player() {
 	UnloadTexture(bmanTXT);
+	UnloadTexture(bombTEXT);
 }
 
 
@@ -44,6 +44,9 @@ void Player::Draw() {
 			currentFrameB = 0;
 		}
 		frameRecB.x = (float)currentFrameB * 12;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
+	}
+	if (bombExist) {
+		DrawTextureRec(bombTEXT, { 0.0f, 0.0f, 16.0f, 16.0f }, bombPos, WHITE);
 	}
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 }
@@ -262,4 +265,10 @@ void Player::instantiateColliders() {
 	col74.col = { 841, 417, 13, 13 };
 	colliders.insert(colliders.end(), col74);
 #pragma endregion
+}
+void Player::createBomb() {
+	Bomba bomb;
+	bombExist = true;
+	bombTEXT = LoadTexture("Sprites/bomb.png");
+	bombPos = bmanPos;
 }

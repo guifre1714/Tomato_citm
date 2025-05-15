@@ -14,4 +14,5 @@ public:
 	void HandleInput();
 
 	Sound walk;
+	Sound bomb;
 };

@@ -27,9 +27,6 @@ int contador = 200;
 float temps = 0.0f;
 const int fontSize = 65;
 
-//enemic
-EN01 enemy(100, 100, 50, 50, 2, 2);
-
 //Càmera
 Camera2D camera = { 0 };
 

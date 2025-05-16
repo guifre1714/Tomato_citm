@@ -21,7 +21,7 @@ Game::Game()
 	bomb = LoadSound("SFX/bomb.wav");
 
 	//enemic
-	EN01 enemy(5, 5, 16, 16, 5, 5);
+	EN01 enemy;
 	enemic.insert(enemic.end(), enemy);
 
 }

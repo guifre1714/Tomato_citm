@@ -54,10 +54,10 @@ void Bomba::KaboomCheck() {
 		rectDown = { bombPos.x, bombPos.y + 16, 16, 16 };
 		rectLeft = { bombPos.x - 16, bombPos.y, 16, 16 };
 		rectRight = { bombPos.x + 16, bombPos.y, 16, 16 };
-		DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
+		/*DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
 		DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, RED);
 		DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, RED);
-		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
+		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);*/
 		for (int i = 0; i < blocs->size(); i++) {
 			colUp = CheckCollisionRecs(rectUp, (*blocs)[i].col);
 			colDown = CheckCollisionRecs(rectDown, (*blocs)[i].col);
@@ -88,7 +88,7 @@ void Bomba::KaboomCheck() {
 				expandRight = false;
 			}
 		}
-		/*if (expandUp) {
+		if (expandUp) {
 			DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
 		}
 		if (expandDown) {
@@ -99,6 +99,6 @@ void Bomba::KaboomCheck() {
 		}
 		if (expandRight) {
 			DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
-		}*/
+		}
 	}
 }

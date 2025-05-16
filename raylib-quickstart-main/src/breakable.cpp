@@ -10,7 +10,7 @@ Breakable::Breakable(Vector2 position) {
 	frameSpeed = 16; //marca la velocitat dels FPS
 
 	totalFrames = 3;
-	blockTEXT = LoadTexture("Sprites/blocsDestruibles.png");
+	blockTEXT = LoadTexture("Sprites/blocDestruible.png");
 	col.x = position.x + 1;
 	col.y = position.y + 1;
 	col.height = 13;

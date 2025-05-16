@@ -1,4 +1,5 @@
 #include <Enemy_01.h>
+#include<game.h>
 #include <vector>
 #include <iostream>
 #include <cstdlib>
@@ -15,6 +16,9 @@ EN01::EN01()
 
     rect.width = 16;
     rect.height = 16;
+}
+EN01:: ~EN01() {
+
 }
 void EN01::Draw()
 {

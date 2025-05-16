@@ -16,9 +16,11 @@ class EN01
 {
 public:
     EN01();
+    ~EN01();
+
     void Draw();
     void Update(const vector<Collider>& colliders);
-    ~EN01();
+    
 
     Rectangle rect;
     Vector2 velocity;

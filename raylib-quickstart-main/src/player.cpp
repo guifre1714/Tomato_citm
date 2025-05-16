@@ -6,10 +6,11 @@
 
 Player::Player() {
 	bombExist = false;
+	isAlive = true;
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	vel = 0.8f;
 
-	bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
+	bmanPos.x = 409; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
 	bmanPos.y = 272;
 	
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 15 };
@@ -20,7 +21,8 @@ Player::Player() {
 	frameContadorB = 0;
 	frameSpeedB = 8; //marca la velocitat dels FPS
 	
-	totalFrames=3;
+	totalFrames = 3;
+	ampladaFrames = 12;
 }
 
 Player::~Player() {
@@ -34,15 +36,25 @@ void Player::Draw() {
 		frameContadorB = 0;
 		currentFrameB ++;
 
-		if (currentFrameB > 3) {
+		if (currentFrameB > totalFrames) {
 			currentFrameB = 0;
 		}
-		frameRecB.x = (float)currentFrameB * 12;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
+		frameRecB.x = (float)currentFrameB * ampladaFrames;//ampladaFrames = (float)Texture.Width/num requadres a dividir
 	}
 	if (bombExist) {
 		bombs[0].Draw();
 	}
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
+}
+
+void Player::Dead() {
+	isAlive = false;
+	totalFrames = 7;
+	ampladaFrames = 16;
+	//frameRecB.x = 16;
+	frameRecB = { 0.0f,0.0f,16.0f,16.0f };
+	frameSpeedB = 4;
+	bmanTXT = LoadTexture("Sprites/death.png");
 }
 
 void Player::MoveUp() {

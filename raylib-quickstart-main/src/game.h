@@ -18,7 +18,6 @@ public:
 
 	Sound walk;
 	Sound bomb;
-
 	vector<EN01> enemic;
 
 	vector <Vector2> spawnPos;
@@ -98,5 +97,4 @@ public:
 	Collider col73;
 	Collider col74;
 #pragma endregion
-
 };

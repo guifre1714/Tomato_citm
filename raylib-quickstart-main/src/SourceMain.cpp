@@ -97,9 +97,17 @@ int main()
 
 #pragma region Declaracio Screens
 	stage1.Fons = LoadTexture("Sprites/menu/stage1.png");
+	stage1.bgm= LoadMusicStream("music/02. Stage Start.mp3");
+
+	stage2.Fons = LoadTexture("Sprites/menu/stage2.png");
+	stage2.bgm = LoadMusicStream("music/02. Stage Start.mp3");
+
+	stage3.Fons = LoadTexture("Sprites/menu/stage3.png");
+	stage3.bgm = LoadMusicStream("music/02. Stage Start.mp3");
+
+	stage4.Fons = LoadTexture("Sprites/menu/stage4.png");
+	stage4.bgm = LoadMusicStream("music/02. Stage Start.mp3");
 #pragma endregion
-
-
 
 	PlayMusicStream(screens[screen]->bgm);
 

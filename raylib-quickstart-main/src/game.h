@@ -3,6 +3,8 @@
 #include <collider.h>
 #include <screen.h>
 #include <Enemy_01.h>
+#include <breakable.h>
+#include <bomba.h>
 
 using namespace std;
 

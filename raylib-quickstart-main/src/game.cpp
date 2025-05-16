@@ -3,6 +3,7 @@
 #include <vector>
 #include <Enemy_01.h>
 #include <string>
+
 using namespace std;
 
 int i = 0;
@@ -262,6 +263,6 @@ void Game::Update()
 {
 	for (int i = 0; i <= enemic.size() - 1; i++)
 	{
-		enemic[i].Update();
+		enemic[i].Update(bomberman.colliders);
 	}
 }

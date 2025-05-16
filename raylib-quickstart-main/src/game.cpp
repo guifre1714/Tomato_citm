@@ -23,7 +23,6 @@ Game::Game()
 	//enemic
 	EN01 enemy;
 	enemic.insert(enemic.end(), enemy);
-
 }
 
 Game::~Game() {
@@ -53,6 +52,10 @@ void Game::Draw() {
 		}
 	}
 	bomberman.Draw();
+	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
+	/*for (int k = 0; k < bomberman.snapPositions.size(); k++) {
+		DrawRectangle(bomberman.snapPositions[k].x, bomberman.snapPositions[k].y, 16, 16, GOLD);
+	}*/
 }
 
 void Game::HandleInput() {
@@ -270,78 +273,92 @@ int l;
 	bomberman.colliders.insert(bomberman.colliders.end(), col74);
 #pragma endregion
 #pragma region Posicions on poden apareixer coses
-	for (int k = 2; k <= 29; k++) {
+	for (int k = 2; k <= 28; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 16);
 		pos.y = 272;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 29; k++) {
+	for (int k = 0; k <= 28; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 16);
 		pos.y = 304;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 29; k++) {
+	for (int k = 0; k <= 28; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 16);
 		pos.y = 336;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 29; k++) {
+	for (int k = 0; k <= 28; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 16);
 		pos.y = 368;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 29; k++) {
+	for (int k = 0; k <= 28; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 16);
 		pos.y = 400;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 29; k++) {
+	for (int k = 0; k <= 28; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 16);
 		pos.y = 432;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 15; k++) {
+	for (int k = 0; k <= 14; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 32);
 		pos.y = 320;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 15; k++) {
+	for (int k = 0; k <= 13; k++) {
 		Vector2 pos;
 		pos.x = 440 + (k * 32);
 		pos.y = 288;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 15; k++) {
+	for (int k = 0; k <= 14; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 32);
 		pos.y = 352;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 15; k++) {
+	for (int k = 0; k <= 14; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 32);
 		pos.y = 384;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
-	for (int k = 0; k <= 15; k++) {
+	for (int k = 0; k <= 14; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 32);
 		pos.y = 416;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 #pragma endregion
-	for (int k = 0; k < (rand() % 150) + 100; k++) {
-		l = rand() % 248;
+	for (int k = 0; k < (rand() % 146) + 100; k++) {
+		l = rand() % (spawnPos.size() - 1);
+		cout << endl << spawnPos.size()<< endl << l;
 		Breakable bloc(spawnPos[l]);
-		bomberman.colliders.insert(bomberman.colliders.begin(), bloc);
+		bomberman.colliders.insert(bomberman.colliders.end(), bloc);
 	}
+	bomberman.snapPositions = spawnPos;
+	Vector2 pos;
+	pos.x = 424;
+	pos.y = 272;
+	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos);
+	Vector2 pos2;
+	pos2.x = 408;
+	pos2.y = 272;
+	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos2);
+	Vector2 pos3;
+	pos3.x = 408;
+	pos3.y = 288;
+	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos3);
 }
 
 void Game::Update() 

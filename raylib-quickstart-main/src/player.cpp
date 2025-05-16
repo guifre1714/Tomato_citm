@@ -3,6 +3,8 @@
 #include <collider.h>
 #include <game.h>
 #include <bomba.h>
+#include <cmath>
+#include <limits>
 
 Player::Player() {
 	bombExist = false;
@@ -118,8 +120,28 @@ bool Player::Collide() {
 }
 
 void Player::createBomb() {
-	Bomba bomb(bmanPos, bombPlus, &colliders,&bombExist);
+	Bomba bomb(snapPositions[getClosestSnapIndex(bmanPos,snapPositions)], bombPlus, &colliders, &bombExist);
 	bombs.insert(bombs.end(), bomb);
 	bombExist = true;
 	PlaySound(bombSound);
+}
+
+int Player::getClosestSnapIndex(const Vector2& point, const vector<Vector2>& snapPositions) {
+	int closestIndex = -1;
+	float minDistance = numeric_limits<float>::max();
+
+	for (size_t i = 0; i < snapPositions.size(); i++) {
+		float distance = distanceBetween(point, snapPositions[i]);
+		if (distance < minDistance) {
+			minDistance = distance;
+			closestIndex = static_cast<int>(i);
+		}
+	}
+	return closestIndex;
+}
+
+float Player::distanceBetween(const Vector2& a, const Vector2& b) {
+	float dx = a.x - b.x;
+	float dy = a.y - b.y;
+	return std::sqrt(dx * dx + dy * dy);
 }

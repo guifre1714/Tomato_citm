@@ -80,20 +80,20 @@ int main()
 	//vectors
 	Menu menu;
 	Game level1, level2, level3, level4;
-	Screen inici, stage1, stage2, stage3, stage4, gameover;
+	/*Screen inici, stage1, stage2, stage3, stage4, gameover;*/
 	//screens.insert(screens.end(), &inici);
 	screens.insert(screens.end(), &menu);
 	//screens.insert(screens.end(), &stage1);
 	screens.insert(screens.end(), &level1);
 	//screens.insert(screens.end(), &stage2);
 	screens.insert(screens.end(), &level2);
-	//screens.insert(screens.end(), &stage3);
+	////screens.insert(screens.end(), &stage3);
 	screens.insert(screens.end(), &level3);
-	//screens.insert(screens.end(), &stage4);
+	////screens.insert(screens.end(), &stage4);
 	screens.insert(screens.end(), &level4);
 
 #pragma region Declaracio Screens
-	stage1.Fons = LoadTexture("Sprites/menu/stage1.png");
+	/*stage1.Fons = LoadTexture("Sprites/menu/stage1.png");
 	stage1.bgm= LoadMusicStream("music/02. Stage Start.mp3");
 
 	stage2.Fons = LoadTexture("Sprites/menu/stage2.png");
@@ -103,7 +103,7 @@ int main()
 	stage3.bgm = LoadMusicStream("music/02. Stage Start.mp3");
 
 	stage4.Fons = LoadTexture("Sprites/menu/stage4.png");
-	stage4.bgm = LoadMusicStream("music/02. Stage Start.mp3");
+	stage4.bgm = LoadMusicStream("music/02. Stage Start.mp3");*/
 #pragma endregion
 
 	PlayMusicStream(screens[screen]->bgm);

@@ -22,6 +22,9 @@ public:
 
 	void createBomb();
 
+	float distanceBetween(const Vector2& a, const Vector2& b);
+	int getClosestSnapIndex(const Vector2& point, const vector<Vector2>& snapPositions);
+
 	float vel;
 
 	string dir;
@@ -31,6 +34,7 @@ public:
 	Texture2D bmanTXT;
 	Vector2 bmanPos;
 	vector <Bomba> bombs;
+	vector <Vector2> snapPositions;
 
 	Rectangle bmanCol;
 

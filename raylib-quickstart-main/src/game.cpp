@@ -97,9 +97,10 @@ void Game::HandleInput() {
 			}
 		}
 		if (j > 120 && bomberman.bombExist == true) {
-			bomberman.bombExist = false;
-			bomberman.bombs[0].~Bomba();
-			bomberman.bombs.erase(bomberman.bombs.begin());
+			bomberman.bombs[0].boom = true;
+			/*bomberman.bombExist = false;*/
+			/*bomberman.bombs[0].~Bomba();
+			bomberman.bombs.erase(bomberman.bombs.begin());*/
 		}
 		i++;
 		j++;

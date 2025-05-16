@@ -20,7 +20,6 @@ public:
 
 	bool Collide();
 
-	void instantiateColliders();
 	void createBomb();
 
 	float vel;
@@ -42,6 +41,7 @@ public:
 	int ampladaFrames;
 
 	bool bombExist;
+	bool bombPlus;
 
 	bool isAlive;
 

@@ -7,6 +7,7 @@
 Player::Player() {
 	bombExist = false;
 	isAlive = true;
+	bombPlus = false;
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	vel = 0.8f;
 
@@ -113,7 +114,7 @@ bool Player::Collide() {
 }
 
 void Player::createBomb() {
-	Bomba bomb(bmanPos);
+	Bomba bomb(bmanPos, bombPlus, colliders);
 	bombs.insert(bombs.end(), bomb);
 	bombExist = true;
 }

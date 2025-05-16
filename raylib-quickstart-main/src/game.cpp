@@ -33,52 +33,58 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
-	if (IsKeyDown(KEY_LEFT)) {
-		bomberman.MoveLeft();
-		if (i > 20) {
-			PlaySound(walk);
-			i = 0;
-		}
+	if (IsKeyDown(KEY_Z)&& bomberman.isAlive==true) {
+		bomberman.Dead();
 	}
-	else if (IsKeyDown(KEY_RIGHT)) {
-		bomberman.MoveRight();
-		if (i > 20) {
-			PlaySound(walk);
-			i = 0;
+	if (bomberman.isAlive) {
+		if (IsKeyDown(KEY_LEFT)) {
+			bomberman.MoveLeft();
+			if (i > 20) {
+				PlaySound(walk);
+				i = 0;
+			}
 		}
-	}
-	else if (IsKeyDown(KEY_UP)) {
-		bomberman.MoveUp();
-		if (i > 20) {
-			PlaySound(walk);
-			i = 0;
+		else if (IsKeyDown(KEY_RIGHT)) {
+			bomberman.MoveRight();
+			if (i > 20) {
+				PlaySound(walk);
+				i = 0;
+			}
 		}
-	}
-	else if (IsKeyDown(KEY_DOWN)) {
+		else if (IsKeyDown(KEY_UP)) {
+			bomberman.MoveUp();
+			if (i > 20) {
+				PlaySound(walk);
+				i = 0;
+			}
+		}
+		else if (IsKeyDown(KEY_DOWN)) {
 
-		bomberman.MoveDown();
-		if (i > 20) {
-			PlaySound(walk);
-			i = 0;
+			bomberman.MoveDown();
+			if (i > 20) {
+				PlaySound(walk);
+				i = 0;
+			}
 		}
-	}
-	else {
-		bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
-	}
-	if (IsKeyPressed(KEY_X)) {
-		if (j > 120) {
-			bomberman.createBomb();
-			PlaySound(bomb);
-			j = 0;
+		else {
+			bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
 		}
+		if (IsKeyPressed(KEY_X)) {
+			if (j > 120) {
+				bomberman.createBomb();
+				PlaySound(bomb);
+				j = 0;
+			}
+		}
+		if (j > 120 && bomberman.bombExist == true) {
+			bomberman.bombExist = false;
+			bomberman.bombs[0].~Bomba();
+			bomberman.bombs.erase(bomberman.bombs.begin());
+		}
+		i++;
+		j++;
 	}
-	if (j > 120 && bomberman.bombExist == true) {
-		bomberman.bombExist = false;
-		bomberman.bombs[0].~Bomba();
-		bomberman.bombs.erase(bomberman.bombs.begin());
-	}
-	i++;
-	j++;
+	
 }
 
 void Game::Update() {

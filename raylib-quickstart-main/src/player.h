@@ -16,6 +16,8 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
+	void Dead();
+
 	bool Collide();
 
 	void instantiateColliders();
@@ -117,6 +119,8 @@ public:
 	int ampladaFrames;
 
 	bool bombExist;
+
+	bool isAlive;
 
 	Rectangle frameRecB;
 

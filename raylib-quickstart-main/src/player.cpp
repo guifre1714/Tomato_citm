@@ -21,6 +21,7 @@ Player::Player() {
 	frameSpeedB = 8; //marca la velocitat dels FPS
 	
 	totalFrames=3;
+	ampladaFrames = 12;
 
 	
 	instantiateColliders();
@@ -40,10 +41,10 @@ void Player::Draw() {
 		frameContadorB = 0;
 		currentFrameB ++;
 
-		if (currentFrameB > 3) {
+		if (currentFrameB > totalFrames) {
 			currentFrameB = 0;
 		}
-		frameRecB.x = (float)currentFrameB * 12;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
+		frameRecB.x = (float)currentFrameB * ampladaFrames;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
 	}
 	if (bombExist) {
 		bombs[0].Draw();

@@ -114,6 +114,7 @@ public:
 	int frameContadorB ;
 	int frameSpeedB; //marca la velocitat dels FPS
 	int totalFrames;
+	int ampladaFrames;
 
 	bool bombExist;
 

@@ -51,7 +51,6 @@ void Player::Dead() {
 	isAlive = false;
 	totalFrames = 7;
 	ampladaFrames = 16;
-	//frameRecB.x = 16;
 	frameRecB = { 0.0f,0.0f,16.0f,16.0f };
 	frameSpeedB = 4;
 	bmanTXT = LoadTexture("Sprites/death.png");

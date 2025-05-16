@@ -1,7 +1,9 @@
 #include<game.h>
 #include<bomba.h>
 #include <vector>
+#include <Enemy_01.h>
 #include <string>
+
 using namespace std;
 
 int i = 0;
@@ -17,6 +19,11 @@ Game::Game()
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
 	bomb = LoadSound("SFX/bomb.wav");
+
+	//enemic
+	EN01 enemy;
+	enemic.insert(enemic.end(), enemy);
+
 }
 
 Game::~Game() {
@@ -37,6 +44,9 @@ void Game::Draw() {
 
 			bomberman.colliders[k].Draw();
 		}
+	for (int i = 0; i<=enemic.size()-1;i++)
+	{
+		enemic[i].Draw();
 	}
 }
 
@@ -293,6 +303,10 @@ int l;
 	}
 }
 
-void Game::Update() {
-
+void Game::Update() 
+{
+	for (int i = 0; i <= enemic.size() - 1; i++)
+	{
+		enemic[i].Update(bomberman.colliders);
+	}
 }

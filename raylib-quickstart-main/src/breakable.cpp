@@ -11,8 +11,8 @@ Breakable::Breakable(Vector2 position) {
 
 	totalFrames = 3;
 	blockTEXT = LoadTexture("Sprites/blocsDestruibles.png");
-	col.x = position.x;
-	col.y = position.y;
+	col.x = position.x + 1;
+	col.y = position.y + 1;
 	col.height = 13;
 	col.width = 13;
 };

@@ -10,8 +10,8 @@ Collider::~Collider()
 }
 
 void Collider::Draw() {
-	pos.x = col.x;
-	pos.y = col.y;
+	pos.x = col.x - 1;
+	pos.y = col.y - 1;
 	if (breaking) {
 		frameContador++;
 		if (frameContador >= (60 / frameSpeed)) {

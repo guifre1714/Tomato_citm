@@ -268,37 +268,73 @@ int l;
 #pragma region Posicions on poden apareixer coses
 	for (int k = 2; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 424 + (k * 16);
+		pos.x = 408 + (k * 16);
 		pos.y = 272;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 424 + (k * 16);
+		pos.x = 408 + (k * 16);
 		pos.y = 304;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 424 + (k * 16);
+		pos.x = 408 + (k * 16);
 		pos.y = 336;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 424 + (k * 16);
+		pos.x = 408 + (k * 16);
 		pos.y = 368;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 424 + (k * 16);
+		pos.x = 408 + (k * 16);
 		pos.y = 400;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
+	for (int k = 0; k <= 29; k++) {
+		Vector2 pos;
+		pos.x = 408 + (k * 16);
+		pos.y = 432;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 15; k++) {
+		Vector2 pos;
+		pos.x = 408 + (k * 32);
+		pos.y = 320;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 15; k++) {
+		Vector2 pos;
+		pos.x = 440 + (k * 32);
+		pos.y = 288;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 15; k++) {
+		Vector2 pos;
+		pos.x = 408 + (k * 32);
+		pos.y = 352;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 15; k++) {
+		Vector2 pos;
+		pos.x = 408 + (k * 32);
+		pos.y = 384;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 15; k++) {
+		Vector2 pos;
+		pos.x = 408 + (k * 32);
+		pos.y = 416;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
 #pragma endregion
-	for (int k = 0; k < (rand() % 100) + 50; k++) {
-		l = rand() % 142;
+	for (int k = 0; k < (rand() % 150) + 100; k++) {
+		l = rand() % 248;
 		Breakable bloc(spawnPos[l]);
 		bomberman.colliders.insert(bomberman.colliders.begin(), bloc);
 	}

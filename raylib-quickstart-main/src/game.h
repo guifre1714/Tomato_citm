@@ -2,6 +2,8 @@
 #include <player.h>
 #include <collider.h>
 #include <screen.h>
+#include <Enemy_01.h>
+
 using namespace std;
 
 class Game : public Screen{
@@ -16,6 +18,8 @@ public:
 
 	Sound walk;
 	Sound bomb;
+	vector<EN01> enemic;
+
 	vector <Vector2> spawnPos;
 #pragma region Colliders
 	Collider col1;

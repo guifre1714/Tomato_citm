@@ -1,6 +1,7 @@
 #include<game.h>
 #include<bomba.h>
 #include <vector>
+#include <Enemy_01.h>
 #include <string>
 using namespace std;
 
@@ -17,6 +18,11 @@ Game::Game()
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
 	bomb = LoadSound("SFX/bomb.wav");
+
+	//enemic
+	EN01 enemy(5, 5, 16, 16, 5, 5);
+	enemic.insert(enemic.end(), enemy);
+
 }
 
 Game::~Game() {
@@ -31,6 +37,10 @@ void Game::Draw() {
 		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
 	}*/
 	bomberman.Draw();
+	for (int i = 0; i<=enemic.size()-1;i++)
+	{
+		enemic[i].Draw();
+	}
 }
 
 void Game::HandleInput() {
@@ -248,6 +258,10 @@ void Game::instantiateColliders() {
 #pragma endregion
 }
 
-void Game::Update() {
-
+void Game::Update() 
+{
+	for (int i = 0; i <= enemic.size() - 1; i++)
+	{
+		enemic[i].Update();
+	}
 }

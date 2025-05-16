@@ -13,5 +13,7 @@ Breakable::Breakable(Vector2 position) {
 	blockTEXT = LoadTexture("Sprites/blocsDestruibles.png");
 	col.x = position.x;
 	col.y = position.y;
+	col.height = 13;
+	col.width = 13;
 };
 Breakable::~Breakable() {};

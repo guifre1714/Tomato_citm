@@ -117,7 +117,7 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		if (IsKeyPressed(KEY_ENTER) && screen == 0) {
+		if (IsKeyPressed(KEY_ENTER)) {
 			loadNextScreen();
 		}
 

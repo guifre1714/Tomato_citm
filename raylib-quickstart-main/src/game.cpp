@@ -37,7 +37,7 @@ void Game::Draw() {
 	/*for (int i = 0; i < bomberman.colliders.size(); i++) {
 		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
 	}*/
-	bomberman.Draw();
+	
 
 	for (int k = 0; k <= bomberman.colliders.size() - 1; k++) {
 		if (bomberman.colliders[k].breakable) {
@@ -49,6 +49,7 @@ void Game::Draw() {
 			enemic[i].Draw();
 		}
 	}
+	bomberman.Draw();
 }
 
 void Game::HandleInput() {
@@ -296,11 +297,10 @@ int l;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 #pragma endregion
-	for (int k = 0; k < (rand() % 30) + 20; k++) {
-		l = rand() % spawnPos.size() - 1;
+	for (int k = 0; k < (rand() % 100) + 50; k++) {
+		l = rand() % 142;
 		Breakable bloc(spawnPos[l]);
 		bomberman.colliders.insert(bomberman.colliders.begin(), bloc);
-		/*spawnPos.erase(spawnPos.begin() + l);*/
 	}
 }
 

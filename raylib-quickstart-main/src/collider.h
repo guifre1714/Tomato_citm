@@ -9,5 +9,6 @@ public:
 	Collider();
 	~Collider();
 
+	bool breakable;
 	Rectangle col;
 };

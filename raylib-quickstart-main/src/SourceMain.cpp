@@ -6,6 +6,7 @@
 #include "resource_dir.h"
 #include <game.h>
 #include <menu.h>
+#include <Enemy_01.h>
 
 using namespace std;
 
@@ -15,12 +16,16 @@ const int screenHeight = 720;
 
 int screen = 0;
 vector <Screen*> screens;
+
 //interficie
 int puntuacio = 0;
 int vida = 3;
 int contador = 200;
 float temps = 0.0f;
 const int fontSize = 65;
+
+//enemic
+EN01 enemy(100, 100, 50, 50, 2, 2);
 
 //Càmera
 Camera2D camera = { 0 };

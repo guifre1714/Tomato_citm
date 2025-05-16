@@ -2,6 +2,7 @@
 using namespace std;
 
 Collider::Collider() {
+	breakable = false;
 }
 
 Collider::~Collider()

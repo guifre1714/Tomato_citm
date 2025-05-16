@@ -2,7 +2,7 @@
 
 Bomba::Bomba(Vector2 pos) {
 	bombPos = pos;
-	bombTEXT = LoadTexture("Sprites/bomb.png");
+	bombTEXT = LoadTexture("Sprites/bombAni.png");
 	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
 
 	currentFrame = 0;

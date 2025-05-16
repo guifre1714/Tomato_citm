@@ -17,19 +17,11 @@ class EN01
 public:
     EN01();
     ~EN01();
+    Rectangle EN_pos;
+    Vector2 velocity;
+    vector<Collider> collidersRef;
+    Texture2D EN_texture;
 
     void Draw();
     void Update(const vector<Collider>& colliders);
-    
-
-    Rectangle rect;
-    Vector2 velocity;
-    vector<Collider> collidersRef;
-
-    EN01(float x, float y, float width, float height, float vx, float vy)
-    {
-        rect = { x, y, width, height };
-        velocity = { vx, vy };
-    }
-    
 };

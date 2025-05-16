@@ -14,35 +14,36 @@ EN01::EN01()
     velocity.x = 5;
     velocity.y = 5;
 
-    rect.width = 16;
-    rect.height = 16;
+    EN_pos = { 16.0f, 0.0f, 12.0f, 16.0f };
+    EN_texture = LoadTexture("Sprites/idle.png");
 }
 EN01:: ~EN01() {
 
 }
 void EN01::Draw()
 {
-    DrawRectangleRec(rect, RED);
+    /*DrawTextureRec(EN_texture,EN_pos,velocity, WHITE);*/
+    DrawTexture(EN_texture, EN_pos.x,EN_pos.y,  WHITE );
 }
 void EN01::Update(const vector<Collider>& colliders)
 {
     collidersRef = colliders;
-    rect.x += velocity.x;
-    rect.y += velocity.y;
+    EN_pos.x += velocity.x;
+    EN_pos.y += velocity.y;
 
     for (const Collider& c : collidersRef) {
-        if (CheckCollisionRecs(rect, c.col)) {
+        if (CheckCollisionRecs(EN_pos, c.col)) {
             velocity.x *= -1;
             velocity.y *= -1;
             break;
         }
     }
 
-    if (rect.x <= 0 || rect.x + rect.width >= GetScreenWidth()) {
+    if (EN_pos.x <= 0 || EN_pos.x + EN_pos.width >= GetScreenWidth()) {
         velocity.x *= -1;
     }
 
-    if (rect.y <= 0 || rect.y + rect.height >= GetScreenHeight()) {
+    if (EN_pos.y <= 0 || EN_pos.y + EN_pos.height >= GetScreenHeight()) {
         velocity.y *= -1;
     }
 }

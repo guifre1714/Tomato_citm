@@ -2,6 +2,7 @@
 #include <player.h>
 #include <collider.h>
 #include <screen.h>
+#include <breakable.h>
 using namespace std;
 
 class Game : public Screen{
@@ -12,7 +13,7 @@ public:
 	void Draw();
 	void Update();
 	void HandleInput();
-	void instantiateColliders();
+	void instantiateCoses();
 
 	Sound walk;
 	Sound bomb;

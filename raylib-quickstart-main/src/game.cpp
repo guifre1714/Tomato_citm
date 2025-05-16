@@ -11,7 +11,7 @@ Game::Game()
 {
 	Player player;
 	bomberman = player;
-	instantiateColliders();
+	instantiateCoses();
 	j = 120;
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
@@ -31,6 +31,13 @@ void Game::Draw() {
 		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
 	}*/
 	bomberman.Draw();
+
+	for (int k = 0; k <= bomberman.colliders.size() -1; k++) {
+		if (bomberman.colliders[k].breakable) {
+
+			bomberman.colliders[k].Draw();
+		}
+	}
 }
 
 void Game::HandleInput() {
@@ -85,10 +92,10 @@ void Game::HandleInput() {
 		i++;
 		j++;
 	}
-	
 }
 
-void Game::instantiateColliders() {
+void Game::instantiateCoses() {
+int l;
 #pragma region Create Colliders
 #pragma region Parets
 	col1.col = { 408, 256, 464, 16 };
@@ -246,6 +253,44 @@ void Game::instantiateColliders() {
 	col74.col = { 841, 417, 13, 13 };
 	bomberman.colliders.insert(bomberman.colliders.end(), col74);
 #pragma endregion
+#pragma region Posicions on poden apareixer coses
+	for (int k = 2; k <= 29; k++) {
+		Vector2 pos;
+		pos.x = 425 + (k * 16);
+		pos.y = 289;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 29; k++) {
+		Vector2 pos;
+		pos.x = 425 + (k * 16);
+		pos.y = 321;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 29; k++) {
+		Vector2 pos;
+		pos.x = 425 + (k * 16);
+		pos.y = 353;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 29; k++) {
+		Vector2 pos;
+		pos.x = 425 + (k * 16);
+		pos.y = 385;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+	for (int k = 0; k <= 29; k++) {
+		Vector2 pos;
+		pos.x = 425 + (k * 16);
+		pos.y = 417;
+		spawnPos.insert(spawnPos.end(), pos);
+	}
+#pragma endregion
+	for (int k = 0; k < (rand() % 30) + 20; k++) {
+		l = rand() % spawnPos.size() - 1;
+		Breakable bloc(spawnPos[l]);
+		bomberman.colliders.insert(bomberman.colliders.begin(), bloc);
+		/*spawnPos.erase(spawnPos.begin() + l);*/
+	}
 }
 
 void Game::Update() {

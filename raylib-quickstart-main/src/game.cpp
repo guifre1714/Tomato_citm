@@ -39,14 +39,15 @@ void Game::Draw() {
 	}*/
 	bomberman.Draw();
 
-	for (int k = 0; k <= bomberman.colliders.size() -1; k++) {
+	for (int k = 0; k <= bomberman.colliders.size() - 1; k++) {
 		if (bomberman.colliders[k].breakable) {
 
 			bomberman.colliders[k].Draw();
 		}
-	for (int i = 0; i<=enemic.size()-1;i++)
-	{
-		enemic[i].Draw();
+		for (int i = 0; i <= enemic.size() - 1; i++)
+		{
+			enemic[i].Draw();
+		}
 	}
 }
 
@@ -266,32 +267,32 @@ int l;
 #pragma region Posicions on poden apareixer coses
 	for (int k = 2; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 425 + (k * 16);
-		pos.y = 289;
+		pos.x = 424 + (k * 16);
+		pos.y = 272;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 425 + (k * 16);
-		pos.y = 321;
+		pos.x = 424 + (k * 16);
+		pos.y = 304;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 425 + (k * 16);
-		pos.y = 353;
+		pos.x = 424 + (k * 16);
+		pos.y = 336;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 425 + (k * 16);
-		pos.y = 385;
+		pos.x = 424 + (k * 16);
+		pos.y = 368;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 	for (int k = 0; k <= 29; k++) {
 		Vector2 pos;
-		pos.x = 425 + (k * 16);
-		pos.y = 417;
+		pos.x = 424 + (k * 16);
+		pos.y = 400;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 #pragma endregion

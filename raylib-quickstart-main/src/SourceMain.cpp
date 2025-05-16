@@ -158,6 +158,9 @@ int main()
 			camera.target = { screens[screen]->bomberman.bmanPos.x + 20, (float)screenHeight / 2 - 20};
 		}
 		DrawTexture(screens[screen]->Fons, screenWidth / 2 - screens[screen]->Fons.width / 2, screenHeight / 2 - screens[screen]->Fons.height / 2, WHITE);
+		if (screens[screen]->bomberman.bombExist) {
+			screens[screen]->bomberman.bombs[0].Draw();
+		}
 		screens[screen]->Draw();
 
 		//FINAL CÀMERA (estàtic respecte a la pantalla)

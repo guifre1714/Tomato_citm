@@ -19,7 +19,7 @@ public:
 	void instantiateCoses();
 
 	Sound walk;
-	Sound bomb;
+	Sound walkUp;
 	vector<EN01> enemic;
 
 	vector <Vector2> spawnPos;

@@ -7,7 +7,7 @@ Breakable::Breakable(Vector2 position) {
 
 	currentFrame = 0;
 	frameContador = 0;
-	frameSpeed = 8; //marca la velocitat dels FPS
+	frameSpeed = 16; //marca la velocitat dels FPS
 
 	totalFrames = 3;
 	blockTEXT = LoadTexture("Sprites/blocsDestruibles.png");

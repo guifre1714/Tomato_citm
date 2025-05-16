@@ -14,6 +14,7 @@ public:
 	int frameContador;
 	int frameSpeed; //marca la velocitat dels FPS
 	int totalFrames;
+	bool destroy;
 
 	bool breaking;
 

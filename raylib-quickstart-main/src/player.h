@@ -47,4 +47,5 @@ public:
 
 	Rectangle frameRecB;
 
+	Sound bombSound;
 };

@@ -7,7 +7,7 @@ using namespace std;
 
 class Bomba {
 public:
-	Bomba(Vector2 pos, bool potenciada, vector <Collider> Pblocs);
+	Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs, bool *playerBomb);
 	~Bomba();
 
 	void Draw();
@@ -17,13 +17,16 @@ public:
 	Vector2 bombPos;
 	Texture bombTEXT;
 	Rectangle frameRec;
-	vector <Collider> blocs;
+	vector<Collider>* blocs;
 
+	bool* bombActive;
 	bool boom;
 	bool plus;
 	int currentFrame;
 	int frameContador;
 	int frameSpeed;
-
 	int totalFrames;
+	int ampladaFrames;
+
+	Sound BOOOOOM;
 };

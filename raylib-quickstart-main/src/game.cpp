@@ -18,7 +18,7 @@ Game::Game()
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
-	bomb = LoadSound("SFX/bomb.wav");
+	walkUp = LoadSound("SFX/walkUp.wav");
 
 	//enemic
 	EN01 enemy;
@@ -43,6 +43,9 @@ void Game::Draw() {
 		if (bomberman.colliders[k].breakable) {
 
 			bomberman.colliders[k].Draw();
+		}
+		if (bomberman.colliders[k].destroy) {
+			bomberman.colliders.erase(bomberman.colliders.begin() + k);
 		}
 		for (int i = 0; i <= enemic.size() - 1; i++)
 		{
@@ -74,7 +77,7 @@ void Game::HandleInput() {
 		else if (IsKeyDown(KEY_UP)) {
 			bomberman.MoveUp();
 			if (i > 20) {
-				PlaySound(walk);
+				PlaySound(walkUp);
 				i = 0;
 			}
 		}
@@ -82,25 +85,21 @@ void Game::HandleInput() {
 
 			bomberman.MoveDown();
 			if (i > 20) {
-				PlaySound(walk);
+				PlaySound(walkUp);
 				i = 0;
 			}
 		}
 		else {
 			bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
 		}
-		if (IsKeyPressed(KEY_X)) {
+		if (IsKeyPressed(KEY_X) && bomberman.bombExist == false) {
 			if (j > 120) {
 				bomberman.createBomb();
-				PlaySound(bomb);
 				j = 0;
 			}
 		}
 		if (j > 120 && bomberman.bombExist == true) {
 			bomberman.bombs[0].boom = true;
-			/*bomberman.bombExist = false;*/
-			/*bomberman.bombs[0].~Bomba();
-			bomberman.bombs.erase(bomberman.bombs.begin());*/
 		}
 		i++;
 		j++;
@@ -112,12 +111,16 @@ int l;
 #pragma region Create Colliders
 #pragma region Parets
 	col1.col = { 408, 256, 464, 16 };
+	col1.blockTEXT = LoadTexture("Sprites/blocsDaltabaix.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col1);
 	col2.col = { 408, 448, 464, 16 };
+	col2.blockTEXT = LoadTexture("Sprites/blocsDaltabaix.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col2);
 	col3.col = { 392, 256, 16, 300 };
+	col3.blockTEXT = LoadTexture("Sprites/blocsLateral.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col3);
 	col4.col = { 872, 256, 16, 300 };
+	col4.blockTEXT = LoadTexture("Sprites/blocsLateral.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col4);
 #pragma endregion
 	//fila 1

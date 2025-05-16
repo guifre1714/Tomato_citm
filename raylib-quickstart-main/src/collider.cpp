@@ -3,6 +3,7 @@ using namespace std;
 
 Collider::Collider() {
 	breakable = false;
+	destroy = false;
 }
 
 Collider::~Collider()
@@ -19,7 +20,7 @@ void Collider::Draw() {
 			currentFrame++;
 
 			if (currentFrame > 7) {
-				currentFrame = 0;
+				destroy = true;
 			}
 			frameRec.x = (float)currentFrame * 16;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
 		}

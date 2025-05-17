@@ -2,7 +2,10 @@
 #include <collider.h>
 using namespace std;
 
-Screen::Screen() {};
+Screen::Screen(Music ost, Texture background) {
+	bgm = ost;
+	Fons = background;
+};
 Screen::~Screen() {};
 
 void Screen::Draw() {};

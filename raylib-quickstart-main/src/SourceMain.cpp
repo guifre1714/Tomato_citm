@@ -10,7 +10,6 @@
 #include <breakable.h>
 #include <bomba.h>
 
-
 using namespace std;
 
 //basics per a funcionar
@@ -36,12 +35,23 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 		Menu* menu = new Menu();
 		screenList.insert(screenList.end(), menu);
 	}
-
-	for (int i = 0; i < 4; ++i) {
-		Game* level = new Game(i, vida, pantalla);
-		screenList.insert(screenList.end(), level);
-	}
 	return screenList;
+}
+void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {
+	int nextIndex = levelIndex + 1;
+
+	// Check if the next screen exists and is a Game and delete if so (i don't wwant to have 2 game screens back to back xd
+	if (nextIndex < screenList.size()) {
+		Game* gamePtr = dynamic_cast<Game*>(screenList[nextIndex]);
+		if (gamePtr != nullptr) {
+			delete screenList[nextIndex];          
+			screenList.erase(screenList.begin() + nextIndex);
+		}
+	}
+
+	// Create and insert the new Game
+	Game* level = new Game(levelIndex + 1, vida, pantalla);
+	screenList.insert(screenList.begin() + nextIndex, level);
 }
 //void setUpScreens() {
 //	Menu menu;
@@ -82,9 +92,9 @@ void loadNextScreen() {
 	/*for (int i = 0; i < screens.size(); i++) {
 		screens.erase(screens.begin() + i);
 	}*/
-	screens = setUpScreens(&vida, &screen);
 	StopMusicStream(screens[screen]->bgm);
-	if (screen != screens.size() - 1) {
+	if (screen < 4) {
+		addGameToScreens(screens, screen, &vida, &screen);
 		screen++;
 		camera.target.x = 608;
 		camera.target.y = screenHeight / 2.0f - 20;

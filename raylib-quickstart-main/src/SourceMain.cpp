@@ -153,7 +153,6 @@ int main()
 	SetTargetFPS(60);
 
 	screens = setUpScreens(&vida, &screen);
-
 	camera.target.x = screenWidth / 2.0f;
 	camera.target.y = screenHeight / 2.0f;
 	camera.offset.x = screenWidth / 2.0f;

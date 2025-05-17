@@ -19,6 +19,10 @@ public:
 	Texture bombTEXT;
 	Rectangle frameRec;
 	vector<Collider>* blocs;
+	Texture expUp;
+	Texture expDown;
+	Texture expLeft;
+	Texture expRight;
 
 	bool bombActive;
 	bool boom;

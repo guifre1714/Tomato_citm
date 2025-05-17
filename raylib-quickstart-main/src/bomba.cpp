@@ -10,6 +10,10 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
 	time = 0;
 	bombTEXT = LoadTexture("Sprites/bombAni.png");
 	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
+	expUp = LoadTexture("Sprites/explosions/expDalt.png");
+	expDown = LoadTexture("Sprites/explosions/expDown.png");
+	expLeft = LoadTexture("Sprites/explosions/expLeft.png");
+	expRight = LoadTexture("Sprites/explosions/expRight.png");
 
 	currentFrame = 0;
 	frameContador = 0;
@@ -50,16 +54,20 @@ void Bomba::Draw() {
 	}
 	KaboomCheck();
 	if (expandUp) {
-		DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
+		//DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, WHITE);
+		DrawTextureRec(expUp, frameRec, { rectUp.x,rectUp.y }, WHITE);
 	}
 	if (expandDown) {
-		DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, RED);
+		//DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, WHITE);
+		DrawTextureRec(expDown, frameRec, { rectDown.x,rectDown.y }, WHITE);
 	}
 	if (expandLeft) {
-		DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, RED);
+		//DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, WHITE);
+		DrawTextureRec(expLeft, frameRec, { rectLeft.x,rectLeft.y }, WHITE);
 	}
 	if (expandRight) {
-		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
+		//DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, WHITE);
+		DrawTextureRec(expRight, frameRec, { rectRight.x,rectRight.y }, WHITE);
 	}
 	time++;
 }

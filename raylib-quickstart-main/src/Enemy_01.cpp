@@ -15,7 +15,7 @@ EN01::EN01()
     velocity.y = 5;
 
     EN_pos = { 16.0f, 0.0f, 12.0f, 16.0f };
-    EN_texture = LoadTexture("Sprites/idle.png");
+    EN_texture = LoadTexture("Sprites/enemics/globus.png");
 }
 EN01:: ~EN01() {
 

@@ -116,7 +116,7 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		if (IsKeyPressed(KEY_ENTER) && screen == 0 || screens[screen]->nextLevel() == true) {
+		if (IsKeyPressed(KEY_ENTER) || screens[screen]->nextLevel() == true) {
 			loadNextScreen();
 		}
 		UpdateMusicStream(screens[screen]->bgm);

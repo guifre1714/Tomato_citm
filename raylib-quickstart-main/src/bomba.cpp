@@ -1,11 +1,13 @@
 #include <bomba.h>
 
-Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs,bool *playerBomb) {
+Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs, vector <Vector2>* positions) {
 	bombPos = pos;
 	boom = false;
 	plus = potenciada;
 	blocs = pBlocs;
-	bombActive = playerBomb;
+	bombActive = true;
+	boomTime = 120;
+	time = 0;
 	bombTEXT = LoadTexture("Sprites/bombAni.png");
 	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
 
@@ -29,6 +31,9 @@ Bomba::~Bomba() {
 }
 
 void Bomba::Draw() {
+	if (time >= boomTime) {
+		boom = true;
+	}
 	frameContador++;
 	if (frameContador >= (60 / frameSpeed)) {
 		frameContador = 0;
@@ -38,7 +43,7 @@ void Bomba::Draw() {
 			currentFrame = 0;
 		}
 		else if (currentFrame > totalFrames && totalFrames > 3) {
-			*bombActive = false;
+			bombActive = false;
 		}
 		frameRec.x = (float)currentFrame * ampladaFrames;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
 	}
@@ -55,6 +60,7 @@ void Bomba::Draw() {
 	if (expandRight) {
 		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
 	}
+	time++;
 }
 
 void Bomba::KaboomCheck() {

@@ -7,9 +7,9 @@
 #include <limits>
 
 Player::Player() {
-	bombExist = false;
 	isAlive = true;
 	bombPlus = false;
+	maxBombs = 1;
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	bombSound = LoadSound("SFX/bomb.wav");
 	vel = 0.8f;
@@ -47,12 +47,14 @@ void Player::Draw() {
 		}
 		frameRecB.x = (float)currentFrameB * ampladaFrames;//ampladaFrames = (float)Texture.Width/num requadres a dividir
 	}
-	if (bombs.size() > 0 && !bombExist) {
-		bombs.erase(bombs.begin());
+	for (int i = 0; i < bombs.size(); i++) {
+		if (bombs[i].bombActive == false) {
+			bombs.erase(bombs.begin() + i);
+		} else {
+			DrawTextureRec(bombs[i].bombTEXT, bombs[i].frameRec, bombs[i].bombPos, WHITE);
+		}
 	}
-	else if (bombExist) {
-		DrawTextureRec(bombs[0].bombTEXT, bombs[0].frameRec, bombs[0].bombPos, WHITE);
-	}
+
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 	DrawRectangle(myCollider.x, myCollider.y, myCollider.width, myCollider.height, GOLD);
 }
@@ -123,9 +125,9 @@ bool Player::Collide() {
 }
 
 void Player::createBomb() {
-	Bomba bomb(snapPositions[getClosestSnapIndex(bmanPos,snapPositions)], bombPlus, &colliders, &bombExist);
+	Bomba bomb(snapPositions[getClosestSnapIndex(bmanPos,snapPositions)], bombPlus, &colliders, &snapPositions);
+	snapPositions.erase(snapPositions.begin() + getClosestSnapIndex(bmanPos, snapPositions));
 	bombs.insert(bombs.end(), bomb);
-	bombExist = true;
 	PlaySound(bombSound);
 }
 

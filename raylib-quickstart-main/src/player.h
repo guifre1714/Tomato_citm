@@ -40,12 +40,13 @@ public:
 	Rectangle myCollider;
 
 	int currentFrameB;
-	int frameContadorB ;
+	int frameContadorB;
 	int frameSpeedB; //marca la velocitat dels FPS
 	int totalFrames;
 	int ampladaFrames;
 
-	bool bombExist;
+	int maxBombs;
+
 	bool bombPlus;
 
 	bool isAlive;

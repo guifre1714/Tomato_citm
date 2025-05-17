@@ -3,14 +3,12 @@
 using namespace std;
 
 int i = 0;
-int j = 0;
 
 Game::Game()
 {
 	Player player;
 	bomberman = player;
 	instantiateCoses();
-	j = 120;
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
@@ -90,17 +88,10 @@ void Game::HandleInput() {
 		else {
 			bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
 		}
-		if (IsKeyPressed(KEY_X) && bomberman.bombExist == false) {
-			if (j > 120) {
-				bomberman.createBomb();
-				j = 0;
-			}
-		}
-		if (j > 120 && bomberman.bombExist == true) {
-			bomberman.bombs[0].boom = true;
+		if (IsKeyPressed(KEY_X) && bomberman.bombs.size()<bomberman.maxBombs) {
+			bomberman.createBomb();
 		}
 		i++;
-		j++;
 	}
 }
 

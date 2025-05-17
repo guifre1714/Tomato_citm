@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include <bomba.h>
 #include <collider.h>
+
 using namespace std;
 
 class Player {

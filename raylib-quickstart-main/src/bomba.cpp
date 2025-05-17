@@ -1,6 +1,6 @@
 #include <bomba.h>
 
-Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs, vector <Vector2>* positions) {
+Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
 	bombPos = pos;
 	boom = false;
 	plus = potenciada;
@@ -25,6 +25,7 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs, vector <Ve
 	expandDown = true;
 	expandLeft = true;
 	expandRight = true;
+	hitBox = { bombPos.x + 1, bombPos.y - 1, 13, 13 };
 }
 
 Bomba::~Bomba() {

@@ -7,12 +7,13 @@ using namespace std;
 
 class Bomba {
 public:
-	Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs, vector <Vector2>* positions);
+	Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs);
 	~Bomba();
 
 	void Draw();
 	void KaboomCheck();
 	Rectangle rectUp, rectDown, rectRight, rectLeft;
+	Rectangle hitBox;
 	bool colUp, colDown, colLeft, colRight, expandUp, expandDown, expandLeft, expandRight;
 	Vector2 bombPos;
 	Texture bombTEXT;

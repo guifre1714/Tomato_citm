@@ -49,6 +49,7 @@ void Player::Draw() {
 	}
 	for (int i = 0; i < bombs.size(); i++) {
 		if (bombs[i].bombActive == false) {
+			snapPositions.insert(snapPositions.begin(), bombs[i].bombPos);
 			bombs.erase(bombs.begin() + i);
 		} else {
 			DrawTextureRec(bombs[i].bombTEXT, bombs[i].frameRec, bombs[i].bombPos, WHITE);
@@ -125,10 +126,12 @@ bool Player::Collide() {
 }
 
 void Player::createBomb() {
-	Bomba bomb(snapPositions[getClosestSnapIndex(bmanPos,snapPositions)], bombPlus, &colliders, &snapPositions);
-	snapPositions.erase(snapPositions.begin() + getClosestSnapIndex(bmanPos, snapPositions));
-	bombs.insert(bombs.end(), bomb);
-	PlaySound(bombSound);
+	if (!bombCheck()) {
+		Bomba bomb(snapPositions[getClosestSnapIndex(bmanPos, snapPositions)], bombPlus, &colliders);
+		snapPositions.erase(snapPositions.begin() + getClosestSnapIndex(bmanPos, snapPositions));
+		bombs.insert(bombs.end(), bomb);
+		PlaySound(bombSound);
+	}
 }
 
 int Player::getClosestSnapIndex(const Vector2& point, const vector<Vector2>& snapPositions) {
@@ -149,4 +152,10 @@ float Player::distanceBetween(const Vector2& a, const Vector2& b) {
 	float dx = a.x - b.x;
 	float dy = a.y - b.y;
 	return std::sqrt(dx * dx + dy * dy);
+}
+
+bool Player::bombCheck() {
+	for (int i = 0; i < bombs.size(); i++) {
+		return CheckCollisionRecs(bombs[i].hitBox, myCollider);
+	}
 }

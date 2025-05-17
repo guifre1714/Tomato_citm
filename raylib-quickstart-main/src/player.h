@@ -50,6 +50,7 @@ public:
 	bool bombPlus;
 
 	bool isAlive;
+	bool bombCheck();
 
 	Rectangle frameRecB;
 

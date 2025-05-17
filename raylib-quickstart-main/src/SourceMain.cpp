@@ -97,17 +97,28 @@ void loadNextScreen() {
 		screens.erase(screens.begin() + i);
 	}*/
 	StopMusicStream(screens[screen]->bgm);
-	if (screen < 4) {
-		addGameToScreens(screens, screen, &vida, &screen);
-		screen++;
-		camera.target.x = 608;
-		camera.target.y = screenHeight / 2.0f - 20;
-		camera.offset.x = screenWidth / 2.0f;
-		camera.offset.y = screenHeight / 2.0f;
-		camera.rotation = 0.0f;
-		camera.zoom = 3.0f;
-		screens[screen]->bomberman.resetPlayer();
-	}
+	if (screen >= 0) {
+		if (screen == 1 || screen == 3 || screen == 5 || screen == 7) {
+			addGameToScreens(screens, screen, &vida, &screen);
+			screen++;
+			camera.target.x = 608;
+			camera.target.y = screenHeight / 2.0f - 20;
+			camera.offset.x = screenWidth / 2.0f;
+			camera.offset.y = screenHeight / 2.0f;
+			camera.rotation = 0.0f;
+			camera.zoom = 3.0f;
+			screens[screen]->bomberman.resetPlayer();
+		}
+		else {
+			screen++;
+			camera.target.x = screenWidth / 2.0f;
+			camera.target.y = screenHeight / 2.0f;
+			camera.offset.x = screenWidth / 2.0f;
+			camera.offset.y = screenHeight / 2.0f;
+			camera.rotation = 0.0f;
+			camera.zoom = 3.0f;
+		}
+	} 
 	else { 
 		screen = 0; 
 		camera.target.x = screenWidth / 2.0f;

@@ -124,7 +124,7 @@ void loadNextScreen() {
 			else {
 				screen++;
 				camera.target.x = screenWidth / 2.0f;
-				camera.target.y = screenHeight / 2.0f;
+				camera.target.y = screenHeight / 2.0f - 20;
 				camera.offset.x = screenWidth / 2.0f;
 				camera.offset.y = screenHeight / 2.0f;
 				camera.rotation = 0.0f;
@@ -172,6 +172,7 @@ int main()
 	camera.offset.y = screenHeight / 2.0f;
 	camera.rotation = 0.0f;
 	camera.zoom = 3.0f;
+	PlayMusicStream(screens[screen]->bgm);
 
 	while (!WindowShouldClose())
 	{

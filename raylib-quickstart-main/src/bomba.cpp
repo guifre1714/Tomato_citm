@@ -54,19 +54,15 @@ void Bomba::Draw() {
 	}
 	KaboomCheck();
 	if (expandUp) {
-		//DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, WHITE);
 		DrawTextureRec(expUp, frameRec, { rectUp.x,rectUp.y }, WHITE);
 	}
 	if (expandDown) {
-		//DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, WHITE);
 		DrawTextureRec(expDown, frameRec, { rectDown.x,rectDown.y }, WHITE);
 	}
 	if (expandLeft) {
-		//DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, WHITE);
 		DrawTextureRec(expLeft, frameRec, { rectLeft.x,rectLeft.y }, WHITE);
 	}
 	if (expandRight) {
-		//DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, WHITE);
 		DrawTextureRec(expRight, frameRec, { rectRight.x,rectRight.y }, WHITE);
 	}
 	time++;

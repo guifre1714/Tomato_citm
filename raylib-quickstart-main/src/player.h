@@ -47,7 +47,7 @@ public:
 	int totalFrames;
 	int ampladaFrames;
 
-	int maxBombs;
+	int* maxBombs;
 
 	bool bombPlus;
 

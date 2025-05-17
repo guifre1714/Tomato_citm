@@ -8,11 +8,12 @@
 #include <door.h>
 #include <speedUp.h>
 #include <powerUp.h>
+#include <bombUp.h>
 using namespace std;
 
 class Game : public Screen{
 public:
-	Game(int nivell, int* pLife, int* pScreen);
+	Game(int nivell, int* pLife, int* pScreen, int* pMBombs);
 	~Game();
 
 	void Draw();

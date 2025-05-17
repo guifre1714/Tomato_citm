@@ -9,7 +9,6 @@
 Player::Player() {
 	isAlive = true;
 	bombPlus = false;
-	maxBombs = 1;
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	bombSound = LoadSound("SFX/bomb.wav");
 	vel = 0.8f;
@@ -155,7 +154,7 @@ int Player::getClosestSnapIndex(const Vector2& point, const vector<Vector2>& sna
 float Player::distanceBetween(const Vector2& a, const Vector2& b) {
 	float dx = a.x - b.x;
 	float dy = a.y - b.y;
-	return std::sqrt(dx * dx + dy * dy);
+	return sqrt(dx * dx + dy * dy);
 }
 
 bool Player::bombCheck() {

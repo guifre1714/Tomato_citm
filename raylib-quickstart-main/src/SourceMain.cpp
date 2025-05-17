@@ -23,6 +23,7 @@ vector <Screen*> screens;
 int puntuacio = 0;
 int vida = 3;
 int contador = 200;
+int maxBombs = 1;
 float temps = 0.0f;
 const int fontSize = 65;
 
@@ -54,7 +55,7 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 	}
 
 	// Create and insert the new Game
-	Game* level = new Game(levelIndex + 1, vida, pantalla);
+	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs);
 	screenList.insert(screenList.begin() + nextIndex, level);
 }
 //void setUpScreens() {

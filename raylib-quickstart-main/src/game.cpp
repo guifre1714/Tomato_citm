@@ -4,12 +4,13 @@ using namespace std;
 
 int i = 0;
 
-Game::Game(int nivell, int* pLife, int* pScreen)
+Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs)
 {
 	level = nivell;
 	Player player;
 	bomberman = player;
 	bomberman.vides = pLife;
+	bomberman.maxBombs = pMBombs;
 	bomberman.pantalla = pScreen;
 	instantiateCoses();
 	Fons = LoadTexture("Sprites/Fons.png");
@@ -95,7 +96,7 @@ void Game::HandleInput() {
 		else {
 			bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
 		}
-		if (IsKeyPressed(KEY_X) && bomberman.bombs.size()<bomberman.maxBombs) {
+		if (IsKeyPressed(KEY_X) && bomberman.bombs.size()<*bomberman.maxBombs) {
 			bomberman.createBomb();
 		}
 		i++;
@@ -364,6 +365,12 @@ int l;
 		powerUps.insert(powerUps.begin(), speedUp);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
+	bombUp bombUp;
+	l = rand() % (powerUpPositions.size() - 1);
+	bombUp.col.x = powerUpPositions[l].x + 1;
+	bombUp.col.y = powerUpPositions[l].y + 1;
+	powerUps.insert(powerUps.begin(), bombUp);
+	powerUpPositions.erase(powerUpPositions.begin() + l);
 }
 
 void Game::Update() 
@@ -377,6 +384,10 @@ void Game::Update()
 		if (powerUps[i].playerCol(&bomberman)) {
 			if (powerUps[i].type == "speedUp") {
 				bomberman.vel += 0.2;
+				powerUps.erase(powerUps.begin() + i);
+			}
+			else if (powerUps[i].type == "bombUp") {
+				++(*bomberman.maxBombs);
 				powerUps.erase(powerUps.begin() + i);
 			}
 		}

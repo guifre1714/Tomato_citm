@@ -35,6 +35,10 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 		Menu* menu = new Menu();
 		screenList.insert(screenList.end(), menu);
 	}
+	Screen* stage1 = new Screen();
+	stage1->Fons = LoadTexture("Sprites/menu/stage1.png");
+	stage1->bgm = LoadMusicStream("music/02. Stage Start.mp3");
+	screenList.insert(screenList.end(), stage1);
 	return screenList;
 }
 void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {

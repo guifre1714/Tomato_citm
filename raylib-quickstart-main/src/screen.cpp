@@ -9,5 +9,5 @@ void Screen::Draw() {};
 void Screen::HandleInput() {};
 void Screen::Update() {};
 bool Screen::nextLevel() {
-	return false;
+	return true;
 };

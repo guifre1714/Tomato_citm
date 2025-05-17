@@ -10,6 +10,7 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
 	time = 0;
 	bombTEXT = LoadTexture("Sprites/bombAni.png");
 	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
+	myCollider.col = { bombPos.x + 1, bombPos.y - 1, 13, 13 };
 	expUp = LoadTexture("Sprites/explosions/expDalt.png");
 	expDown = LoadTexture("Sprites/explosions/expDown.png");
 	expLeft = LoadTexture("Sprites/explosions/expLeft.png");

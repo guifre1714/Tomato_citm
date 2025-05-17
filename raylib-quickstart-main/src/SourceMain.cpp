@@ -30,7 +30,59 @@ const int fontSize = 65;
 //Càmera
 Camera2D camera = { 0 };
 
+vector<Screen*> setUpScreens(int* vida, int* pantalla) {
+	vector<Screen*> screenList;
+	if (screen == 0 || screen == screens.size()-1) {
+		Menu* menu = new Menu();
+		screenList.insert(screenList.end(), menu);
+	}
+
+	for (int i = 0; i < 4; ++i) {
+		Game* level = new Game(i, vida, pantalla);
+		screenList.insert(screenList.end(), level);
+	}
+	return screenList;
+}
+//void setUpScreens() {
+//	Menu menu;
+//	screens.insert(screens.end(), &menu);
+//	for (int i = 0; i < 4; i++) {
+//		Game* level = new Game(i, &vida, &screen);
+//		screens.push_back(level);
+//	}
+//
+//	///*Screen inici, stage1, stage2, stage3, stage4, gameover;*/
+//	////screens.insert(screens.end(), &inici);
+//	//
+//	////screens.insert(screens.end(), &stage1);
+//	//screens.insert(screens.end(), &level1);
+//	////screens.insert(screens.end(), &stage2);
+//	//screens.insert(screens.end(), &level2);
+//	//////screens.insert(screens.end(), &stage3);
+//	//screens.insert(screens.end(), &level3);
+//	//////screens.insert(screens.end(), &stage4);
+//	//screens.insert(screens.end(), &level4);
+//
+//#pragma region Declaracio Screens
+//	/*stage1.Fons = LoadTexture("Sprites/menu/stage1.png");
+//	stage1.bgm= LoadMusicStream("music/02. Stage Start.mp3");
+//
+//	stage2.Fons = LoadTexture("Sprites/menu/stage2.png");
+//	stage2.bgm = LoadMusicStream("music/02. Stage Start.mp3");
+//
+//	stage3.Fons = LoadTexture("Sprites/menu/stage3.png");
+//	stage3.bgm = LoadMusicStream("music/02. Stage Start.mp3");
+//
+//	stage4.Fons = LoadTexture("Sprites/menu/stage4.png");
+//	stage4.bgm = LoadMusicStream("music/02. Stage Start.mp3");*/
+//#pragma endregion
+//	PlayMusicStream(screens[screen]->bgm);
+//}
 void loadNextScreen() {
+	/*for (int i = 0; i < screens.size(); i++) {
+		screens.erase(screens.begin() + i);
+	}*/
+	screens = setUpScreens(&vida, &screen);
 	StopMusicStream(screens[screen]->bgm);
 	if (screen != screens.size() - 1) {
 		screen++;
@@ -86,39 +138,7 @@ int main()
 	SearchAndSetResourceDir("resources");
 	SetTargetFPS(60);
 
-	//vectors
-	Menu menu;
-	Game level1(1, &vida, &screen);
-	Game level2(2, &vida, &screen);
-	Game level3(3, &vida, &screen);
-	Game level4(4, &vida, &screen);
-	/*Screen inici, stage1, stage2, stage3, stage4, gameover;*/
-	//screens.insert(screens.end(), &inici);
-	screens.insert(screens.end(), &menu);
-	//screens.insert(screens.end(), &stage1);
-	screens.insert(screens.end(), &level1);
-	//screens.insert(screens.end(), &stage2);
-	screens.insert(screens.end(), &level2);
-	////screens.insert(screens.end(), &stage3);
-	screens.insert(screens.end(), &level3);
-	////screens.insert(screens.end(), &stage4);
-	screens.insert(screens.end(), &level4);
-
-#pragma region Declaracio Screens
-	/*stage1.Fons = LoadTexture("Sprites/menu/stage1.png");
-	stage1.bgm= LoadMusicStream("music/02. Stage Start.mp3");
-
-	stage2.Fons = LoadTexture("Sprites/menu/stage2.png");
-	stage2.bgm = LoadMusicStream("music/02. Stage Start.mp3");
-
-	stage3.Fons = LoadTexture("Sprites/menu/stage3.png");
-	stage3.bgm = LoadMusicStream("music/02. Stage Start.mp3");
-
-	stage4.Fons = LoadTexture("Sprites/menu/stage4.png");
-	stage4.bgm = LoadMusicStream("music/02. Stage Start.mp3");*/
-#pragma endregion
-
-	PlayMusicStream(screens[screen]->bgm);
+	screens = setUpScreens(&vida, &screen);
 
 	camera.target.x = screenWidth / 2.0f;
 	camera.target.y = screenHeight / 2.0f;

@@ -33,10 +33,7 @@ void Game::Draw() {
 		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
 	}*/
 	
-	door.Draw();
-	for (int i = 0; i < powerUps.size(); i++) {
-		powerUps[i].Draw();
-	}
+	
 	for (int k = 0; k <= bomberman.colliders.size() - 1; k++) {
 		if (bomberman.colliders[k].breakable) {
 
@@ -49,6 +46,10 @@ void Game::Draw() {
 		{
 			enemic[i].Draw();
 		}
+	}
+	door.Draw();
+	for (int i = 0; i < powerUps.size(); i++) {
+		powerUps[i].Draw();
 	}
 	bomberman.Draw();
 	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
@@ -355,7 +356,7 @@ int l;
 	door.col.x = powerUpPositions[l].x + 1;
 	door.col.y = powerUpPositions[l].y + 1;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
-	if (level == 4) {
+	if (level == 3) {
 		speedUp speedUp;
 		l = rand() % (powerUpPositions.size() - 1);
 		speedUp.col.x = powerUpPositions[l].x + 1;

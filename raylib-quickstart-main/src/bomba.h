@@ -23,7 +23,7 @@ public:
 	Texture expDown;
 	Texture expLeft;
 	Texture expRight;
-
+	Collider myCollider;
 	bool bombActive;
 	bool boom;
 	bool plus;

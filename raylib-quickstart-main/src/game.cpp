@@ -4,8 +4,9 @@ using namespace std;
 
 int i = 0;
 
-Game::Game()
+Game::Game(int nivell)
 {
+	level = nivell;
 	Player player;
 	bomberman = player;
 	instantiateCoses();
@@ -31,6 +32,9 @@ void Game::Draw() {
 	}*/
 	
 	door.Draw();
+	for (int i = 0; i < powerUps.size(); i++) {
+		powerUps[i].Draw();
+	}
 	for (int k = 0; k <= bomberman.colliders.size() - 1; k++) {
 		if (bomberman.colliders[k].breakable) {
 
@@ -350,16 +354,33 @@ int l;
 	door.col.x = powerUpPositions[l].x + 1;
 	door.col.y = powerUpPositions[l].y + 1;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
+	if (level == 4) {
+		speedUp speedUp;
+		l = rand() % (powerUpPositions.size() - 1);
+		speedUp.col.x = powerUpPositions[l].x + 1;
+		speedUp.col.y = powerUpPositions[l].y + 1;
+		powerUps.insert(powerUps.begin(), speedUp);
+		powerUpPositions.erase(powerUpPositions.begin() + l);
+	}
 }
 
 void Game::Update() 
 {
-	for (int i = 0; i <= enemic.size() - 1; i++)
+	/*for (int i = 0; i <= enemic.size() - 1; i++)
 	{
 		enemic[i].Update(bomberman.colliders);
+	}*/
+	for (int i = 0; i < powerUps.size(); i++)
+	{
+		if (powerUps[i].playerCol(&bomberman)) {
+			if (powerUps[i].type == "speedUp") {
+				bomberman.vel += 0.2;
+				powerUps.erase(powerUps.begin() + i);
+			}
+		}
 	}
 }
 
 bool Game::nextLevel() {
-	return door.nextLevel(&bomberman);
+	return door.playerCol(&bomberman);
 }

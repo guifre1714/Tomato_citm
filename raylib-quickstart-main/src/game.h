@@ -7,11 +7,13 @@
 #include <breakable.h>
 #include <bomba.h>
 #include <door.h>
+#include <speedUp.h>
+#include <powerUp.h>
 using namespace std;
 
 class Game : public Screen{
 public:
-	Game();
+	Game(int nivell);
 	~Game();
 
 	void Draw();
@@ -20,6 +22,7 @@ public:
 	bool nextLevel();
 	void instantiateCoses();
 
+	int level;
 	Sound walk;
 	Sound walkUp;
 	vector<EN01> enemic;
@@ -27,6 +30,7 @@ public:
 	vector <Vector2> spawnPos;
 	vector <Vector2> powerUpPositions;
 	Door door;
+	vector <powerUp> powerUps;
 #pragma region Colliders
 	Collider col1;
 	Collider col2;

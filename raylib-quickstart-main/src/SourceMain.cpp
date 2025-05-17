@@ -78,7 +78,10 @@ int main()
 
 	//vectors
 	Menu menu;
-	Game level1, level2, level3, level4;
+	Game level1(1);
+	Game level2(2);
+	Game level3(3);
+	Game level4(4);
 	/*Screen inici, stage1, stage2, stage3, stage4, gameover;*/
 	//screens.insert(screens.end(), &inici);
 	screens.insert(screens.end(), &menu);
@@ -139,6 +142,7 @@ int main()
 		int textw4 = MeasureText(TIMEText.c_str(), 50);
 
 		screens[screen]->HandleInput();
+		screens[screen]->Update();
 
 		BeginDrawing();
 		

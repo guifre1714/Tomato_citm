@@ -1,12 +1,10 @@
 #pragma once
-#include <collider.h>
-#include <Enemy_01.h>
-#include <player.h>
+#include <powerUp.h>
 
-class Door : public Collider {
+class Door : public powerUp {
 public:
 	Door();
 	~Door();
-	bool nextLevel(Player* player);
+	bool playerCol(Player* player);
 	/*vector <EN01>* enemies;*/
 };

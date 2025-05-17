@@ -57,7 +57,6 @@ void Player::Draw() {
 	}
 
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
-	DrawRectangle(myCollider.x, myCollider.y, myCollider.width, myCollider.height, GOLD);
 }
 
 void Player::Dead() {

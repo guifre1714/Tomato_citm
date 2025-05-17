@@ -110,26 +110,28 @@ void loadNextScreen() {
 			screens[screen]->bomberman.resetPlayer();
 		}
 		else {
-			screen++;
-			camera.target.x = screenWidth / 2.0f;
-			camera.target.y = screenHeight / 2.0f;
-			camera.offset.x = screenWidth / 2.0f;
-			camera.offset.y = screenHeight / 2.0f;
-			camera.rotation = 0.0f;
-			camera.zoom = 3.0f;
+			if (screen == screens.size() - 1) {
+				screen = 0;
+				camera.target.x = screenWidth / 2.0f;
+				camera.target.y = screenHeight / 2.0f;
+				camera.offset.x = screenWidth / 2.0f;
+				camera.offset.y = screenHeight / 2.0f;
+				camera.rotation = 0.0f;
+				camera.zoom = 3.0f;
+				puntuacio = 0;
+				vida = 3;
+			}
+			else {
+				screen++;
+				camera.target.x = screenWidth / 2.0f;
+				camera.target.y = screenHeight / 2.0f;
+				camera.offset.x = screenWidth / 2.0f;
+				camera.offset.y = screenHeight / 2.0f;
+				camera.rotation = 0.0f;
+				camera.zoom = 3.0f;
+			}
 		}
 	} 
-	else { 
-		screen = 0; 
-		camera.target.x = screenWidth / 2.0f;
-		camera.target.y = screenHeight / 2.0f;
-		camera.offset.x = screenWidth / 2.0f;
-		camera.offset.y = screenHeight / 2.0f;
-		camera.rotation = 0.0f;
-		camera.zoom = 3.0f;
-		puntuacio = 0;
-		vida = 3;
-	}
 	PlayMusicStream(screens[screen]->bgm);
 	contador = 200;
 	temps = 0.0f;

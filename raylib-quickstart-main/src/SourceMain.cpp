@@ -121,6 +121,7 @@ void loadNextScreen() {
 				camera.zoom = 3.0f;
 				puntuacio = 0;
 				vida = 3;
+				maxBombs = 1;
 			}
 			else {
 				screen++;
@@ -148,6 +149,7 @@ void screenManagement() {
 		camera.zoom = 3.0f;
 		puntuacio = 0;
 		vida = 3;
+		maxBombs = 1;
 		PlayMusicStream(screens[screen]->bgm);
 		contador = 200;
 		temps = 0.0f;

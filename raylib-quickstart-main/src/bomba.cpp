@@ -19,6 +19,10 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs,bool *playe
 	!colDown;
 	!colLeft;
 	!colRight;
+	expandUp = true;
+	expandDown = true;
+	expandLeft = true;
+	expandRight = true;
 }
 
 Bomba::~Bomba() {
@@ -39,6 +43,18 @@ void Bomba::Draw() {
 		frameRec.x = (float)currentFrame * ampladaFrames;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
 	}
 	KaboomCheck();
+	if (expandUp) {
+		DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
+	}
+	if (expandDown) {
+		DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, RED);
+	}
+	if (expandLeft) {
+		DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, RED);
+	}
+	if (expandRight) {
+		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
+	}
 }
 
 void Bomba::KaboomCheck() {
@@ -46,10 +62,6 @@ void Bomba::KaboomCheck() {
 		//aqui has d canviar la textura de la bomba x la de la explosio. els rectangles son els dels colliders, no necessariament tenen la mateixa mida que les textures. per veure referencia del que he dit mira el breakable.h i breakable.cpp
 		totalFrames = 4;
 		frameSpeed = 8;
-		expandUp = true;
-		expandDown = true;
-		expandLeft = true;
-		expandRight = true;
 		rectUp = { bombPos.x, bombPos.y - 16, 16, 16 };
 		rectDown = { bombPos.x, bombPos.y + 16, 16, 16 };
 		rectLeft = { bombPos.x - 16, bombPos.y, 16, 16 };
@@ -87,18 +99,6 @@ void Bomba::KaboomCheck() {
 				}
 				expandRight = false;
 			}
-		}
-		if (expandUp) {
-			DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
-		}
-		if (expandDown) {
-			DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, RED);
-		}
-		if (expandLeft) {
-			DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, RED);
-		}
-		if (expandRight) {
-			DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
 		}
 	}
 }

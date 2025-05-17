@@ -6,6 +6,7 @@
 #include <Enemy_01.h>
 #include <breakable.h>
 #include <bomba.h>
+#include <door.h>
 using namespace std;
 
 class Game : public Screen{
@@ -18,11 +19,14 @@ public:
 	void HandleInput();
 	void instantiateCoses();
 
+	Door door;
+
 	Sound walk;
 	Sound walkUp;
 	vector<EN01> enemic;
 
 	vector <Vector2> spawnPos;
+	vector <Vector2> powerUpPositions;
 #pragma region Colliders
 	Collider col1;
 	Collider col2;

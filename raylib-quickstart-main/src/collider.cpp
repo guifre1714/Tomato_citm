@@ -19,7 +19,7 @@ void Collider::Draw() {
 			frameContador = 0;
 			currentFrame++;
 
-			if (currentFrame > 7) {
+			if (currentFrame > 5) {
 				destroy = true;
 			}
 			frameRec.x = (float)currentFrame * 16;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3

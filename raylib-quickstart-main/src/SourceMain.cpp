@@ -66,7 +66,6 @@ void loadNextScreen() {
 	contador = 200;
 	temps = 0.0f;
 }
-
 int main()
 {
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);

@@ -1,8 +1,4 @@
 #include<game.h>
-#include<bomba.h>
-#include <vector>
-#include <Enemy_01.h>
-#include <string>
 
 using namespace std;
 
@@ -19,7 +15,6 @@ Game::Game()
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
 	walkUp = LoadSound("SFX/walkUp.wav");
-
 	//enemic
 	EN01 enemy;
 	enemic.insert(enemic.end(), enemy);
@@ -37,7 +32,7 @@ void Game::Draw() {
 		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
 	}*/
 	
-
+	door.Draw();
 	for (int k = 0; k <= bomberman.colliders.size() - 1; k++) {
 		if (bomberman.colliders[k].breakable) {
 
@@ -344,6 +339,7 @@ int l;
 		l = rand() % (spawnPos.size() - 1);
 		cout << endl << spawnPos.size()<< endl << l;
 		Breakable bloc(spawnPos[l]);
+		powerUpPositions.insert(powerUpPositions.end(), spawnPos[l]);
 		bomberman.colliders.insert(bomberman.colliders.end(), bloc);
 	}
 	bomberman.snapPositions = spawnPos;
@@ -359,6 +355,10 @@ int l;
 	pos3.x = 408;
 	pos3.y = 288;
 	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos3);
+	l = rand() % (powerUpPositions.size() - 1);
+	door.col.x = powerUpPositions[l].x + 1;
+	door.col.y = powerUpPositions[l].y + 1;
+	powerUpPositions.erase(powerUpPositions.begin() + l);
 }
 
 void Game::Update() 

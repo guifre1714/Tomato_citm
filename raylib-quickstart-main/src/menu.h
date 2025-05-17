@@ -10,4 +10,5 @@ public:
 	void Draw();
 	void Update();
 	void HandleInput();
+	bool nextLevel();
 };

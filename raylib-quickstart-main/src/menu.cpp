@@ -27,3 +27,7 @@ void Menu::HandleInput() {
 void Menu::Update() {
 
 }
+
+bool Menu::nextLevel() {
+	return false;
+};

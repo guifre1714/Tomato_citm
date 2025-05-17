@@ -116,10 +116,9 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		if (IsKeyPressed(KEY_ENTER)) {
+		if (IsKeyPressed(KEY_ENTER) && screen == 0 || screens[screen]->nextLevel() == true) {
 			loadNextScreen();
 		}
-
 		UpdateMusicStream(screens[screen]->bgm);
 
 		//interficie superior

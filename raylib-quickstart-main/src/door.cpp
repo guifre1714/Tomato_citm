@@ -16,3 +16,7 @@ Door::Door() {
 	col.width = 13;
 };
 Door::~Door() {};
+
+bool Door::nextLevel(Player* player) {
+	return CheckCollisionRecs(col, player->myCollider);
+};

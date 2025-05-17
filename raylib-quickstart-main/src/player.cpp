@@ -18,6 +18,7 @@ Player::Player() {
 	bmanPos.y = 272;
 	
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 15 };
+	myCollider = { bmanPos.x, bmanPos.y, 11, 14 };
 
 	frameRecB = { 0.0f, 0.0f, 12.0f, 16.0f };
 
@@ -35,6 +36,7 @@ Player::~Player() {
 
 
 void Player::Draw() {
+	myCollider.x = bmanPos.x+1; myCollider.y = bmanPos.y+1;
 	frameContadorB ++;
 	if (frameContadorB >= (60 / frameSpeedB)) {
 		frameContadorB = 0;
@@ -52,6 +54,7 @@ void Player::Draw() {
 		DrawTextureRec(bombs[0].bombTEXT, bombs[0].frameRec, bombs[0].bombPos, WHITE);
 	}
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
+	DrawRectangle(myCollider.x, myCollider.y, myCollider.width, myCollider.height, GOLD);
 }
 
 void Player::Dead() {

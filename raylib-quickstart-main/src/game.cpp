@@ -368,3 +368,7 @@ void Game::Update()
 		enemic[i].Update(bomberman.colliders);
 	}
 }
+
+bool Game::nextLevel() {
+	return door.nextLevel(&bomberman);
+}

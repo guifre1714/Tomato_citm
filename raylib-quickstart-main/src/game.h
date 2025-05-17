@@ -17,9 +17,8 @@ public:
 	void Draw();
 	void Update();
 	void HandleInput();
+	bool nextLevel();
 	void instantiateCoses();
-
-	Door door;
 
 	Sound walk;
 	Sound walkUp;
@@ -27,6 +26,7 @@ public:
 
 	vector <Vector2> spawnPos;
 	vector <Vector2> powerUpPositions;
+	Door door;
 #pragma region Colliders
 	Collider col1;
 	Collider col2;

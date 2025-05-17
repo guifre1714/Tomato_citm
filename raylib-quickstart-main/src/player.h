@@ -37,6 +37,7 @@ public:
 	vector <Vector2> snapPositions;
 
 	Rectangle bmanCol;
+	Rectangle myCollider;
 
 	int currentFrameB;
 	int frameContadorB ;

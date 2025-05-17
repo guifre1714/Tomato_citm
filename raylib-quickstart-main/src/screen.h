@@ -12,6 +12,7 @@ public:
 	virtual void Draw();
 	virtual void Update();
 	virtual void HandleInput();
+	virtual bool nextLevel();
 	Music bgm;
 	Player bomberman;
 	Texture Fons;

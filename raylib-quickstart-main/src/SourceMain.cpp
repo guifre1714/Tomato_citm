@@ -197,7 +197,7 @@ int main()
 
 		BeginDrawing();
 		
-		if (screen != 0 && screen < 5) {
+		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7) {
 			ClearBackground(GRAY);
 			DrawText(puntuacioText.c_str(), screenWidth - textw1 - 550, 32, 65, BLACK);
 			DrawText(vidaText.c_str(), screenWidth - textw2 - 110, 32, 65, BLACK);

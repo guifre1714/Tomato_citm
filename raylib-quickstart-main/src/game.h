@@ -4,7 +4,6 @@
 #include <screen.h>
 #include <breakable.h>
 #include <Enemy_01.h>
-#include <breakable.h>
 #include <bomba.h>
 #include <door.h>
 #include <speedUp.h>
@@ -13,7 +12,7 @@ using namespace std;
 
 class Game : public Screen{
 public:
-	Game(int nivell);
+	Game(int nivell, int* pLife, int* pScreen);
 	~Game();
 
 	void Draw();

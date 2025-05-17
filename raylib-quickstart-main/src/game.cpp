@@ -4,11 +4,13 @@ using namespace std;
 
 int i = 0;
 
-Game::Game(int nivell)
+Game::Game(int nivell, int* pLife, int* pScreen)
 {
 	level = nivell;
 	Player player;
 	bomberman = player;
+	bomberman.vides = pLife;
+	bomberman.pantalla = pScreen;
 	instantiateCoses();
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
@@ -332,7 +334,6 @@ int l;
 #pragma endregion
 	for (int k = 0; k < (rand() % 146) + 100; k++) {
 		l = rand() % (spawnPos.size() - 1);
-		cout << endl << spawnPos.size()<< endl << l;
 		Breakable bloc(spawnPos[l]);
 		powerUpPositions.insert(powerUpPositions.end(), spawnPos[l]);
 		bomberman.colliders.insert(bomberman.colliders.end(), bloc);

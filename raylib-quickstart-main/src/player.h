@@ -22,6 +22,8 @@ public:
 
 	void createBomb();
 
+	void resetPlayer();
+
 	float distanceBetween(const Vector2& a, const Vector2& b);
 	int getClosestSnapIndex(const Vector2& point, const vector<Vector2>& snapPositions);
 
@@ -50,6 +52,8 @@ public:
 	bool bombPlus;
 
 	bool isAlive;
+	int* vides;
+	int* pantalla;
 	bool bombCheck();
 
 	Rectangle frameRecB;

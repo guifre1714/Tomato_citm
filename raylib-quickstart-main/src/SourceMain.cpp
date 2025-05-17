@@ -40,16 +40,7 @@ void loadNextScreen() {
 		camera.offset.y = screenHeight / 2.0f;
 		camera.rotation = 0.0f;
 		camera.zoom = 3.0f;
-		screens[screen]->bomberman.bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
-		screens[screen]->bomberman.bmanPos.y = 272;
-
-		screens[screen]->bomberman.bmanCol = { screens[screen]->bomberman.bmanPos.x, screens[screen]->bomberman.bmanPos.y, 12, 15 };
-
-		screens[screen]->bomberman.frameRecB = { 0.0f, 0.0f, 12.0f, 16.0f };
-
-		screens[screen]->bomberman.currentFrameB = 0;
-		screens[screen]->bomberman.frameContadorB = 0;
-		screens[screen]->bomberman.frameSpeedB = 8; //marca la velocitat dels FPS
+		screens[screen]->bomberman.resetPlayer();
 	}
 	else { 
 		screen = 0; 
@@ -66,6 +57,25 @@ void loadNextScreen() {
 	contador = 200;
 	temps = 0.0f;
 }
+void screenManagement() {
+	if (vida == 0) {
+		screen = vida;
+		camera.target.x = screenWidth / 2.0f;
+		camera.target.y = screenHeight / 2.0f;
+		camera.offset.x = screenWidth / 2.0f;
+		camera.offset.y = screenHeight / 2.0f;
+		camera.rotation = 0.0f;
+		camera.zoom = 3.0f;
+		puntuacio = 0;
+		vida = 3;
+		PlayMusicStream(screens[screen]->bgm);
+		contador = 200;
+		temps = 0.0f;
+	}
+	if (IsKeyPressed(KEY_ENTER) || screens[screen]->nextLevel() == true) {
+		loadNextScreen();
+	}
+}
 int main()
 {
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
@@ -78,10 +88,10 @@ int main()
 
 	//vectors
 	Menu menu;
-	Game level1(1);
-	Game level2(2);
-	Game level3(3);
-	Game level4(4);
+	Game level1(1, &vida, &screen);
+	Game level2(2, &vida, &screen);
+	Game level3(3, &vida, &screen);
+	Game level4(4, &vida, &screen);
 	/*Screen inici, stage1, stage2, stage3, stage4, gameover;*/
 	//screens.insert(screens.end(), &inici);
 	screens.insert(screens.end(), &menu);
@@ -119,11 +129,8 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		if (IsKeyPressed(KEY_ENTER) || screens[screen]->nextLevel() == true) {
-			loadNextScreen();
-		}
 		UpdateMusicStream(screens[screen]->bgm);
-
+		screenManagement();
 		//interficie superior
 		float delta = GetFrameTime();
 		temps += delta;

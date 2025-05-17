@@ -42,8 +42,13 @@ void Player::Draw() {
 		frameContadorB = 0;
 		currentFrameB ++;
 
-		if (currentFrameB > totalFrames) {
-			currentFrameB = 0;
+		if (currentFrameB > totalFrames -1) {
+			if (isAlive) {
+				currentFrameB = 0;
+			} else {
+				--(*pantalla);
+				--(*vides);
+			}
 		}
 		frameRecB.x = (float)currentFrameB * ampladaFrames;//ampladaFrames = (float)Texture.Width/num requadres a dividir
 	}
@@ -157,4 +162,21 @@ bool Player::bombCheck() {
 	for (int i = 0; i < bombs.size(); i++) {
 		return CheckCollisionRecs(bombs[i].hitBox, myCollider);
 	}
+}
+
+void Player::resetPlayer() {
+	isAlive = true;
+	bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
+	bmanPos.y = 272;
+	bmanTXT = LoadTexture("Sprites/idle.png");
+
+	bmanCol = { bmanPos.x, bmanPos.y, 12, 15 };
+
+	frameRecB = { 0.0f, 0.0f, 12.0f, 16.0f };
+
+	currentFrameB = 0;
+
+	totalFrames = 3;
+	ampladaFrames = 12;
+	frameSpeedB = 8; //marca la velocitat dels FPS
 }

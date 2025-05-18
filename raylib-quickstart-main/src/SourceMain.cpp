@@ -141,8 +141,8 @@ void loadNextScreen() {
 			}
 			else {
 				screen++;
-				camera.target.x = screenWidth / 2.0f;
-				camera.target.y = screenHeight / 2.0f - 20;
+				camera.target.x = (screenWidth / 2.0f);
+				camera.target.y = screenHeight / 2.0f;
 				camera.offset.x = screenWidth / 2.0f;
 				camera.offset.y = screenHeight / 2.0f;
 				camera.rotation = 0.0f;
@@ -196,7 +196,15 @@ int main()
 	while (!WindowShouldClose())
 	{
 		if (auxScreen != screen) {
-			PlayMusicStream(screens[screen]->bgm);
+			if (vida != 0) {
+				PlayMusicStream(screens[screen]->bgm);
+				camera.target.x = (screenWidth / 2.0f);
+				camera.target.y = screenHeight / 2.0f;
+				camera.offset.x = screenWidth / 2.0f;
+				camera.offset.y = screenHeight / 2.0f;
+				camera.rotation = 0.0f;
+				camera.zoom = 3.0f;
+			}
 			auxScreen = screen;
 		}
 		UpdateMusicStream(screens[screen]->bgm);

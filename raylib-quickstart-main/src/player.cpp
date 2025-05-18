@@ -45,6 +45,9 @@ void Player::Draw() {
 			if (isAlive) {
 				currentFrameB = 0;
 			} else {
+				if ((*maxBombs) > 1) {
+					--(*maxBombs);
+				}
 				--(*pantalla);
 				--(*vides);
 			}

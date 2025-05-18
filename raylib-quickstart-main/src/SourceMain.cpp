@@ -17,6 +17,7 @@ const int screenWidth = 1280;
 const int screenHeight = 720;
 
 int screen = 0;
+int auxScreen = screen;
 vector <Screen*> screens;
 
 //interficie
@@ -194,6 +195,10 @@ int main()
 
 	while (!WindowShouldClose())
 	{
+		if (auxScreen != screen) {
+			PlayMusicStream(screens[screen]->bgm);
+			auxScreen = screen;
+		}
 		UpdateMusicStream(screens[screen]->bgm);
 		screenManagement();
 		//interficie superior

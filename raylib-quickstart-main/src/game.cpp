@@ -357,7 +357,7 @@ int l;
 	door.col.x = powerUpPositions[l].x + 1;
 	door.col.y = powerUpPositions[l].y + 1;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
-	if (level == 4) {
+	if (level == 8) {
 		speedUp speedUp;
 		l = rand() % (powerUpPositions.size() - 1);
 		speedUp.col.x = powerUpPositions[l].x + 1;

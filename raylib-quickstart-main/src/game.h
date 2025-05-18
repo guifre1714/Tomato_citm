@@ -9,12 +9,12 @@
 #include <speedUp.h>
 #include <powerUp.h>
 #include <bombUp.h>
-#include <random>
+
 using namespace std;
 
 class Game : public Screen{
 public:
-	Game(int nivell, int* pLife, int* pScreen, int* pMBombs, int seed);
+	Game(int nivell, int* pLife, int* pScreen, int* pMBombs);
 	~Game();
 
 	void Draw();
@@ -26,7 +26,7 @@ public:
 	int level;
 	Sound walk;
 	Sound walkUp;
-        mt19937 rng(seed);
+        
 	vector<EN01> enemic;
 
 	vector <Vector2> spawnPos;

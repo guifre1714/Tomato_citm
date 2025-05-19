@@ -21,7 +21,7 @@ EN01::EN01()
 
     currentFrameEN = 0;
     frameContadorEN = 0;
-    frameSpeedEN = 8; //marca la velocitat dels FPS
+    frameSpeedEN = 4; //marca la velocitat dels FPS
     totalFramesEN = 6;
     ampladaFramesEN = 16;
 }

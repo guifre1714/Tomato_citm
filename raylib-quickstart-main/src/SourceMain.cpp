@@ -60,18 +60,19 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 }
 void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {
 	int nextIndex = levelIndex + 1;
-
+	unsigned int seed = rand() % 500;
 	// Check if the next screen exists and is a Game and delete if so (i don't wwant to have 2 game screens back to back xd
 	if (nextIndex < screenList.size()) {
 		Game* gamePtr = dynamic_cast<Game*>(screenList[nextIndex]);
 		if (gamePtr != nullptr) {
+			seed = screenList[nextIndex]->mySeed;
 			delete screenList[nextIndex];          
 			screenList.erase(screenList.begin() + nextIndex);
 		}
 	}
 
 	// Create and insert the new Game
-	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs);
+	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed);
 	screenList.insert(screenList.begin() + nextIndex, level);
 }
 //void setUpScreens() {

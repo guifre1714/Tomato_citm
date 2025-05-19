@@ -16,4 +16,5 @@ public:
 	Music bgm;
 	Player bomberman;
 	Texture Fons;
+	unsigned int mySeed;
 };

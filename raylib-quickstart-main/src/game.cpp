@@ -4,7 +4,7 @@ using namespace std;
 
 int i = 0;
 
-Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs)
+Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed):rng(seed)
 {
 	level = nivell;
 	Player player;
@@ -12,6 +12,7 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs)
 	bomberman.vides = pLife;
 	bomberman.maxBombs = pMBombs;
 	bomberman.pantalla = pScreen;
+	mySeed = seed;
 	instantiateCoses();
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
@@ -334,8 +335,11 @@ int l;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 #pragma endregion
-	for (int k = 0; k < (rand() % 146) + 100; k++) {
-		l = rand() % (spawnPos.size() - 1);
+	uniform_int_distribution<int> numBlocs(100, 245);
+	int num = numBlocs(rng);
+	uniform_int_distribution<int> blocPos(0, spawnPos.size()-1);
+	for (int k = 0; k < num; k++) {
+		l = blocPos(rng);
 		Breakable bloc(spawnPos[l]);
 		powerUpPositions.insert(powerUpPositions.end(), spawnPos[l]);
 		bomberman.colliders.insert(bomberman.colliders.end(), bloc);
@@ -353,20 +357,21 @@ int l;
 	pos3.x = 408;
 	pos3.y = 288;
 	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos3);
-	l = rand() % (powerUpPositions.size() - 1);
+	uniform_int_distribution<int> pUpPos(0, powerUpPositions.size() - 1);
+	l = pUpPos(rng);
 	door.col.x = powerUpPositions[l].x + 1;
 	door.col.y = powerUpPositions[l].y + 1;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
 	if (level == 8) {
 		speedUp speedUp;
-		l = rand() % (powerUpPositions.size() - 1);
+		l = pUpPos(rng);
 		speedUp.col.x = powerUpPositions[l].x + 1;
 		speedUp.col.y = powerUpPositions[l].y + 1;
 		powerUps.insert(powerUps.begin(), speedUp);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
 	bombUp bombUp;
-	l = rand() % (powerUpPositions.size() - 1);
+	l = pUpPos(rng);
 	bombUp.col.x = powerUpPositions[l].x + 1;
 	bombUp.col.y = powerUpPositions[l].y + 1;
 	powerUps.insert(powerUps.begin(), bombUp);

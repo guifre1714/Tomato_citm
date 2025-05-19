@@ -35,5 +35,7 @@ public:
 	int boomTime;
 	int time;
 
+	bool isRemoteControl;
+
 	Sound BOOOOOM;
 };

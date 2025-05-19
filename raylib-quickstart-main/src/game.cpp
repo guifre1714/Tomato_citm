@@ -101,6 +101,12 @@ void Game::HandleInput() {
 		if (IsKeyPressed(KEY_X) && bomberman.bombs.size()<*bomberman.maxBombs) {
 			bomberman.createBomb();
 		}
+		/*
+		if (isRemoteControl==true){
+			if (IsKeyPressed(KEY_C){
+				boom=true;
+			}
+		*/
 		i++;
 	}
 }
@@ -413,6 +419,20 @@ void Game::Update()
 			}
 			else if (powerUps[i].type == "bombUp") {
 				++(*bomberman.maxBombs);
+				powerUps.erase(powerUps.begin() + i);
+			}
+			else if (powerUps[i].type == "remoteControl") {
+				//insert aqui q la bomba es detoni manualment
+				/*
+				cridar bool remoteControl dins de la bomba/player i canviarla a TRUE
+
+				*/
+
+				powerUps.erase(powerUps.begin() + i);
+			}
+			else if (powerUps[i].type == "wallPass") {
+				//insert q el bomberman pugui travessar blocs destruibles(soft blocs)
+				
 				powerUps.erase(powerUps.begin() + i);
 			}
 		}

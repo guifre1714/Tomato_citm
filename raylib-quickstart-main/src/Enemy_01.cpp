@@ -6,6 +6,8 @@
 #include <player.h>
 #include <ctime>
 #include <collider.h>
+#include <ctime>  
+
 
 using namespace std;
 
@@ -24,7 +26,7 @@ EN01::EN01(Vector2 position, vector<Collider>* colliders)
     frameSpeedEN = 4; //marca la velocitat dels FPS
     totalFramesEN = 6;
     ampladaFramesEN = 16;
-
+    timer = 0.0f;
 
 }
 EN01:: ~EN01() 
@@ -46,14 +48,12 @@ void EN01::Draw()
         }
         EN_frameRec.x = (float)currentFrameEN * ampladaFramesEN;//ampladaFrames = (float)Texture.Width/num requadres a dividir
     }
-    DrawRectangle(EN_hitbox.x+1, EN_hitbox.y+1, 13, 13, RED);
     DrawTextureRec(EN_texture, EN_frameRec, EN_pos, WHITE);
 }
     
 void EN01::Update()
 {
-    EN_hitbox = { EN_pos.x ,EN_pos.y, 13, 13 };
-
+    EN_hitbox = { EN_pos.x ,EN_pos.y, 16, 16 };
    /* for (int i = 0; i < collidersRef.size(); i++) {
         if (CheckCollisionRecs(EN_hitbox, collidersRef[i]->col)) {
             velocity.x = velocity.x * -1;
@@ -63,37 +63,43 @@ void EN01::Update()
             EN_pos.y += velocity.y;
         }
     }*/
-    if (direction <= 1) {
-        dir = "up";
+    int randomValue = 0;
+    const float interval = 1.0f;
+    srand(time(NULL));
+
+    float deltaTime = GetFrameTime();
+    timer += deltaTime;
+
+    if (timer >= interval) {
+        randomValue = GetRandomValue(1, 4);
+        timer = 0.0f;
+        direction = randomValue;
     }
-    else if (direction == 2) {
-        dir = "down";
-    }
-    else if (direction == 3) {
-        dir = "left";
-    }
-    else {
-        dir = "right";
-    }
-    if (dir == "up" && !Collide()) {
+    if (direction == 1 && !Collide()) {
         EN_pos.y -= velocity.y;
     }
-    if (!Collide()) {
+    else if (direction == 2 && !Collide()) {
+        EN_pos.y += velocity.y;
+    }
+    else if (direction == 3 && !Collide()) {
+        EN_pos.x -= velocity.x;
+    }
+    else if (direction == 4 && !Collide()) {
         EN_pos.x += velocity.x;
     }
 }
 
 bool EN01::Collide() {
     bool col;
-    if (dir == "up") {
+    if (direction == 1) {
         EN_hitbox.y = EN_pos.y - velocity.y;
         EN_hitbox.x = EN_pos.x;
     }
-    else if (dir == "down") {
+    else if (direction == 2) {
         EN_hitbox.y = EN_pos.y + velocity.y;
         EN_hitbox.x = EN_pos.x;
     }
-    else if (dir == "left") {
+    else if (direction == 3) {
         EN_hitbox.x = EN_pos.x - velocity.x;
         EN_hitbox.y = EN_pos.y;
     }
@@ -103,7 +109,12 @@ bool EN01::Collide() {
     }
     for (int i = 0; i < (*collidersRef).size(); i++) {
         col = CheckCollisionRecs(EN_hitbox, (*collidersRef)[i].col);
-        if (col) return true;
+        if (col) {
+            int randomValue = GetRandomValue(1, 4);
+            timer = 0.0f;
+            direction = randomValue;
+            return true;
+        }
     }
     if (!col) return false;
 }

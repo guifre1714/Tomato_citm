@@ -57,6 +57,7 @@ public:
 	int* vides;
 	int* pantalla;
 	bool bombCheck();
+	void bombDie();
 
 	Rectangle frameRecB;
 

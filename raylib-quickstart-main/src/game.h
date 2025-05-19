@@ -33,7 +33,7 @@ public:
 
 	bool* areRemoteControl;
         
-	vector<EN01> enemic;
+	vector<EN01> enemics;
 
 	vector <Vector2> spawnPos;
 	vector <Vector2> powerUpPositions;

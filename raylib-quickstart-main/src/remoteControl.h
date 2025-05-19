@@ -2,8 +2,9 @@
 
 class remoteControl :public powerUp {
 public:
-	remoteControl();
+	remoteControl(vector <Collider>* bColliders);
 	~remoteControl();
 
 	bool playerCol(Player* player);
+	vector <Collider>* blocs;
 };

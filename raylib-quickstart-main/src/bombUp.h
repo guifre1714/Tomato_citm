@@ -2,8 +2,9 @@
 
 class bombUp : public powerUp {
 public:
-	bombUp();
+	bombUp(vector <Collider>* bColliders);
 	~bombUp();
 
 	bool playerCol(Player* player);
+	vector <Collider>* blocs;
 };

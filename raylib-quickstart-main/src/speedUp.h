@@ -2,8 +2,9 @@
 
 class speedUp : public powerUp {
 public:
-	speedUp();
+	speedUp(vector <Collider>* bColliders);
 	~speedUp();
 
 	bool playerCol(Player* player);
+	vector <Collider>* blocs;
 };

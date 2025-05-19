@@ -2,8 +2,9 @@
 
 class wallPass :public powerUp {
 public:
-	wallPass();
+	wallPass(vector <Collider>* bColliders);
 	~wallPass();
 
 	bool playerCol(Player* player);
+	vector <Collider>* blocs;
 };

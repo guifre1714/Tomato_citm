@@ -51,8 +51,8 @@ void Game::Draw() {
 	for (int i = 0; i < powerUps.size(); i++) {
 		powerUps[i].Draw();
 	}
-	for (int i = 0; i < enemic.size(); i++) {
-		enemic[i].Draw();
+	for (int i = 0; i < enemics.size(); i++) {
+		enemics[i].Draw();
 	}
 	bomberman.Draw();
 	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
@@ -354,7 +354,7 @@ int l;
 		// Validació per seguretat
 		if (l >= 0 && l < spawnPos.size()) {
 			EN01 enemy(spawnPos[l], &bomberman.colliders, &bomberman);
-			enemic.push_back(enemy);
+			enemics.push_back(enemy);
 			spawnPos.erase(spawnPos.begin() + l);
 		}
 		else {
@@ -390,7 +390,7 @@ int l;
 	door.col.y = powerUpPositions[l].y + 1;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
 	if (level == 8) {
-		speedUp speedUp;
+		speedUp speedUp(&bomberman.colliders);
 		l = pUpPos(rng);
 		speedUp.col.x = powerUpPositions[l].x + 1;
 		speedUp.col.y = powerUpPositions[l].y + 1;
@@ -398,7 +398,7 @@ int l;
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
 	if (level == 6) {
-		remoteControl remoteControl;
+		remoteControl remoteControl(&bomberman.colliders);
 		l = pUpPos(rng);
 		remoteControl.col.x = powerUpPositions[l].x + 1;
 		remoteControl.col.y = powerUpPositions[l].y + 1;
@@ -406,14 +406,14 @@ int l;
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
 	if (level == 4) {
-		wallPass wallPass;
+		wallPass wallPass(&bomberman.colliders);
 		l = pUpPos(rng);
 		wallPass.col.x = powerUpPositions[l].x + 1;
 		wallPass.col.y = powerUpPositions[l].y + 1;
 		powerUps.insert(powerUps.begin(), wallPass);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
-	bombUp bombUp;
+	bombUp bombUp(&bomberman.colliders);
 	l = pUpPos(rng);
 	bombUp.col.x = powerUpPositions[l].x + 1;
 	bombUp.col.y = powerUpPositions[l].y + 1;
@@ -423,17 +423,17 @@ int l;
 
 void Game::Update() 
 {
-	for (int i = 0; i <= enemic.size() - 1; i++)
+	for (int i = 0; i <= enemics.size() - 1; i++)
 	{
-		enemic[i].Update();
+		enemics[i].Update();
 	}
+	/*for (int j = 0; j < bomberman.colliders.size(); j++) {
+		if (CheckCollisionRecs(powerUps[i].col, bomberman.colliders[j].col) == false) {
+			cout << "aa";
+		}
+	}*/
 	for (int i = 0; i < powerUps.size(); i++)
 	{
-		//for (int j = 0; j < bomberman.colliders.size(); j++) {
-		//	if (!CheckCollisionRecs(powerUps[i].col, bomberman.bmanCol)) {
-
-		//	}
-		//}
 		if (powerUps[i].playerCol(&bomberman)) {
 			if (powerUps[i].type == "speedUp") {
 				bomberman.vel += 0.2;
@@ -461,7 +461,7 @@ void Game::Update()
 bool Game::nextLevel() {
 	for (int j = 0; j < bomberman.colliders.size(); j++) {
 		if (CheckCollisionRecs(door.col, bomberman.colliders[j].col) == true) {
-			return false;
+			if(enemics.size() > 0)	return false;
 		}
 	}
 	return door.playerCol(&bomberman);

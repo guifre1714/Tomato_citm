@@ -84,21 +84,33 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 }
 
 void loadNextScreen() {
-	/*for (int i = 0; i < screens.size(); i++) {
-		screens.erase(screens.begin() + i);
-	}*/
+	cout << screen;
 	StopMusicStream(screens[screen]->bgm);
 	if (screen >= 0) {
 		if (screen == 1 || screen == 3 || screen == 5 || screen == 7) {
-			addGameToScreens(screens, screen, &vida, &screen);
-			screen++;
-			camera.target.x = 608;
-			camera.target.y = screenHeight / 2.0f - 20;
-			camera.offset.x = screenWidth / 2.0f;
-			camera.offset.y = screenHeight / 2.0f;
-			camera.rotation = 0.0f;
-			camera.zoom = 3.0f;
-			screens[screen]->bomberman.resetPlayer();
+			if (screen != screens.size() - 1) {
+				addGameToScreens(screens, screen, &vida, &screen);
+				screen++;
+				camera.target.x = 608;
+				camera.target.y = screenHeight / 2.0f - 20;
+				camera.offset.x = screenWidth / 2.0f;
+				camera.offset.y = screenHeight / 2.0f;
+				camera.rotation = 0.0f;
+				camera.zoom = 3.0f;
+				screens[screen]->bomberman.resetPlayer();
+			}
+			else {
+				screen = 0;
+				camera.target.x = screenWidth / 2.0f;
+				camera.target.y = screenHeight / 2.0f;
+				camera.offset.x = screenWidth / 2.0f;
+				camera.offset.y = screenHeight / 2.0f;
+				camera.rotation = 0.0f;
+				camera.zoom = 3.0f;
+				puntuacio = 0;
+				vida = 3;
+				maxBombs = 1;
+			}
 		}
 		else {
 			if (screen == screens.size() - 1) {

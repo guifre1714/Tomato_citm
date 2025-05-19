@@ -36,6 +36,7 @@ Player::~Player() {
 
 
 void Player::Draw() {
+	bombDie();
 	myCollider.x = bmanPos.x+1; myCollider.y = bmanPos.y+1;
 	frameContadorB ++;
 	if (frameContadorB >= (60 / frameSpeedB)) {
@@ -191,4 +192,25 @@ void Player::resetPlayer() {
 	totalFrames = 3;
 	ampladaFrames = 12;
 	frameSpeedB = 8; //marca la velocitat dels FPS
+}
+
+void Player::bombDie() {
+	bool colUp = false;
+	bool colDown = false;
+	bool colLeft = false;
+	bool colRight = false;
+	for (int i = 0; i < bombs.size(); i++) {
+		if (bombs[i].boom == true) {
+			colUp = CheckCollisionRecs(myCollider, bombs[i].rectUp);
+			colDown = CheckCollisionRecs(myCollider, bombs[i].rectDown);
+			colLeft = CheckCollisionRecs(myCollider, bombs[i].rectLeft);
+			colRight = CheckCollisionRecs(myCollider, bombs[i].rectRight);
+		}
+		if (colUp || colDown || colLeft || colRight) {
+			if (isAlive) {
+				Dead();
+				break;
+			}
+		}
+	}
 }

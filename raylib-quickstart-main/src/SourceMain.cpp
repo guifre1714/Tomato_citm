@@ -60,55 +60,22 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 }
 void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {
 	int nextIndex = levelIndex + 1;
-
+	unsigned int seed = rand() % 500;
 	// Check if the next screen exists and is a Game and delete if so (i don't wwant to have 2 game screens back to back xd
 	if (nextIndex < screenList.size()) {
 		Game* gamePtr = dynamic_cast<Game*>(screenList[nextIndex]);
 		if (gamePtr != nullptr) {
+			seed = screenList[nextIndex]->mySeed;
 			delete screenList[nextIndex];          
 			screenList.erase(screenList.begin() + nextIndex);
 		}
 	}
 
 	// Create and insert the new Game
-	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs);
+	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed);
 	screenList.insert(screenList.begin() + nextIndex, level);
 }
-//void setUpScreens() {
-//	Menu menu;
-//	screens.insert(screens.end(), &menu);
-//	for (int i = 0; i < 4; i++) {
-//		Game* level = new Game(i, &vida, &screen);
-//		screens.push_back(level);
-//	}
-//
-//	///*Screen inici, stage1, stage2, stage3, stage4, gameover;*/
-//	////screens.insert(screens.end(), &inici);
-//	//
-//	////screens.insert(screens.end(), &stage1);
-//	//screens.insert(screens.end(), &level1);
-//	////screens.insert(screens.end(), &stage2);
-//	//screens.insert(screens.end(), &level2);
-//	//////screens.insert(screens.end(), &stage3);
-//	//screens.insert(screens.end(), &level3);
-//	//////screens.insert(screens.end(), &stage4);
-//	//screens.insert(screens.end(), &level4);
-//
-//#pragma region Declaracio Screens
-//	/*stage1.Fons = LoadTexture("Sprites/menu/stage1.png");
-//	stage1.bgm= LoadMusicStream("music/02. Stage Start.mp3");
-//
-//	stage2.Fons = LoadTexture("Sprites/menu/stage2.png");
-//	stage2.bgm = LoadMusicStream("music/02. Stage Start.mp3");
-//
-//	stage3.Fons = LoadTexture("Sprites/menu/stage3.png");
-//	stage3.bgm = LoadMusicStream("music/02. Stage Start.mp3");
-//
-//	stage4.Fons = LoadTexture("Sprites/menu/stage4.png");
-//	stage4.bgm = LoadMusicStream("music/02. Stage Start.mp3");*/
-//#pragma endregion
-//	PlayMusicStream(screens[screen]->bgm);
-//}
+
 void loadNextScreen() {
 	/*for (int i = 0; i < screens.size(); i++) {
 		screens.erase(screens.begin() + i);

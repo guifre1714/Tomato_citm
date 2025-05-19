@@ -15,7 +15,7 @@ using namespace std;
 class EN01
 {
 public:
-    EN01();
+    EN01(Vector2 position);
     ~EN01();
 
     void Draw();

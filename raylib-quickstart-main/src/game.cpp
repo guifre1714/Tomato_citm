@@ -1,4 +1,4 @@
-#include<game.h>
+﻿#include<game.h>
 
 using namespace std;
 
@@ -338,7 +338,24 @@ int l;
 #pragma endregion
 	uniform_int_distribution<int> numBlocs(100, 125);
 	int num = numBlocs(rng);
-	uniform_int_distribution<int> blocPos(0, spawnPos.size()-1);
+	for (int i = 0; i < 4; ++i) {
+		if (spawnPos.empty()) break;
+
+		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);  // ← nova cada cop
+		int l = blocPos(rng);
+
+		// Validació per seguretat
+		if (l >= 0 && l < spawnPos.size()) {
+			EN01 enemy(spawnPos[l]);
+			enemic.push_back(enemy);
+			spawnPos.erase(spawnPos.begin() + l);
+		}
+		else {
+			cerr << "Índex fora de rang: l = " << l
+				<< ", spawnPos.size() = " << spawnPos.size() << '\n';
+		}
+	}
+	uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);  // ← nova cada cop
 	for (int k = 0; k < num; k++) 
 	{
 		l = blocPos(rng);
@@ -359,10 +376,6 @@ int l;
 	pos3.x = 408;
 	pos3.y = 288;
 	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos3);
-
-	//enemics
-	EN01 enemy;
-	enemic.insert(enemic.end(), enemy);
 
 	uniform_int_distribution<int> pUpPos(0, powerUpPositions.size() - 1);
 	l = pUpPos(rng);

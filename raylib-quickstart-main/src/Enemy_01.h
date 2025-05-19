@@ -36,5 +36,5 @@ public:
     int ampladaFramesEN;
 
     int direction;
-    string dir;
+    float timer;
 };

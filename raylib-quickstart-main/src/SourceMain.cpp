@@ -198,12 +198,13 @@ int main()
 		if (auxScreen != screen) {
 			if (vida != 0) {
 				PlayMusicStream(screens[screen]->bgm);
-				camera.target.x = (screenWidth / 2.0f);
-				camera.target.y = screenHeight / 2.0f;
+				camera.target.x = 608;
+				camera.target.y = screenHeight / 2.0f-20;
 				camera.offset.x = screenWidth / 2.0f;
 				camera.offset.y = screenHeight / 2.0f;
 				camera.rotation = 0.0f;
 				camera.zoom = 3.0f;
+				screens[screen]->bomberman.resetPlayer();
 			}
 			auxScreen = screen;
 		}

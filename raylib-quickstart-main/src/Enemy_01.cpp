@@ -9,13 +9,12 @@
 
 using namespace std;
 
-EN01::EN01()
+EN01::EN01(Vector2 position)
 {
     velocity.x = 5;
     velocity.y = 5;
 
-    EN_pos.x = 409;
-    EN_pos.y = 272;
+    EN_pos = position;
     EN_frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
     EN_texture = LoadTexture("Sprites/enemics/globus.png");
 

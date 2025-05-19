@@ -51,6 +51,7 @@ public:
 	int* maxBombs;
 
 	bool bombPlus;
+	bool isWallPass;
 
 	bool isAlive;
 	int* vides;

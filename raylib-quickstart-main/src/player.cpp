@@ -9,6 +9,7 @@
 Player::Player() {
 	isAlive = true;
 	bombPlus = false;
+	isWallPass = false;
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	bombSound = LoadSound("SFX/bomb.wav");
 	vel = 0.8f;
@@ -126,7 +127,16 @@ bool Player::Collide() {
 	}
 	for (int i = 0; i < colliders.size(); i++) {
 		col = CheckCollisionRecs(bmanCol, colliders[i].col);
-		if (col) return true;
+		if (col && !isWallPass) {
+			return true;
+		}
+		else if (col && colliders[i].breakable == true && isWallPass==true) {
+			return false;
+		}
+		else if (col && isWallPass == true && colliders[i].breakable == false) {
+			return true;
+		}
+
 	}
 	if (!col) return false;
 }

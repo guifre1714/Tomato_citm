@@ -57,6 +57,12 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 	stage4->Fons = LoadTexture("Sprites/menu/stage4.png");
 	stage4->bgm = LoadMusicStream("music/02. Stage Start.mp3");
 	screenList.insert(screenList.end(), stage4);
+
+	Screen* gameOver = new Screen();
+	gameOver->Fons = LoadTexture("Sprites/menu/gameOver.png");
+	gameOver->bgm = LoadMusicStream("music/10. Game Over.mp3");
+	gameOver->duration = 419;
+	screenList.insert(screenList.end(), gameOver);
 	return screenList;
 }
 void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {
@@ -124,7 +130,7 @@ void loadNextScreen() {
 }
 void screenManagement() {
 	if (vida == 0) {
-		screen = vida;
+		screen = screens.size() - 1;
 		camera.target.x = screenWidth / 2.0f;
 		camera.target.y = screenHeight / 2.0f;
 		camera.offset.x = screenWidth / 2.0f;
@@ -137,6 +143,7 @@ void screenManagement() {
 		PlayMusicStream(screens[screen]->bgm);
 		contador = 200;
 		temps = 0.0f;
+
 	}
 	if (IsKeyPressed(KEY_ENTER) || screens[screen]->nextLevel() == true) {
 		loadNextScreen();
@@ -201,7 +208,7 @@ int main()
 
 		BeginDrawing();
 		
-		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7) {
+		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7 && screen != screens.size() - 1) {
 			ClearBackground(GRAY);
 			DrawText(puntuacioText.c_str(), screenWidth - textw1 - 550, 32, 65, BLACK);
 			DrawText(vidaText.c_str(), screenWidth - textw2 - 110, 32, 65, BLACK);

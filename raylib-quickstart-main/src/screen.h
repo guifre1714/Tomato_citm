@@ -17,4 +17,5 @@ public:
 	Player bomberman;
 	Texture Fons;
 	unsigned int mySeed;
+	int duration;
 };

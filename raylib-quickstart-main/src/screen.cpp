@@ -4,14 +4,16 @@ using namespace std;
 
 int cont = 0;
 
-Screen::Screen() {};
+Screen::Screen() {
+	duration = 179;
+};
 Screen::~Screen() {};
 
 void Screen::Draw() {};
 void Screen::HandleInput() {};
 void Screen::Update() {};
 bool Screen::nextLevel() {
-	if (cont>179) {
+	if (cont>duration) {
 		cont = 0;
 		return true;
 	}

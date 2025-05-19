@@ -18,8 +18,6 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs)
 	walk = LoadSound("SFX/walk.wav");
 	walkUp = LoadSound("SFX/walkUp.wav");
 	//enemic
-	EN01 enemy;
-	enemic.insert(enemic.end(), enemy);
 }
 
 Game::~Game() {
@@ -43,15 +41,18 @@ void Game::Draw() {
 		if (bomberman.colliders[k].destroy) {
 			bomberman.colliders.erase(bomberman.colliders.begin() + k);
 		}
-		for (int i = 0; i <= enemic.size() - 1; i++)
+		/*for (int i = 0; i <= enemic.size() - 1; i++)
 		{
 			enemic[i].Draw();
-		}
+		}*/
 	}
 	door.Draw();
 	for (int i = 0; i < powerUps.size(); i++) {
 		powerUps[i].Draw();
 	}
+	EN01 enemy;
+	enemic.insert(enemic.end(), enemy);
+	enemy.Draw();
 	bomberman.Draw();
 	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
 	/*for (int k = 0; k < bomberman.snapPositions.size(); k++) {

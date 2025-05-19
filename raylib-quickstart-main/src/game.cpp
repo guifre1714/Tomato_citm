@@ -51,9 +51,9 @@ void Game::Draw() {
 	for (int i = 0; i < powerUps.size(); i++) {
 		powerUps[i].Draw();
 	}
-	EN01 enemy;
-	enemic.insert(enemic.end(), enemy);
-	enemy.Draw();
+	for (int i = 0; i < enemic.size(); i++) {
+		enemic[i].Draw();
+	}
 	bomberman.Draw();
 	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
 	/*for (int k = 0; k < bomberman.snapPositions.size(); k++) {
@@ -339,7 +339,8 @@ int l;
 	uniform_int_distribution<int> numBlocs(100, 125);
 	int num = numBlocs(rng);
 	uniform_int_distribution<int> blocPos(0, spawnPos.size()-1);
-	for (int k = 0; k < num; k++) {
+	for (int k = 0; k < num; k++) 
+	{
 		l = blocPos(rng);
 		Breakable bloc(spawnPos[l]);
 		powerUpPositions.insert(powerUpPositions.end(), spawnPos[l]);
@@ -358,6 +359,11 @@ int l;
 	pos3.x = 408;
 	pos3.y = 288;
 	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos3);
+
+	//enemics
+	EN01 enemy;
+	enemic.insert(enemic.end(), enemy);
+
 	uniform_int_distribution<int> pUpPos(0, powerUpPositions.size() - 1);
 	l = pUpPos(rng);
 	door.col.x = powerUpPositions[l].x + 1;

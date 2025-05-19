@@ -343,7 +343,7 @@ int l;
 		spawnPos.insert(spawnPos.end(), pos);
 	}
 #pragma endregion
-	uniform_int_distribution<int> numBlocs(100, 125);
+	uniform_int_distribution<int> numBlocs(60, 80);
 	int num = numBlocs(rng);
 	for (int i = 0; i < 4; ++i) {
 		if (spawnPos.empty()) break;

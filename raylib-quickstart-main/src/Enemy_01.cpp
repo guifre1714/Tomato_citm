@@ -16,7 +16,7 @@ EN01::EN01()
 
     EN_pos.x = 409;
     EN_pos.y = 272;
-    EN_frameRec = { 0.0f, 0.0f, 12.0f, 16.0f };
+    EN_frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
     EN_texture = LoadTexture("Sprites/enemics/globus.png");
 
     currentFrameEN = 0;
@@ -25,7 +25,8 @@ EN01::EN01()
     totalFramesEN = 6;
     ampladaFramesEN = 16;
 }
-EN01:: ~EN01() {
+EN01:: ~EN01() 
+{
 
 }
 void EN01::Draw()

@@ -15,17 +15,18 @@ using namespace std;
 class EN01
 {
 public:
-    EN01(Vector2 position);
+    EN01(Vector2 position, vector<Collider>* colliders);
     ~EN01();
 
     void Draw();
-    void Update(const vector<Collider>& colliders);
+    void Update();
+    bool Collide();
 
     Vector2 EN_pos;
     Rectangle EN_hitbox;
     Rectangle EN_frameRec;
     Vector2 velocity;
-    vector<Collider> collidersRef;
+    vector<Collider>* collidersRef;
     Texture2D EN_texture;
 
     int currentFrameEN;
@@ -34,5 +35,6 @@ public:
     int totalFramesEN;
     int ampladaFramesEN;
 
-  
+    int direction;
+    string dir;
 };

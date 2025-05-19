@@ -18,7 +18,6 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
 	walkUp = LoadSound("SFX/walkUp.wav");
-	//enemic
 }
 
 Game::~Game() {
@@ -346,7 +345,7 @@ int l;
 
 		// Validació per seguretat
 		if (l >= 0 && l < spawnPos.size()) {
-			EN01 enemy(spawnPos[l]);
+			EN01 enemy(spawnPos[l], &bomberman.colliders);
 			enemic.push_back(enemy);
 			spawnPos.erase(spawnPos.begin() + l);
 		}
@@ -400,10 +399,10 @@ int l;
 
 void Game::Update() 
 {
-	/*for (int i = 0; i <= enemic.size() - 1; i++)
+	for (int i = 0; i <= enemic.size() - 1; i++)
 	{
-		enemic[i].Update(bomberman.colliders);
-	}*/
+		enemic[i].Update();
+	}
 	for (int i = 0; i < powerUps.size(); i++)
 	{
 		if (powerUps[i].playerCol(&bomberman)) {

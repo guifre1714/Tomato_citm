@@ -35,6 +35,7 @@ public:
 	vector <Vector2> powerUpPositions;
 	Door door;
 	vector <powerUp> powerUps;
+	vector <Collider> colliders;
 #pragma region Colliders
 	Collider col1;
 	Collider col2;

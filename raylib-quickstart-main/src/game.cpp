@@ -353,7 +353,7 @@ int l;
 
 		// Validació per seguretat
 		if (l >= 0 && l < spawnPos.size()) {
-			EN01 enemy(spawnPos[l], &bomberman.colliders);
+			EN01 enemy(spawnPos[l], &bomberman.colliders, &bomberman);
 			enemic.push_back(enemy);
 			spawnPos.erase(spawnPos.begin() + l);
 		}

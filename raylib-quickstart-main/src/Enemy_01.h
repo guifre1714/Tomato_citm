@@ -15,7 +15,7 @@ using namespace std;
 class EN01
 {
 public:
-    EN01(Vector2 position, vector<Collider>* colliders);
+    EN01(Vector2 position, vector<Collider>* colliders, Player* player);
     ~EN01();
 
     void Draw();
@@ -28,6 +28,7 @@ public:
     Vector2 velocity;
     vector<Collider>* collidersRef;
     Texture2D EN_texture;
+    Player* bomberman;
 
     int currentFrameEN;
     int frameContadorEN;
@@ -37,4 +38,7 @@ public:
 
     int direction;
     float timer;
+
+    void bomberDie();
+    void bombDie();
 };

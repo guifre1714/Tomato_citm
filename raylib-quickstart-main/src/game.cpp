@@ -405,6 +405,14 @@ int l;
 		powerUps.insert(powerUps.begin(), remoteControl);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
+	if (level == 4) {
+		wallPass wallPass;
+		l = pUpPos(rng);
+		wallPass.col.x = powerUpPositions[l].x + 1;
+		wallPass.col.y = powerUpPositions[l].y + 1;
+		powerUps.insert(powerUps.begin(), wallPass);
+		powerUpPositions.erase(powerUpPositions.begin() + l);
+	}
 	bombUp bombUp;
 	l = pUpPos(rng);
 	bombUp.col.x = powerUpPositions[l].x + 1;
@@ -435,8 +443,7 @@ void Game::Update()
 				powerUps.erase(powerUps.begin() + i);
 			}
 			else if (powerUps[i].type == "wallPass") {
-				//insert q el bomberman pugui travessar blocs destruibles(soft blocs)
-				
+				bomberman.isWallPass = true;
 				powerUps.erase(powerUps.begin() + i);
 			}
 		}

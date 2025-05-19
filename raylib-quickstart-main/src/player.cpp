@@ -9,6 +9,7 @@
 Player::Player() {
 	isAlive = true;
 	bombPlus = false;
+	isWallPass = false;
 	bmanTXT = LoadTexture("Sprites/idle.png");
 	bombSound = LoadSound("SFX/bomb.wav");
 	vel = 0.8f;
@@ -35,6 +36,7 @@ Player::~Player() {
 
 
 void Player::Draw() {
+	bombDie();
 	myCollider.x = bmanPos.x+1; myCollider.y = bmanPos.y+1;
 	frameContadorB ++;
 	if (frameContadorB >= (60 / frameSpeedB)) {
@@ -126,7 +128,16 @@ bool Player::Collide() {
 	}
 	for (int i = 0; i < colliders.size(); i++) {
 		col = CheckCollisionRecs(bmanCol, colliders[i].col);
-		if (col) return true;
+		if (col && !isWallPass) {
+			return true;
+		}
+		else if (col && colliders[i].breakable == true && isWallPass==true) {
+			return false;
+		}
+		else if (col && isWallPass == true && colliders[i].breakable == false) {
+			return true;
+		}
+
 	}
 	if (!col) return false;
 }
@@ -181,4 +192,25 @@ void Player::resetPlayer() {
 	totalFrames = 3;
 	ampladaFrames = 12;
 	frameSpeedB = 8; //marca la velocitat dels FPS
+}
+
+void Player::bombDie() {
+	bool colUp = false;
+	bool colDown = false;
+	bool colLeft = false;
+	bool colRight = false;
+	for (int i = 0; i < bombs.size(); i++) {
+		if (bombs[i].boom == true) {
+			colUp = CheckCollisionRecs(myCollider, bombs[i].rectUp);
+			colDown = CheckCollisionRecs(myCollider, bombs[i].rectDown);
+			colLeft = CheckCollisionRecs(myCollider, bombs[i].rectLeft);
+			colRight = CheckCollisionRecs(myCollider, bombs[i].rectRight);
+		}
+		if (colUp || colDown || colLeft || colRight) {
+			if (isAlive) {
+				Dead();
+				break;
+			}
+		}
+	}
 }

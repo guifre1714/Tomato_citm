@@ -34,8 +34,7 @@ public:
 	int ampladaFrames;
 	int boomTime;
 	int time;
-
-	bool isRemoteControl;
+	bool remoCon;
 
 	Sound BOOOOOM;
 };

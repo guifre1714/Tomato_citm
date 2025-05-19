@@ -32,19 +32,15 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
 	expandRight = true;
 	hitBox = { bombPos.x + 1, bombPos.y - 1, 13, 13 };
 
-	isRemoteControl = false;
 }
 
 Bomba::~Bomba() {
 }
 
 void Bomba::Draw() {
-	if (!isRemoteControl) {
-		if (time >= boomTime) {
-			boom = true;
-		}
+	if (time >= boomTime && remoCon==false) {
+		boom = true;
 	}
-
 	frameContador++;
 	if (frameContador >= (60 / frameSpeed)) {
 		frameContador = 0;

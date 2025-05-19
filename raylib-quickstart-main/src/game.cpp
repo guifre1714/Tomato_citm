@@ -4,7 +4,7 @@ using namespace std;
 
 int i = 0;
 
-Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed):rng(seed)
+Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl):rng(seed)
 {
 	level = nivell;
 	Player player;
@@ -18,6 +18,7 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
 	walkUp = LoadSound("SFX/walkUp.wav");
+	areRemoteControl = isRemoteControl;
 }
 
 Game::~Game() {
@@ -100,12 +101,13 @@ void Game::HandleInput() {
 		if (IsKeyPressed(KEY_X) && bomberman.bombs.size()<*bomberman.maxBombs) {
 			bomberman.createBomb();
 		}
-		/*
-		if (isRemoteControl==true){
-			if (IsKeyPressed(KEY_C){
-				boom=true;
+		if ((*areRemoteControl) == true) {
+			if (IsKeyPressed(KEY_C)) {
+				for (int j = 0; j < bomberman.bombs.size(); j++) {
+					bomberman.bombs[j].boom = true;
+				}
 			}
-		*/
+		}
 		i++;
 	}
 }
@@ -395,6 +397,14 @@ int l;
 		powerUps.insert(powerUps.begin(), speedUp);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
+	if (level == 6) {
+		remoteControl remoteControl;
+		l = pUpPos(rng);
+		remoteControl.col.x = powerUpPositions[l].x + 1;
+		remoteControl.col.y = powerUpPositions[l].y + 1;
+		powerUps.insert(powerUps.begin(), remoteControl);
+		powerUpPositions.erase(powerUpPositions.begin() + l);
+	}
 	bombUp bombUp;
 	l = pUpPos(rng);
 	bombUp.col.x = powerUpPositions[l].x + 1;
@@ -421,12 +431,7 @@ void Game::Update()
 				powerUps.erase(powerUps.begin() + i);
 			}
 			else if (powerUps[i].type == "remoteControl") {
-				//insert aqui q la bomba es detoni manualment
-				/*
-				cridar bool remoteControl dins de la bomba/player i canviarla a TRUE
-
-				*/
-
+				(*areRemoteControl) = true;
 				powerUps.erase(powerUps.begin() + i);
 			}
 			else if (powerUps[i].type == "wallPass") {
@@ -435,6 +440,9 @@ void Game::Update()
 				powerUps.erase(powerUps.begin() + i);
 			}
 		}
+	}
+	for (int j = 0; j < bomberman.bombs.size(); j++) {
+		bomberman.bombs[j].remoCon = (*areRemoteControl);
 	}
 }
 

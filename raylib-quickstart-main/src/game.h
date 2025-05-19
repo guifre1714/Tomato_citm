@@ -10,12 +10,14 @@
 #include <powerUp.h>
 #include <bombUp.h>
 #include <random>
+#include <remoteControl.h>
+#include <wallPass.h>
 
 using namespace std;
 
 class Game : public Screen{
 public:
-	Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed);
+	Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl);
 	~Game();
 
 	void Draw();
@@ -28,6 +30,8 @@ public:
 	Sound walk;
 	Sound walkUp;
 	mt19937 rng;
+
+	bool* areRemoteControl;
         
 	vector<EN01> enemic;
 

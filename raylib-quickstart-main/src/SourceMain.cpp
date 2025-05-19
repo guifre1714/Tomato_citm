@@ -27,6 +27,7 @@ int contador = 200;
 int maxBombs = 1;
 float temps = 0.0f;
 const int fontSize = 65;
+bool isRemoteControl = false;
 
 //Càmera
 Camera2D camera = { 0 };
@@ -72,7 +73,7 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 	}
 
 	// Create and insert the new Game
-	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed);
+	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed, &isRemoteControl);
 	screenList.insert(screenList.begin() + nextIndex, level);
 }
 
@@ -171,6 +172,7 @@ int main()
 				camera.offset.y = screenHeight / 2.0f;
 				camera.rotation = 0.0f;
 				camera.zoom = 3.0f;
+				isRemoteControl = false;
 				screens[screen]->bomberman.resetPlayer();
 			}
 			auxScreen = screen;

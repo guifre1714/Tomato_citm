@@ -429,6 +429,11 @@ void Game::Update()
 	}
 	for (int i = 0; i < powerUps.size(); i++)
 	{
+		//for (int j = 0; j < bomberman.colliders.size(); j++) {
+		//	if (!CheckCollisionRecs(powerUps[i].col, bomberman.bmanCol)) {
+
+		//	}
+		//}
 		if (powerUps[i].playerCol(&bomberman)) {
 			if (powerUps[i].type == "speedUp") {
 				bomberman.vel += 0.2;
@@ -454,5 +459,10 @@ void Game::Update()
 }
 
 bool Game::nextLevel() {
+	for (int j = 0; j < bomberman.colliders.size(); j++) {
+		if (CheckCollisionRecs(door.col, bomberman.colliders[j].col) == true) {
+			return false;
+		}
+	}
 	return door.playerCol(&bomberman);
 }

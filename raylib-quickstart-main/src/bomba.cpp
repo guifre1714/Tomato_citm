@@ -8,14 +8,14 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
 	bombActive = true;
 	boomTime = 120;
 	time = 0;
-	bombTEXT = LoadTexture("Sprites/bombAni.png");
+	bombTEXT = LoadTexture("Sprites/bomb/bombAni.png");
 	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
 	hitBox = { bombPos.x + 1, bombPos.y - 1, 16, 16 };
 	myCollider.col = { bombPos.x + 1, bombPos.y - 1, 13, 13 };
-	expUp = LoadTexture("Sprites/explosions/expDalt.png");
-	expDown = LoadTexture("Sprites/explosions/expDown.png");
-	expLeft = LoadTexture("Sprites/explosions/expLeft.png");
-	expRight = LoadTexture("Sprites/explosions/expRight.png");
+	expUp = LoadTexture("Sprites/bomb/expDalt.png");
+	expDown = LoadTexture("Sprites/bomb/expDown.png");
+	expLeft = LoadTexture("Sprites/bomb/expLeft.png");
+	expRight = LoadTexture("Sprites/bomb/expRight.png");
 
 	currentFrame = 0;
 	frameContador = 0;
@@ -79,7 +79,7 @@ void Bomba::KaboomCheck() {
 		//aqui has d canviar la textura de la bomba x la de la explosio. els rectangles son els dels colliders, no necessariament tenen la mateixa mida que les textures. per veure referencia del que he dit mira el breakable.h i breakable.cpp
 		totalFrames = 4;
 		frameSpeed = 8;
-		bombTEXT = LoadTexture("Sprites/explosions/expCentre.png");
+		bombTEXT = LoadTexture("Sprites/bomb/expCentre.png");
 		rectUp = { bombPos.x + 1, bombPos.y - 15, 13, 13 };
 		rectDown = { bombPos.x + 1, bombPos.y + 15, 13, 13 };
 		rectLeft = { bombPos.x - 15, bombPos.y + 1, 13, 13 };

@@ -18,7 +18,7 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	score = puntuacio;
 	time = contador;
 	instantiateCoses();
-	Fons = LoadTexture("Sprites/Fons.png");
+	Fons = LoadTexture("Sprites/assets/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
 	walk = LoadSound("SFX/walk.wav");
 	walkUp = LoadSound("SFX/walkUp.wav");
@@ -99,8 +99,9 @@ void Game::HandleInput() {
 				i = 0;
 			}
 		}
-		else {
-			bomberman.bmanTXT = LoadTexture("Sprites/idle.png");
+		else if (!bomberman.idle){
+			bomberman.idle = true;
+			bomberman.bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
 		}
 		if (IsKeyPressed(KEY_X) && bomberman.bombs.size()<*bomberman.maxBombs) {
 			bomberman.createBomb();
@@ -121,16 +122,12 @@ int l;
 #pragma region Create Colliders
 #pragma region Parets
 	col1.col = { 408, 256, 464, 16 };
-	col1.blockTEXT = LoadTexture("Sprites/blocsDaltabaix.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col1);
 	col2.col = { 408, 448, 464, 16 };
-	col2.blockTEXT = LoadTexture("Sprites/blocsDaltabaix.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col2);
 	col3.col = { 392, 256, 16, 300 };
-	col3.blockTEXT = LoadTexture("Sprites/blocsLateral.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col3);
 	col4.col = { 872, 256, 16, 300 };
-	col4.blockTEXT = LoadTexture("Sprites/blocsLateral.png");
 	bomberman.colliders.insert(bomberman.colliders.end(), col4);
 #pragma endregion
 	//fila 1

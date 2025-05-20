@@ -10,7 +10,8 @@ Player::Player() {
 	isAlive = true;
 	bombPlus = false;
 	isWallPass = false;
-	bmanTXT = LoadTexture("Sprites/idle.png");
+	idle = true;
+	bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
 	bombSound = LoadSound("SFX/bomb.wav");
 	vel = 0.8f;
 
@@ -80,11 +81,12 @@ void Player::Dead() {
 	ampladaFrames = 16;
 	frameRecB = { 0.0f,0.0f,16.0f,16.0f };
 	frameSpeedB = 4;
-	bmanTXT = LoadTexture("Sprites/death.png");
+	bmanTXT = LoadTexture("Sprites/bomberman/death.png");
 }
 
 void Player::MoveUp() {
-	bmanTXT = LoadTexture("Sprites/walkBack.png");
+	idle = false;
+	bmanTXT = LoadTexture("Sprites/bomberman/walkBack.png");
 	dir = "up";
 	if (!Collide()) {
 		bmanPos.y -= vel;
@@ -92,22 +94,24 @@ void Player::MoveUp() {
 
 }
 void Player::MoveDown() {
-	bmanTXT = LoadTexture("Sprites/walkFront.png");
+	idle = false;
+	bmanTXT = LoadTexture("Sprites/bomberman/walkFront.png");
 	dir = "down";
 	if (!Collide()) {
 		bmanPos.y += vel;
 	}
 }
 void Player::MoveLeft() {
-	bmanTXT = LoadTexture("Sprites/walkLeft.png");
+	idle = false;
+	bmanTXT = LoadTexture("Sprites/bomberman/walkLeft.png");
 	dir = "left";
 	if (!Collide()) {
 		bmanPos.x -= vel;
 	}
 }
 void Player::MoveRight() {
-	
-	bmanTXT = LoadTexture("Sprites/walkRight.png");
+	idle = false;
+	bmanTXT = LoadTexture("Sprites/bomberman/walkRight.png");
 	dir = "right";
 	if (!Collide()) {
 		bmanPos.x += vel;
@@ -201,7 +205,8 @@ void Player::resetPlayer() {
 	isAlive = true;
 	bmanPos.x = 410; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
 	bmanPos.y = 272;
-	bmanTXT = LoadTexture("Sprites/idle.png");
+	idle = true;
+	bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
 
 	bmanCol = { bmanPos.x, bmanPos.y, 12, 15 };
 

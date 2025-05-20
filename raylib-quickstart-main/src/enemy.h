@@ -23,6 +23,7 @@ public:
     virtual void Update();
     virtual bool Collide();
 
+    Rectangle rectUp, rectDown, rectRight, rectLeft;
     Vector2 EN_pos;
     Rectangle EN_hitbox;
     Rectangle EN_col;
@@ -48,5 +49,5 @@ public:
 
     virtual void bomberDie();
     virtual void bombDie();
-    void Dead();
+    virtual void Dead();
 };

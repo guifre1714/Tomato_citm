@@ -102,3 +102,10 @@ bool EN02::Collide() {
     }
     if (!col) return false;
 }
+
+void EN02::Dead() {
+    move = false;
+    EN_texture = LoadTexture("Sprites/enemics/mortM.png");
+    currentFrameEN = 0;
+    totalFramesEN = 5;
+}

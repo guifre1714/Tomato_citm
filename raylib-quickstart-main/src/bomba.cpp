@@ -84,10 +84,10 @@ void Bomba::KaboomCheck() {
 		rectDown = { bombPos.x + 1, bombPos.y + 15, 13, 13 };
 		rectLeft = { bombPos.x - 15, bombPos.y + 1, 13, 13 };
 		rectRight = { bombPos.x + 15, bombPos.y + 1, 13, 13 };
-		DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
+		/*DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
 		DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, RED);
 		DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, RED);
-		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
+		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);*/
 		for (int i = 0; i < blocs->size(); i++) {
 			colUp = CheckCollisionRecs(rectUp, (*blocs)[i].col);
 			colDown = CheckCollisionRecs(rectDown, (*blocs)[i].col);

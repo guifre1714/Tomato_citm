@@ -29,7 +29,10 @@ void Enemy::Draw()
         }
         EN_frameRec.x = (float)currentFrameEN * ampladaFramesEN;//ampladaFrames = (float)Texture.Width/num requadres a dividir
     }
-    DrawRectangle(EN_col.x, EN_col.y, EN_col.width, EN_col.height, RED);
+    DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
+    DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, RED);
+    DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, RED);
+    DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
     DrawTextureRec(EN_texture, EN_frameRec, EN_pos, WHITE);
 }
 
@@ -66,8 +69,4 @@ void Enemy::bomberDie() {
     }
 }
 void Enemy::Dead(){
-    move = false;
-    EN_texture = LoadTexture("Sprites/enemics/mortG.png");
-    currentFrameEN = 0;
-    totalFramesEN = 5;
 }

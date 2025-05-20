@@ -12,4 +12,5 @@ public:
     ~EN01();
 
     void Update();
+    bool Collide();
 };

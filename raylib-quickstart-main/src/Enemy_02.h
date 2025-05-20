@@ -5,11 +5,12 @@
 using namespace std;
 
 
-class EN01 : public Enemy
+class EN02 : public Enemy
 {
 public:
-    EN01(Vector2 position, vector<Collider>* colliders, Player* player, vector <Bomba>* bombes);
-    ~EN01();
+    EN02(Vector2 position, vector<Collider>* colliders, Player* player, vector <Bomba>* bombes);
+    ~EN02();
 
     void Update();
+    bool Collide();
 };

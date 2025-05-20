@@ -73,3 +73,33 @@ void EN01::Update()
         }
     }
 }
+
+bool EN01::Collide() {
+    bool col;
+    if (direction == 1) {
+        EN_col.y = EN_pos.y - velocity.y;
+        EN_col.x = EN_pos.x;
+    }
+    else if (direction == 2) {
+        EN_col.y = EN_pos.y + velocity.y;
+        EN_col.x = EN_pos.x;
+    }
+    else if (direction == 3) {
+        EN_col.x = EN_pos.x - velocity.x;
+        EN_col.y = EN_pos.y;
+    }
+    else {
+        EN_col.x = EN_pos.x + velocity.x;
+        EN_col.y = EN_pos.y;
+    }
+    for (int i = 0; i < (*collidersRef).size(); i++) {
+        col = CheckCollisionRecs(EN_col, (*collidersRef)[i].col);
+        if (col) {
+            int randomValue = GetRandomValue(1, 4);
+            timer = 0.0f;
+            direction = randomValue;
+            return true;
+        }
+    }
+    if (!col) return false;
+}

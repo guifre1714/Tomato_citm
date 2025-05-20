@@ -10,6 +10,7 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
 	time = 0;
 	bombTEXT = LoadTexture("Sprites/bombAni.png");
 	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
+	hitBox = { bombPos.x + 1, bombPos.y - 1, 16, 16 };
 	myCollider.col = { bombPos.x + 1, bombPos.y - 1, 13, 13 };
 	expUp = LoadTexture("Sprites/explosions/expDalt.png");
 	expDown = LoadTexture("Sprites/explosions/expDown.png");
@@ -30,8 +31,8 @@ Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
 	expandDown = true;
 	expandLeft = true;
 	expandRight = true;
-	hitBox = { bombPos.x + 1, bombPos.y - 1, 13, 13 };
-
+	colliderAdded = false;
+	erased = false;
 }
 
 Bomba::~Bomba() {
@@ -40,7 +41,9 @@ Bomba::~Bomba() {
 void Bomba::Draw() {
 	if (time >= boomTime && remoCon==false) {
 		boom = true;
+		myCollider.col = { 0,0,0,0 };
 	}
+	DrawRectangle(myCollider.col.x, myCollider.col.y, myCollider.col.width, myCollider.col.height, RED);
 	frameContador++;
 	if (frameContador >= (60 / frameSpeed)) {
 		frameContador = 0;
@@ -50,6 +53,7 @@ void Bomba::Draw() {
 			currentFrame = 0;
 		}
 		else if (currentFrame > totalFrames && totalFrames > 3) {
+
 			bombActive = false;
 		}
 		frameRec.x = (float)currentFrame * ampladaFrames;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
@@ -76,14 +80,14 @@ void Bomba::KaboomCheck() {
 		totalFrames = 4;
 		frameSpeed = 8;
 		bombTEXT = LoadTexture("Sprites/explosions/expCentre.png");
-		rectUp = { bombPos.x, bombPos.y - 16, 16, 16 };
-		rectDown = { bombPos.x, bombPos.y + 16, 16, 16 };
-		rectLeft = { bombPos.x - 16, bombPos.y, 16, 16 };
-		rectRight = { bombPos.x + 16, bombPos.y, 16, 16 };
-		/*DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
+		rectUp = { bombPos.x + 1, bombPos.y - 15, 13, 13 };
+		rectDown = { bombPos.x + 1, bombPos.y + 15, 13, 13 };
+		rectLeft = { bombPos.x - 15, bombPos.y + 1, 13, 13 };
+		rectRight = { bombPos.x + 15, bombPos.y + 1, 13, 13 };
+		DrawRectangle(rectUp.x, rectUp.y, rectUp.width, rectUp.height, RED);
 		DrawRectangle(rectDown.x, rectDown.y, rectDown.width, rectDown.height, RED);
 		DrawRectangle(rectLeft.x, rectLeft.y, rectLeft.width, rectLeft.height, RED);
-		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);*/
+		DrawRectangle(rectRight.x, rectRight.y, rectRight.width, rectRight.height, RED);
 		for (int i = 0; i < blocs->size(); i++) {
 			colUp = CheckCollisionRecs(rectUp, (*blocs)[i].col);
 			colDown = CheckCollisionRecs(rectDown, (*blocs)[i].col);

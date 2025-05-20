@@ -17,7 +17,7 @@ using namespace std;
 
 class Game : public Screen{
 public:
-	Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl);
+	Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio);
 	~Game();
 
 	void Draw();
@@ -27,13 +27,14 @@ public:
 	void instantiateCoses();
 
 	int level;
+	int* score;
 	Sound walk;
 	Sound walkUp;
 	mt19937 rng;
 
 	bool* areRemoteControl;
         
-	vector<EN01> enemics;
+	vector<Enemy*> enemics;
 
 	vector <Vector2> spawnPos;
 	vector <Vector2> powerUpPositions;

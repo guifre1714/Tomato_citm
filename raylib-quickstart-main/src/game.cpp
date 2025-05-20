@@ -4,15 +4,17 @@ using namespace std;
 
 int i = 0;
 
-Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl):rng(seed)
+Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio):rng(seed)
 {
 	level = nivell;
 	Player player;
 	bomberman = player;
+	bomberman.score = puntuacio;
 	bomberman.vides = pLife;
 	bomberman.maxBombs = pMBombs;
 	bomberman.pantalla = pScreen;
 	mySeed = seed;
+	score = puntuacio;
 	instantiateCoses();
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
@@ -42,17 +44,13 @@ void Game::Draw() {
 		if (bomberman.colliders[k].destroy) {
 			bomberman.colliders.erase(bomberman.colliders.begin() + k);
 		}
-		/*for (int i = 0; i <= enemic.size() - 1; i++)
-		{
-			enemic[i].Draw();
-		}*/
 	}
 	door.Draw();
 	for (int i = 0; i < powerUps.size(); i++) {
 		powerUps[i].Draw();
 	}
 	for (int i = 0; i < enemics.size(); i++) {
-		enemics[i].Draw();
+		enemics[i]->Draw();
 	}
 	bomberman.Draw();
 	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
@@ -353,8 +351,7 @@ int l;
 
 		// Validació per seguretat
 		if (l >= 0 && l < spawnPos.size()) {
-			EN01 enemy(spawnPos[l], &bomberman.colliders, &bomberman);
-			enemics.push_back(enemy);
+			enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
 			spawnPos.erase(spawnPos.begin() + l);
 		}
 		else {
@@ -423,15 +420,17 @@ int l;
 
 void Game::Update() 
 {
-	for (int i = 0; i <= enemics.size() - 1; i++)
+	for (int i = 0; i < enemics.size(); i++)
 	{
-		enemics[i].Update();
-	}
-	/*for (int j = 0; j < bomberman.colliders.size(); j++) {
-		if (CheckCollisionRecs(powerUps[i].col, bomberman.colliders[j].col) == false) {
-			cout << "aa";
+		if (enemics[i]->isAlive == false) {
+			(*score) += enemics[i]->points;
+			bomberman.p_guanyats = *score;
+			enemics.erase(enemics.begin() + i);
 		}
-	}*/
+		else {
+			enemics[i]->Update();
+		}
+	}
 	for (int i = 0; i < powerUps.size(); i++)
 	{
 		if (powerUps[i].playerCol(&bomberman)) {

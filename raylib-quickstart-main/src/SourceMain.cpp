@@ -79,7 +79,7 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 	}
 
 	// Create and insert the new Game
-	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed, &isRemoteControl);
+	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed, &isRemoteControl, &puntuacio);
 	screenList.insert(screenList.begin() + nextIndex, level);
 }
 

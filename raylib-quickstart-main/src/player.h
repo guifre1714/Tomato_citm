@@ -56,8 +56,11 @@ public:
 	bool isAlive;
 	int* vides;
 	int* pantalla;
+	int* score;
+	int p_guanyats;
 	bool bombCheck();
 	void bombDie();
+	void cleanBombs();
 
 	Rectangle frameRecB;
 

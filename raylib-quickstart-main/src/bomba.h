@@ -35,6 +35,8 @@ public:
 	int boomTime;
 	int time;
 	bool remoCon;
+	bool colliderAdded;
+	bool erased;
 
 	Sound BOOOOOM;
 };

@@ -28,6 +28,7 @@ Player::Player() {
 	
 	totalFrames = 3;
 	ampladaFrames = 12;
+	p_guanyats = 0;
 }
 
 Player::~Player() {
@@ -50,21 +51,26 @@ void Player::Draw() {
 				if ((*maxBombs) > 1) {
 					--(*maxBombs);
 				}
+				if (p_guanyats > 0) {
+					(*score) = (*score) - p_guanyats;
+					p_guanyats = 0;
+				}
 				--(*pantalla);
 				--(*vides);
 			}
 		}
 		frameRecB.x = (float)currentFrameB * ampladaFrames;//ampladaFrames = (float)Texture.Width/num requadres a dividir
 	}
-	for (int i = 0; i < bombs.size(); i++) {
-		if (bombs[i].bombActive == false) {
-			snapPositions.insert(snapPositions.begin(), bombs[i].bombPos);
-			bombs.erase(bombs.begin() + i);
-		} else {
-			DrawTextureRec(bombs[i].bombTEXT, bombs[i].frameRec, bombs[i].bombPos, WHITE);
-		}
-	}
 
+	cleanBombs();
+	for (int i = 0; i < bombs.size(); i++) {
+
+		if (!bombs[i].colliderAdded && CheckCollisionRecs(myCollider, bombs[i].hitBox) == false) {
+			bombs[i].colliderAdded = true;
+			colliders.push_back(bombs[i].myCollider);
+		}
+		DrawTextureRec(bombs[i].bombTEXT, bombs[i].frameRec, bombs[i].bombPos, WHITE);
+	}
 	DrawTextureRec(bmanTXT,frameRecB, bmanPos, WHITE);
 }
 
@@ -211,6 +217,28 @@ void Player::bombDie() {
 				Dead();
 				break;
 			}
+		}
+	}
+}
+
+void Player::cleanBombs() {
+	for (size_t i = 0; i < bombs.size();) {
+		// Si la bomba ha explotat, eliminem el collider associat
+		if (bombs[i].boom && bombs[i].erased == false) {
+			colliders.erase(colliders.end() - 1);
+			bombs[i].erased = true;
+		}
+
+		// Si la bomba ja no és activa (després d'explotar), l'eliminem de la llista
+		if (!bombs[i].bombActive) {
+			// Reactiva la posició per tornar a poder posar una bomba
+			snapPositions.insert(snapPositions.begin(), bombs[i].bombPos);
+
+			// Esborra la bomba
+			bombs.erase(bombs.begin() + i);
+		}
+		else {
+			i++;
 		}
 	}
 }

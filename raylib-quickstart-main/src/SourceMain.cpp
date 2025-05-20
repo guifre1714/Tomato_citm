@@ -9,6 +9,7 @@
 #include <Enemy_01.h>
 #include <breakable.h>
 #include <bomba.h>
+#include <endScreen.h>
 
 using namespace std;
 
@@ -63,6 +64,9 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 	gameOver->bgm = LoadMusicStream("music/10. Game Over.mp3");
 	gameOver->duration = 419;
 	screenList.insert(screenList.end(), gameOver);
+
+	endScreen* endS = new endScreen();
+	screenList.insert(screenList.end(), endS);
 	return screenList;
 }
 void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {

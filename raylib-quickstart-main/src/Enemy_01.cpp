@@ -46,7 +46,7 @@ void EN01::Update()
     EN_col = { EN_pos.x - 1 ,EN_pos.y - 1, 17, 17 };
 
     int randomValue = 0;
-    const float interval = 1.0f;
+    float interval = GetRandomValue(1, 5);
     srand(time(NULL));
 
     float deltaTime = GetFrameTime();
@@ -55,6 +55,7 @@ void EN01::Update()
     if (timer >= interval) {
         randomValue = GetRandomValue(1, 4);
         timer = 0.0f;
+        interval = GetRandomValue(1, 10);
         direction = randomValue;
     }
     if (move) {

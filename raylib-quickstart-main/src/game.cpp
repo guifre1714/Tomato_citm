@@ -21,6 +21,7 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	walk = LoadSound("SFX/walk.wav");
 	walkUp = LoadSound("SFX/walkUp.wav");
 	areRemoteControl = isRemoteControl;
+	blocs = &bomberman.colliders;
 }
 
 Game::~Game() {
@@ -62,6 +63,9 @@ void Game::Draw() {
 void Game::HandleInput() {
 	if (IsKeyDown(KEY_Z)&& bomberman.isAlive==true) {
 		bomberman.Dead();
+	}
+	if (IsKeyDown(KEY_W)) {
+		bomberman.isWallPass = true;
 	}
 	if (bomberman.isAlive) {
 		if (IsKeyDown(KEY_LEFT)) {
@@ -346,7 +350,7 @@ int l;
 	for (int i = 0; i < 4; ++i) {
 		if (spawnPos.empty()) break;
 
-		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);  // ← nova cada cop
+		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
 		int l = blocPos(rng);
 
 		// Validació per seguretat
@@ -354,12 +358,8 @@ int l;
 			enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
 			spawnPos.erase(spawnPos.begin() + l);
 		}
-		else {
-			cerr << "Índex fora de rang: l = " << l
-				<< ", spawnPos.size() = " << spawnPos.size() << '\n';
-		}
 	}
-	uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);  // ← nova cada cop
+	uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
 	for (int k = 0; k < num; k++) 
 	{
 		l = blocPos(rng);
@@ -431,27 +431,7 @@ void Game::Update()
 			enemics[i]->Update();
 		}
 	}
-	for (int i = 0; i < powerUps.size(); i++)
-	{
-		if (powerUps[i].playerCol(&bomberman)) {
-			if (powerUps[i].type == "speedUp") {
-				bomberman.vel += 0.2;
-				powerUps.erase(powerUps.begin() + i);
-			}
-			else if (powerUps[i].type == "bombUp") {
-				++(*bomberman.maxBombs);
-				powerUps.erase(powerUps.begin() + i);
-			}
-			else if (powerUps[i].type == "remoteControl") {
-				(*areRemoteControl) = true;
-				powerUps.erase(powerUps.begin() + i);
-			}
-			else if (powerUps[i].type == "wallPass") {
-				bomberman.isWallPass = true;
-				powerUps.erase(powerUps.begin() + i);
-			}
-		}
-	}
+	checkPowerUps();
 	for (int j = 0; j < bomberman.bombs.size(); j++) {
 		bomberman.bombs[j].remoCon = (*areRemoteControl);
 	}
@@ -459,9 +439,42 @@ void Game::Update()
 
 bool Game::nextLevel() {
 	for (int j = 0; j < bomberman.colliders.size(); j++) {
-		if (CheckCollisionRecs(door.col, bomberman.colliders[j].col) == true) {
-			if(enemics.size() > 0)	return false;
+		if (CheckCollisionRecs(door.col, bomberman.colliders[j].col) == true || enemics.size()>0) {
+			return false;
 		}
 	}
 	return door.playerCol(&bomberman);
+}
+
+void Game::checkPowerUps() {
+	bool collided = false;
+	for (int i = 0; i < powerUps.size(); i++)
+	{
+		if (powerUps[i].playerCol(&bomberman)) {
+			cout << bomberman.colliders.size();
+			for (int j = 0; j < (*blocs).size(); j++) {
+				if (!collided) {
+					collided = CheckCollisionRecs(powerUps[i].col, bomberman.colliders[j].col);
+				}
+			}
+			if (!collided) {
+				if (powerUps[i].type == "speedUp") {
+					bomberman.vel += 0.2;
+					powerUps.erase(powerUps.begin() + i);
+				}
+				else if (powerUps[i].type == "bombUp") {
+					++(*bomberman.maxBombs);
+					powerUps.erase(powerUps.begin() + i);
+				}
+				else if (powerUps[i].type == "remoteControl") {
+					(*areRemoteControl) = true;
+					powerUps.erase(powerUps.begin() + i);
+				}
+				else if (powerUps[i].type == "wallPass") {
+					bomberman.isWallPass = true;
+					powerUps.erase(powerUps.begin() + i);
+				}
+			}
+		}
+	}
 }

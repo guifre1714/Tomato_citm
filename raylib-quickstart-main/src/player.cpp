@@ -178,9 +178,23 @@ float Player::distanceBetween(const Vector2& a, const Vector2& b) {
 }
 
 bool Player::bombCheck() {
+	bool collidedA = false;
+	bool collidedB = false;
+	cout << bombs.size();
+	/*for (int i = 0; i < bombs.size(); i++) {
+		for (int j = 0; j < colliders.size(); j++) {
+			if (!collidedA) {
+				collidedA = CheckCollisionRecs(bombs[i].hitBox, colliders[j].col);
+			}
+		}
+	}*/
 	for (int i = 0; i < bombs.size(); i++) {
-		return CheckCollisionRecs(bombs[i].hitBox, myCollider);
+		if (!collidedB) {
+			collidedB = CheckCollisionRecs(bombs[i].hitBox, myCollider);
+		}
 	}
+	if (collidedA || collidedB)return true;
+	else return false;
 }
 
 void Player::resetPlayer() {

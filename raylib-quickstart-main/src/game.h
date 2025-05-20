@@ -25,6 +25,7 @@ public:
 	void HandleInput();
 	bool nextLevel();
 	void instantiateCoses();
+	void checkPowerUps();
 
 	int level;
 	int* score;
@@ -40,7 +41,7 @@ public:
 	vector <Vector2> powerUpPositions;
 	Door door;
 	vector <powerUp> powerUps;
-	vector <Collider> colliders;
+	vector<Collider>* blocs;
 #pragma region Colliders
 	Collider col1;
 	Collider col2;

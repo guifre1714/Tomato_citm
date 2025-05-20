@@ -40,11 +40,6 @@ EN01:: ~EN01()
     
 void EN01::Update()
 {
-    bool colUp = false;
-    bool colDown = false;
-    bool colLeft = false;
-    bool colRight = false;
-
     rectUp = { EN_pos.x + 2, EN_pos.y - 14, 10, 10 };
     rectDown = { EN_pos.x + 2, EN_pos.y + 14, 10, 10 };
     rectLeft = { EN_pos.x - 14, EN_pos.y + 2, 10, 10 };
@@ -61,43 +56,7 @@ void EN01::Update()
     float deltaTime = GetFrameTime();
     timer += deltaTime;
 
-    for (int i = 0; i < collidersRef->size(); i++) {
-        if (!colUp) {
-            colUp = CheckCollisionRecs(rectUp, (*collidersRef)[i].col);
-        }
-        if (!colDown) {
-            colDown = CheckCollisionRecs(rectDown, (*collidersRef)[i].col);
-        }
-        if (!colLeft) {
-            colLeft = CheckCollisionRecs(rectLeft, (*collidersRef)[i].col);
-        }
-        if (!colRight) {
-            colRight = CheckCollisionRecs(rectRight, (*collidersRef)[i].col);
-        }
-    }
-
-    if (!colUp && direction != 1 && direction != 2 && timer >= 1) {
-        int i = rand() % 2;
-        timer = 0.0f;
-
-        if (i == 2) direction = 1;
-    }
-    if (!colDown && direction != 1 && direction != 2 && timer >= 1) {
-        int i = rand() % 2;
-        timer = 0.0f;
-        if (i == 3) direction = 2;
-    }
-    if (!colLeft && direction != 3 && direction != 4 && timer >= 1) {
-        int i = rand() % 2;
-        timer = 0.0f;
-
-        if (i == 3) direction = 3;
-    }
-    if (!colRight && direction != 3 && direction != 4 && timer >= 1) {
-        int i = rand() % 2;
-        timer = 0.0f;
-        if (i == 3) direction = 4;
-    }
+    
     if (timer >= interval) {
         randomValue = GetRandomValue(1, 4);
         timer = 0.0f;
@@ -155,4 +114,51 @@ void EN01::Dead() {
     EN_texture = LoadTexture("Sprites/enemics/mortG.png");
     currentFrameEN = 0;
     totalFramesEN = 5;
+}
+
+void EN01::Direction() {
+    bool colUp = false;
+    bool colDown = false;
+    bool colLeft = false;
+    bool colRight = false;
+    for (int i = 0; i < collidersRef->size(); i++) {
+        if (!colUp) {
+            colUp = CheckCollisionRecs(rectUp, (*collidersRef)[i].col);
+        }
+        if (!colDown) {
+            colDown = CheckCollisionRecs(rectDown, (*collidersRef)[i].col);
+        }
+        if (!colLeft) {
+            colLeft = CheckCollisionRecs(rectLeft, (*collidersRef)[i].col);
+        }
+        if (!colRight) {
+            colRight = CheckCollisionRecs(rectRight, (*collidersRef)[i].col);
+        }
+    }
+
+    if (!colUp && direction != 1 && direction != 2 && timer >= 1) {
+        int i = rand() % 2;
+        timer = 0.0f;
+
+        if (i == 2) direction = 1;
+    }
+    if (!colDown && direction != 1 && direction != 2 && timer >= 1) {
+        int i = rand() % 2;
+        timer = 0.0f;
+        if (i == 3) direction = 2;
+    }
+    if (!colLeft && direction != 3 && direction != 4 && timer >= 1) {
+        int i = rand() % 2;
+        timer = 0.0f;
+
+        if (i == 3) direction = 3;
+    }
+    if (!colRight && direction != 3 && direction != 4 && timer >= 1) {
+        int i = rand() % 2;
+        timer = 0.0f;
+        if (i == 3) direction = 4;
+    }
+    if (colUp && direction == 1) {
+        direction = (rand() & 3) + 1;
+    }
 }

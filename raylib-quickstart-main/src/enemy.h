@@ -50,4 +50,5 @@ public:
     virtual void bomberDie();
     virtual void bombDie();
     virtual void Dead();
+    virtual void Direction();
 };

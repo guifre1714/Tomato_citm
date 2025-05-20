@@ -70,3 +70,4 @@ void Enemy::bomberDie() {
 }
 void Enemy::Dead(){
 }
+void Enemy::Direction(){}

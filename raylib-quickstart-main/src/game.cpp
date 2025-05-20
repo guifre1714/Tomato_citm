@@ -4,7 +4,7 @@ using namespace std;
 
 int i = 0;
 
-Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio):rng(seed)
+Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio, int* contador):rng(seed)
 {
 	level = nivell;
 	Player player;
@@ -13,8 +13,10 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	bomberman.vides = pLife;
 	bomberman.maxBombs = pMBombs;
 	bomberman.pantalla = pScreen;
+	timeUp = false;
 	mySeed = seed;
 	score = puntuacio;
+	time = contador;
 	instantiateCoses();
 	Fons = LoadTexture("Sprites/Fons.png");
 	bgm = LoadMusicStream("music/03. Main BGM.mp3");
@@ -425,6 +427,7 @@ void Game::Update()
 		if (enemics[i]->isAlive == false) {
 			(*score) += enemics[i]->points;
 			bomberman.p_guanyats = *score;
+			spawnPos.push_back(enemics[i]->EN_pos);
 			enemics.erase(enemics.begin() + i);
 		}
 		else {
@@ -434,6 +437,26 @@ void Game::Update()
 	checkPowerUps();
 	for (int j = 0; j < bomberman.bombs.size(); j++) {
 		bomberman.bombs[j].remoCon = (*areRemoteControl);
+	}
+	if ((*time) <= 0 && !timeUp) {
+		timeUp = true;
+		for (int i = 0; i < enemics.size(); i++)
+		{
+			spawnPos.push_back(enemics[i]->EN_pos);
+			enemics.erase(enemics.begin() + i);
+		}
+		for (int i = 0; i < 10; ++i) {
+			if (spawnPos.empty()) break;
+
+			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
+			int l = blocPos(rng);
+
+			// Validació per seguretat
+			if (l >= 0 && l < spawnPos.size()) {
+				enemics.push_back(new EN02(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
+				spawnPos.erase(spawnPos.begin() + l);
+			}
+		}
 	}
 }
 

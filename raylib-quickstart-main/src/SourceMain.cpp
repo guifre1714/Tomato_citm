@@ -23,7 +23,7 @@ vector <Screen*> screens;
 //interficie
 int puntuacio = 0;
 int vida = 3;
-int contador = 200;
+int contador = 5;
 int maxBombs = 1;
 float temps = 0.0f;
 const int fontSize = 65;
@@ -79,12 +79,12 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 	}
 
 	// Create and insert the new Game
-	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed, &isRemoteControl, &puntuacio);
+	Game* level = new Game(levelIndex + 1, vida, pantalla, &maxBombs, seed, &isRemoteControl, &puntuacio, &contador);
 	screenList.insert(screenList.begin() + nextIndex, level);
 }
 
 void loadNextScreen() {
-	cout << screen;
+	contador = 5;
 	StopMusicStream(screens[screen]->bgm);
 	if (screen >= 0) {
 		if (screen == 1 || screen == 3 || screen == 5 || screen == 7) {
@@ -137,7 +137,7 @@ void loadNextScreen() {
 		}
 	} 
 	PlayMusicStream(screens[screen]->bgm);
-	contador = 200;
+	contador = 5;
 	temps = 0.0f;
 }
 void screenManagement() {

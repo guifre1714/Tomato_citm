@@ -4,6 +4,7 @@
 #include <screen.h>
 #include <breakable.h>
 #include <Enemy_01.h>
+#include <Enemy_02.h>
 #include <bomba.h>
 #include <door.h>
 #include <speedUp.h>
@@ -17,7 +18,7 @@ using namespace std;
 
 class Game : public Screen{
 public:
-	Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio);
+	Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio, int* contador);
 	~Game();
 
 	void Draw();
@@ -28,7 +29,9 @@ public:
 	void checkPowerUps();
 
 	int level;
+	int* time;
 	int* score;
+	bool timeUp;
 	Sound walk;
 	Sound walkUp;
 	mt19937 rng;

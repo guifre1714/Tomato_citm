@@ -33,16 +33,16 @@ EN01::EN01(Vector2 position, vector<Collider>* colliders, Player* player, vector
     bombs = bombes;
     move = true;
 }
-EN01:: ~EN01() 
+EN01:: ~EN01()
 {
 
 }
-    
+
 void EN01::Update()
 {
     bomberDie();
     bombDie();
-    EN_hitbox = { EN_pos.x+1 ,EN_pos.y+1, 13, 13 };
+    EN_hitbox = { EN_pos.x + 1 ,EN_pos.y + 1, 13, 13 };
     EN_col = { EN_pos.x - 1 ,EN_pos.y - 1, 17, 17 };
 
     int randomValue = 0;

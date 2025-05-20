@@ -2,7 +2,7 @@
 
 Door::Door() {
 	/*enemies = enemics;*/
-	blockTEXT = LoadTexture("Sprites/door.png");
+	blockTEXT = LoadTexture("Sprites/assets/door.png");
 };
 Door::~Door() {};
 

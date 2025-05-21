@@ -14,6 +14,7 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	bomberman.maxBombs = pMBombs;
 	bomberman.pantalla = pScreen;
 	timeUp = false;
+	clear = false;
 	mySeed = seed;
 	score = puntuacio;
 	time = contador;
@@ -24,6 +25,8 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	walkUp = LoadSound("SFX/walkUp.wav");
 	areRemoteControl = isRemoteControl;
 	blocs = &bomberman.colliders;
+	powerUpSound = LoadSound("SFX/powerUp.wav");
+	clearSound = LoadSound("SFX/clear.wav");
 }
 
 Game::~Game() {
@@ -53,6 +56,14 @@ void Game::Draw() {
 	}
 	for (int i = 0; i < enemics.size(); i++) {
 		enemics[i]->Draw();
+	}
+	for (int i = 0; i < scores.size(); i++) {
+		if (scores[i]->time >= 90) {
+			scores.erase(scores.begin() + i);
+		}
+		else {
+			scores[i]->Draw();
+		}
 	}
 	bomberman.Draw();
 	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
@@ -114,6 +125,39 @@ void Game::HandleInput() {
 		}
 		i++;
 	}
+#pragma region DEBUG
+	//DEBUG: KILL ALL ENEMIES
+	if (IsKeyPressed(KEY_K)) {
+		for (int i = 0; i < enemics.size(); i++) {
+			enemics[i]->isAlive = false;
+		}
+	}
+	//DEBUG: SPAWN POWER UPS
+	if (IsKeyPressed(KEY_ONE)) {
+		speedUp speedUp(&bomberman.colliders);
+		speedUp.col.x = bomberman.bmanPos.x + 16;
+		speedUp.col.y = bomberman.bmanPos.y + 1;
+		powerUps.insert(powerUps.begin(), speedUp);
+	}
+	if (IsKeyPressed(KEY_TWO)) {
+		bombUp bombUp(&bomberman.colliders);
+		bombUp.col.x = bomberman.bmanPos.x + 16;
+		bombUp.col.y = bomberman.bmanPos.y + 1;
+		powerUps.insert(powerUps.begin(), bombUp);
+	}
+	if (IsKeyPressed(KEY_THREE)) {
+		wallPass wallPass(&bomberman.colliders);
+		wallPass.col.x = bomberman.bmanPos.x + 16;
+		wallPass.col.y = bomberman.bmanPos.y + 1;
+		powerUps.insert(powerUps.begin(), wallPass);
+	}
+	if (IsKeyPressed(KEY_FOUR)) {
+		remoteControl remoteControl(&bomberman.colliders);
+		remoteControl.col.x = bomberman.bmanPos.x + 16;
+		remoteControl.col.y = bomberman.bmanPos.y + 1;
+		powerUps.insert(powerUps.begin(), remoteControl);
+	}
+#pragma endregion
 }
 
 void Game::instantiateCoses() {
@@ -418,12 +462,21 @@ int l;
 
 void Game::Update() 
 {
+	if (!clear && enemics.size() == 0) {
+		clear = true;
+		PlaySound(clearSound);
+	}
 	for (int i = 0; i < enemics.size(); i++)
 	{
 		if (enemics[i]->isAlive == false) {
 			(*score) += enemics[i]->points;
 			bomberman.p_guanyats = *score;
 			spawnPos.push_back(enemics[i]->EN_pos);
+			if (enemics[i]->points == 100){
+				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/100.png")));
+			} else if (enemics[i]->points == 8000) {
+				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/800.png")));
+			}
 			scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/100.png")));
 			enemics.erase(enemics.begin() + i);
 		}
@@ -436,23 +489,27 @@ void Game::Update()
 		bomberman.bombs[j].remoCon = (*areRemoteControl);
 	}
 	if ((*time) <= 0 && !timeUp) {
-		timeUp = true;
-		for (int i = 0; i < enemics.size(); i++)
-		{
-			spawnPos.push_back(enemics[i]->EN_pos);
-			enemics.erase(enemics.begin() + i);
-		}
-		for (int i = 0; i < 10; ++i) {
-			if (spawnPos.empty()) break;
-
-			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
-			int l = blocPos(rng);
-
-			// Validació per seguretat
-			if (l >= 0 && l < spawnPos.size()) {
-				enemics.push_back(new EN02(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
-				spawnPos.erase(spawnPos.begin() + l);
+		if (enemics.size() != 0) {
+			for (int i = 0; i < enemics.size(); i++)
+			{
+				spawnPos.push_back(enemics[i]->EN_pos);
+				enemics.erase(enemics.begin() + i);
 			}
+		}
+		else {
+			for (int i = 0; i < 10; ++i) {
+				if (spawnPos.empty()) break;
+
+				uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
+				int l = blocPos(rng);
+
+				// Validació per seguretat
+				if (l >= 0 && l < spawnPos.size()) {
+					enemics.push_back(new EN02(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
+					spawnPos.erase(spawnPos.begin() + l);
+				}
+			}
+			timeUp = true;
 		}
 	}
 }
@@ -478,6 +535,9 @@ void Game::checkPowerUps() {
 				}
 			}
 			if (!collided) {
+				PlaySound(powerUpSound);
+				bgm = LoadMusicStream("music/04. Power-Up Get.mp3");
+				PlayMusicStream(bgm);
 				if (powerUps[i].type == "speedUp") {
 					bomberman.vel += 0.2;
 					powerUps.erase(powerUps.begin() + i);

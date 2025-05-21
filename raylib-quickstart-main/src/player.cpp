@@ -13,6 +13,7 @@ Player::Player() {
 	idle = true;
 	bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
 	bombSound = LoadSound("SFX/bomb.wav");
+	deathSound = LoadSound("SFX/mort.wav");
 	vel = 0.8f;
 
 	bmanPos.x = 409; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
@@ -45,7 +46,7 @@ void Player::Draw() {
 		frameContadorB = 0;
 		currentFrameB ++;
 
-		if (currentFrameB > totalFrames -1) {
+		if (currentFrameB == totalFrames) {
 			if (isAlive) {
 				currentFrameB = 0;
 			} else {
@@ -81,6 +82,7 @@ void Player::Dead() {
 	ampladaFrames = 16;
 	frameRecB = { 0.0f,0.0f,16.0f,16.0f };
 	frameSpeedB = 4;
+	PlaySound(deathSound);
 	bmanTXT = LoadTexture("Sprites/bomberman/death.png");
 }
 

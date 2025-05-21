@@ -47,6 +47,10 @@ public:
 	Door door;
 	vector <powerUp> powerUps;
 	vector<Collider>* blocs;
+
+	Sound powerUpSound;
+	Sound clearSound;
+	bool clear;
 #pragma region Colliders
 	Collider col1;
 	Collider col2;

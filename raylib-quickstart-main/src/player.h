@@ -66,4 +66,5 @@ public:
 	Rectangle frameRecB;
 
 	Sound bombSound;
+	Sound deathSound;
 };

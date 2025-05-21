@@ -11,7 +11,7 @@ public:
 	~Score();
 	
 	int time;
-	void Update();
+	void Draw();
 	Texture2D sTXT;
 	Vector2 pos;
 };

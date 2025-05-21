@@ -24,7 +24,7 @@ vector <Screen*> screens;
 //interficie
 int puntuacio = 0;
 int vida = 3;
-int contador = 5;
+int contador = 200;
 int maxBombs = 1;
 float temps = 0.0f;
 const int fontSize = 65;
@@ -89,7 +89,7 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 }
 
 void loadNextScreen() {
-	contador = 5;
+	contador = 200;
 	StopMusicStream(screens[screen]->bgm);
 	if (screen >= 0 && screen!=8 && screen != screens.size()-2) {
 		if (screen == 1 || screen == 3 || screen == 5 || screen == 7) {
@@ -127,7 +127,7 @@ void loadNextScreen() {
 		maxBombs = 1;
 	}
 	PlayMusicStream(screens[screen]->bgm);
-	contador = 5;
+	contador = 200;
 	temps = 0.0f;
 }
 void screenManagement() {
@@ -190,6 +190,10 @@ int main()
 				camera.zoom = 3.0f;
 			}
 			auxScreen = screen;
+		}
+		//DEBUG: END TIME
+		if (IsKeyPressed(KEY_T)) {
+			contador = 0;
 		}
 		UpdateMusicStream(screens[screen]->bgm);
 		screenManagement();

@@ -24,7 +24,7 @@ vector <Screen*> screens;
 //interficie
 int puntuacio = 0;
 int vida = 3;
-int contador = 200;
+int contador = 5;
 int maxBombs = 1;
 float temps = 0.0f;
 const int fontSize = 65;
@@ -88,29 +88,17 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 }
 
 void loadNextScreen() {
-	contador = 200;
+	contador = 5;
 	StopMusicStream(screens[screen]->bgm);
-	if (screen >= 0) {
+	if (screen >= 0 && screen!=8 && screen != screens.size()-2) {
 		if (screen == 1 || screen == 3 || screen == 5 || screen == 7) {
-			if (screen != screens.size() - 1) {
+			if (screen != screens.size() - 1 && screen != screens.size() - 2) {
 				addGameToScreens(screens, screen, &vida, &screen);
 				screen++;
-				camera.target.x = 608;
-				camera.target.y = screenHeight / 2.0f - 20;
-				camera.offset.x = screenWidth / 2.0f;
-				camera.offset.y = screenHeight / 2.0f;
-				camera.rotation = 0.0f;
-				camera.zoom = 3.0f;
 				screens[screen]->bomberman.resetPlayer();
 			}
 			else {
 				screen = 0;
-				camera.target.x = screenWidth / 2.0f;
-				camera.target.y = screenHeight / 2.0f;
-				camera.offset.x = screenWidth / 2.0f;
-				camera.offset.y = screenHeight / 2.0f;
-				camera.rotation = 0.0f;
-				camera.zoom = 3.0f;
 				puntuacio = 0;
 				vida = 3;
 				maxBombs = 1;
@@ -119,40 +107,31 @@ void loadNextScreen() {
 		else {
 			if (screen == screens.size() - 1) {
 				screen = 0;
-				camera.target.x = screenWidth / 2.0f;
-				camera.target.y = screenHeight / 2.0f;
-				camera.offset.x = screenWidth / 2.0f;
-				camera.offset.y = screenHeight / 2.0f;
-				camera.rotation = 0.0f;
-				camera.zoom = 3.0f;
 				puntuacio = 0;
 				vida = 3;
 				maxBombs = 1;
 			}
 			else {
 				screen++;
-				camera.target.x = (screenWidth / 2.0f);
-				camera.target.y = screenHeight / 2.0f;
-				camera.offset.x = screenWidth / 2.0f;
-				camera.offset.y = screenHeight / 2.0f;
-				camera.rotation = 0.0f;
-				camera.zoom = 3.0f;
 			}
 		}
-	} 
+	}
+	else if (screen == 8) {
+		screen = screens.size()-1;
+	}
+	else if (screen == screens.size()-2) {
+		screen = 0;
+		puntuacio = 0;
+		vida = 3;
+		maxBombs = 1;
+	}
 	PlayMusicStream(screens[screen]->bgm);
-	contador = 200;
+	contador = 5;
 	temps = 0.0f;
 }
 void screenManagement() {
 	if (vida == 0) {
-		screen = screens.size() - 1;
-		camera.target.x = screenWidth / 2.0f;
-		camera.target.y = screenHeight / 2.0f;
-		camera.offset.x = screenWidth / 2.0f;
-		camera.offset.y = screenHeight / 2.0f;
-		camera.rotation = 0.0f;
-		camera.zoom = 3.0f;
+		screen = screens.size() - 2;
 		puntuacio = 0;
 		vida = 3;
 		maxBombs = 1;
@@ -176,18 +155,21 @@ int main()
 	SetTargetFPS(60);
 
 	screens = setUpScreens(&vida, &screen);
-	camera.target.x = screenWidth / 2.0f;
-	camera.target.y = screenHeight / 2.0f;
-	camera.offset.x = screenWidth / 2.0f;
-	camera.offset.y = screenHeight / 2.0f;
-	camera.rotation = 0.0f;
-	camera.zoom = 3.0f;
+
 	PlayMusicStream(screens[screen]->bgm);
 
 	while (!WindowShouldClose())
 	{
+		if (screen == 0) {
+			camera.target.x = screenWidth / 2.0f;
+			camera.target.y = screenHeight / 2.0f;
+			camera.offset.x = screenWidth / 2.0f;
+			camera.offset.y = screenHeight / 2.0f;
+			camera.rotation = 0.0f;
+			camera.zoom = 3.0f;
+		}
 		if (auxScreen != screen) {
-			if (vida != 0) {
+			if (vida != 0 && screen != 0 && screen != screens.size()-1) {
 				PlayMusicStream(screens[screen]->bgm);
 				camera.target.x = 608;
 				camera.target.y = screenHeight / 2.0f-20;
@@ -197,6 +179,14 @@ int main()
 				camera.zoom = 3.0f;
 				isRemoteControl = false;
 				screens[screen]->bomberman.resetPlayer();
+			}
+			else {
+				camera.target.x = screenWidth / 2.0f;
+				camera.target.y = screenHeight / 2.0f;
+				camera.offset.x = screenWidth / 2.0f;
+				camera.offset.y = screenHeight / 2.0f;
+				camera.rotation = 0.0f;
+				camera.zoom = 3.0f;
 			}
 			auxScreen = screen;
 		}
@@ -224,7 +214,7 @@ int main()
 
 		BeginDrawing();
 		
-		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7 && screen != screens.size() - 1) {
+		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7 && screen != screens.size() - 1 && screen != screens.size() - 2) {
 			ClearBackground(GRAY);
 			DrawText(puntuacioText.c_str(), screenWidth - textw1 - 550, 32, 65, BLACK);
 			DrawText(vidaText.c_str(), screenWidth - textw2 - 110, 32, 65, BLACK);

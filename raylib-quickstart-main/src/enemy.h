@@ -22,7 +22,6 @@ public:
 
     virtual void Draw();
     virtual void Update();
-    virtual bool Collide();
 
     Rectangle rectUp, rectDown, rectRight, rectLeft;
     Vector2 EN_pos;

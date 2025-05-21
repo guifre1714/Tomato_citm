@@ -14,4 +14,5 @@ public:
     void Update();
     bool Collide();
     void Dead();
+    void Direction();
 };

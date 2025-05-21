@@ -345,7 +345,7 @@ int l;
 #pragma endregion
 	uniform_int_distribution<int> numBlocs(60, 80);
 	int num = numBlocs(rng);
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 6; ++i) {
 		if (spawnPos.empty()) break;
 
 		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);

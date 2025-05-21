@@ -15,14 +15,14 @@ EN01::EN01(Vector2 position, vector<Collider>* colliders, Player* player, vector
 {
     velocity.x = 0.5;
     velocity.y = 0.5;
-    direction = rand() % 4;
+    direction = GetRandomValue(1, 4);
     collidersRef = colliders;
     EN_pos = position;
     EN_frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
     EN_texture = LoadTexture("Sprites/enemics/globus.png");
     bomberman = player;
     isAlive = true;
-    points = 200;
+    points = 100;
 
     currentFrameEN = 0;
     frameContadorEN = 0;
@@ -40,46 +40,47 @@ EN01:: ~EN01()
     
 void EN01::Update()
 {
-    rectUp = { EN_pos.x + 2, EN_pos.y - 14, 10, 10 };
-    rectDown = { EN_pos.x + 2, EN_pos.y + 14, 10, 10 };
-    rectLeft = { EN_pos.x - 14, EN_pos.y + 2, 10, 10 };
-    rectRight = { EN_pos.x + 14, EN_pos.y + 2, 10, 10 };
+    rectUp = { EN_pos.x + 2, EN_pos.y - 2, 10, 1 };
+    rectDown = { EN_pos.x + 2, EN_pos.y + 18, 10, 1 };
+    rectLeft = { EN_pos.x - 2, EN_pos.y + 2, 1, 10 };
+    rectRight = { EN_pos.x + 18, EN_pos.y + 2, 1, 10 };
     bomberDie();
     bombDie();
     EN_hitbox = { EN_pos.x+1 ,EN_pos.y+1, 13, 13 };
     EN_col = { EN_pos.x - 1 ,EN_pos.y - 1, 17, 17 };
 
     int randomValue = 0;
-    float interval = 5;
-    srand(time(NULL));
+    interval = GetRandomValue(3, 5);
 
     float deltaTime = GetFrameTime();
     timer += deltaTime;
 
-    
     if (timer >= interval) {
         randomValue = GetRandomValue(1, 4);
         timer = 0.0f;
-        interval = GetRandomValue(1, 10);
+        interval = GetRandomValue(3, 5);
         direction = randomValue;
     }
+    Direction();
     if (move) {
-        if (direction == 1 && !Collide()) {
+        if (direction == 1 && !colUp) {
             EN_pos.y -= velocity.y;
         }
-        else if (direction == 2 && !Collide()) {
+        else if (direction == 2 && !colDown) {
             EN_pos.y += velocity.y;
         }
-        else if (direction == 3 && !Collide()) {
+        else if (direction == 3 && !colLeft) {
             EN_pos.x -= velocity.x;
         }
-        else if (direction == 4 && !Collide()) {
+        else if (direction == 4 && !colRight) {
             EN_pos.x += velocity.x;
         }
+        else { timer = interval; Direction(); }
     }
 }
 
 bool EN01::Collide() {
+    interval = 0;
     bool col;
     if (direction == 1) {
         EN_col.y = EN_pos.y - velocity.y;
@@ -100,9 +101,6 @@ bool EN01::Collide() {
     for (int i = 0; i < (*collidersRef).size(); i++) {
         col = CheckCollisionRecs(EN_col, (*collidersRef)[i].col);
         if (col) {
-            int randomValue = GetRandomValue(1, 4);
-            timer = 0.0f;
-            direction = randomValue;
             return true;
         }
     }
@@ -117,10 +115,10 @@ void EN01::Dead() {
 }
 
 void EN01::Direction() {
-    bool colUp = false;
-    bool colDown = false;
-    bool colLeft = false;
-    bool colRight = false;
+    colUp = false;
+    colDown = false;
+    colLeft = false;
+    colRight = false;
     for (int i = 0; i < collidersRef->size(); i++) {
         if (!colUp) {
             colUp = CheckCollisionRecs(rectUp, (*collidersRef)[i].col);
@@ -137,28 +135,51 @@ void EN01::Direction() {
     }
 
     if (!colUp && direction != 1 && direction != 2 && timer >= 1) {
-        int i = rand() % 2;
+        int i = GetRandomValue(1, 2);
         timer = 0.0f;
 
         if (i == 2) direction = 1;
     }
     if (!colDown && direction != 1 && direction != 2 && timer >= 1) {
-        int i = rand() % 2;
+        int i = GetRandomValue(1, 2);
         timer = 0.0f;
-        if (i == 3) direction = 2;
+        if (i == 2) direction = 2;
     }
     if (!colLeft && direction != 3 && direction != 4 && timer >= 1) {
-        int i = rand() % 2;
+        int i = GetRandomValue(1, 2);
         timer = 0.0f;
 
-        if (i == 3) direction = 3;
+        if (i == 2) direction = 3;
     }
     if (!colRight && direction != 3 && direction != 4 && timer >= 1) {
-        int i = rand() % 2;
+        int i = GetRandomValue(1, 2);
         timer = 0.0f;
-        if (i == 3) direction = 4;
+        if (i == 2) direction = 4;
     }
-    if (colUp && direction == 1) {
-        direction = (rand() & 3) + 1;
+
+    if (colUp && colDown && !colLeft && !colRight && direction != 3 && direction != 4 && timer >= 0.5){
+        int i = GetRandomValue(1, 2);
+        timer = 0.0f;
+        if (i == 1) {
+            direction = 4;
+        }
+        else {
+            direction = 3;
+        }
     }
+    else if (!colUp && !colDown && colLeft && colRight && direction != 1 && direction != 2 && timer >= 0.5) {
+        int i = GetRandomValue(1, 2);
+        timer = 0.0f;
+        if (i == 1) {
+            direction = 1;
+        }
+        else {
+            direction = 2;
+        }
+    }
+
+    if (colUp && colDown && colLeft && colRight) {
+        !move;
+    }
+    else { move; }
 }

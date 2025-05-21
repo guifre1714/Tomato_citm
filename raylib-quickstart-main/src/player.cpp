@@ -153,11 +153,19 @@ bool Player::Collide() {
 }
 
 void Player::createBomb() {
+	bool can = false;
 	if (!bombCheck()) {
-		Bomba bomb(snapPositions[getClosestSnapIndex(bmanPos, snapPositions)], bombPlus, &colliders);
-		snapPositions.erase(snapPositions.begin() + getClosestSnapIndex(bmanPos, snapPositions));
-		bombs.insert(bombs.end(), bomb);
-		PlaySound(bombSound);
+		for (int i = 0; i < colliders.size(); i++) {
+			if (!can) {
+				can = CheckCollisionRecs(myCollider, colliders[i].col);
+			}
+		}
+		if (!can) {
+			Bomba bomb(snapPositions[getClosestSnapIndex(bmanPos, snapPositions)], bombPlus, &colliders);
+			snapPositions.erase(snapPositions.begin() + getClosestSnapIndex(bmanPos, snapPositions));
+			bombs.insert(bombs.end(), bomb);
+			PlaySound(bombSound);
+		}
 	}
 }
 

@@ -38,7 +38,10 @@ void Game::Draw() {
 		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
 	}*/
 	
-	
+	door.Draw();
+	for (int i = 0; i < powerUps.size(); i++) {
+		powerUps[i].Draw();
+	}
 	for (int k = 0; k <= bomberman.colliders.size() - 1; k++) {
 		if (bomberman.colliders[k].breakable) {
 
@@ -47,10 +50,6 @@ void Game::Draw() {
 		if (bomberman.colliders[k].destroy) {
 			bomberman.colliders.erase(bomberman.colliders.begin() + k);
 		}
-	}
-	door.Draw();
-	for (int i = 0; i < powerUps.size(); i++) {
-		powerUps[i].Draw();
 	}
 	for (int i = 0; i < enemics.size(); i++) {
 		enemics[i]->Draw();

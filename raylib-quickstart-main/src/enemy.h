@@ -8,6 +8,7 @@
 #include <player.h>
 #include <screen.h>
 #include <bomba.h>
+#include <random>
 
 
 using namespace std;
@@ -43,9 +44,15 @@ public:
     int direction;
     int points;
     float timer;
+    float interval;
 
     bool isAlive;
     bool move;
+
+    bool colUp;
+    bool colDown;
+    bool colLeft;
+    bool colRight;
 
     virtual void bomberDie();
     virtual void bombDie();

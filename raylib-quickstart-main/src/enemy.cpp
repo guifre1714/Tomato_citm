@@ -40,7 +40,6 @@ void Enemy::Update(){}
 
 bool Enemy::Collide() {
     return false;
-
 }
 void Enemy::bombDie() {
     bool colUp = false;

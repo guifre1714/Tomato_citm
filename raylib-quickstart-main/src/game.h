@@ -13,6 +13,7 @@
 #include <random>
 #include <remoteControl.h>
 #include <wallPass.h>
+#include <score.h>
 
 using namespace std;
 
@@ -37,8 +38,9 @@ public:
 	mt19937 rng;
 
 	bool* areRemoteControl;
-        
+     
 	vector<Enemy*> enemics;
+	vector<Score*> scores;
 
 	vector <Vector2> spawnPos;
 	vector <Vector2> powerUpPositions;

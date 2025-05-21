@@ -9,7 +9,6 @@ class EN01 : public Enemy
 {
 public:
     EN01(Vector2 position, vector<Collider>* colliders, Player* player, vector <Bomba>* bombes);
-    ~EN01();
 
     void Update();
     void Dead();

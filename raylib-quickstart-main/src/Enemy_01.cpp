@@ -33,10 +33,6 @@ EN01::EN01(Vector2 position, vector<Collider>* colliders, Player* player, vector
     bombs = bombes;
     move = true;
 }
-EN01:: ~EN01() 
-{
-
-}
     
 void EN01::Update()
 {

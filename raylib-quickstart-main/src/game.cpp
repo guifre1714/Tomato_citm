@@ -424,6 +424,7 @@ void Game::Update()
 			(*score) += enemics[i]->points;
 			bomberman.p_guanyats = *score;
 			spawnPos.push_back(enemics[i]->EN_pos);
+			scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/100.png")));
 			enemics.erase(enemics.begin() + i);
 		}
 		else {

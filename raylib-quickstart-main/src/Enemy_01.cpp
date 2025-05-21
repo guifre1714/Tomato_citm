@@ -64,15 +64,19 @@ void EN01::Update()
     Direction();
     if (move) {
         if (direction == 1 && !colUp) {
+            EN_texture = LoadTexture("Sprites/enemics/globusDreta.png");
             EN_pos.y -= velocity.y;
         }
         else if (direction == 2 && !colDown) {
+            EN_texture = LoadTexture("Sprites/enemics/globusEsquerra.png");
             EN_pos.y += velocity.y;
         }
         else if (direction == 3 && !colLeft) {
+            EN_texture = LoadTexture("Sprites/enemics/globusEsquerra.png");
             EN_pos.x -= velocity.x;
         }
         else if (direction == 4 && !colRight) {
+            EN_texture = LoadTexture("Sprites/enemics/globusDreta.png");
             EN_pos.x += velocity.x;
         }
         else { timer = interval; Direction(); }

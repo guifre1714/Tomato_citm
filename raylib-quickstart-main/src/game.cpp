@@ -62,7 +62,7 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
-	if (IsKeyDown(KEY_Z)&& bomberman.isAlive==true) {
+	if (IsKeyDown(KEY_Z) && bomberman.isAlive==true) {
 		bomberman.Dead();
 	}
 	if (IsKeyDown(KEY_W)) {
@@ -345,6 +345,7 @@ int l;
 #pragma endregion
 	uniform_int_distribution<int> numBlocs(60, 80);
 	int num = numBlocs(rng);
+	bomberman.snapPositions = spawnPos;
 	for (int i = 0; i < 6; ++i) {
 		if (spawnPos.empty()) break;
 
@@ -365,7 +366,6 @@ int l;
 		powerUpPositions.insert(powerUpPositions.end(), spawnPos[l]);
 		bomberman.colliders.insert(bomberman.colliders.end(), bloc);
 	}
-	bomberman.snapPositions = spawnPos;
 	Vector2 pos;
 	pos.x = 424;
 	pos.y = 272;

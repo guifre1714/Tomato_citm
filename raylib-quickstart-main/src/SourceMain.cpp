@@ -141,8 +141,24 @@ void screenManagement() {
 		temps = 0.0f;
 
 	}
-	if (IsKeyPressed(KEY_ENTER) || screens[screen]->nextLevel() == true) {
+	if (IsKeyPressed(KEY_ENTER)) {
 		loadNextScreen();
+	}
+	if (screens[screen]->nextLevel() == true) {
+		if (screens[screen]->timer > screens[screen]->duration) {
+			loadNextScreen();
+		}
+		else if(screens[screen]->timer == -1){
+			StopMusicStream(screens[screen]->bgm);
+			screens[screen]->bgm = LoadMusicStream("music/05. Stage Clear.mp3");
+			PlayMusicStream(screens[screen]->bgm);
+			screens[screen]->freeze = true;
+			screens[screen]->bomberman.bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
+			screens[screen]->timer = 0;
+		}
+		if (screens[screen]->timer >= 0){
+			screens[screen]->timer++;
+		}
 	}
 }
 int main()

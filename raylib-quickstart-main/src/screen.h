@@ -18,4 +18,6 @@ public:
 	Texture Fons;
 	unsigned int mySeed;
 	int duration;
+	bool freeze;
+	int timer;
 };

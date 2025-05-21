@@ -6,6 +6,8 @@ int i = 0;
 
 Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio, int* contador):rng(seed)
 {
+	duration = 179;
+	timer = -1;
 	level = nivell;
 	Player player;
 	bomberman = player;
@@ -15,6 +17,7 @@ Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed
 	bomberman.pantalla = pScreen;
 	timeUp = false;
 	clear = false;
+	freeze = false;
 	mySeed = seed;
 	score = puntuacio;
 	time = contador;
@@ -66,6 +69,7 @@ void Game::Draw() {
 		}
 	}
 	bomberman.Draw();
+	DrawRectangle(door.col.x, door.col.y, door.col.width, door.col.height, RED);
 	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
 	/*for (int k = 0; k < bomberman.snapPositions.size(); k++) {
 		DrawRectangle(bomberman.snapPositions[k].x, bomberman.snapPositions[k].y, 16, 16, GOLD);
@@ -79,51 +83,53 @@ void Game::HandleInput() {
 	if (IsKeyDown(KEY_W)) {
 		bomberman.isWallPass = true;
 	}
-	if (bomberman.isAlive) {
-		if (IsKeyDown(KEY_LEFT)) {
-			bomberman.MoveLeft();
-			if (i > 20) {
-				PlaySound(walk);
-				i = 0;
-			}
-		}
-		else if (IsKeyDown(KEY_RIGHT)) {
-			bomberman.MoveRight();
-			if (i > 20) {
-				PlaySound(walk);
-				i = 0;
-			}
-		}
-		else if (IsKeyDown(KEY_UP)) {
-			bomberman.MoveUp();
-			if (i > 20) {
-				PlaySound(walkUp);
-				i = 0;
-			}
-		}
-		else if (IsKeyDown(KEY_DOWN)) {
-
-			bomberman.MoveDown();
-			if (i > 20) {
-				PlaySound(walkUp);
-				i = 0;
-			}
-		}
-		else if (!bomberman.idle){
-			bomberman.idle = true;
-			bomberman.bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
-		}
-		if (IsKeyPressed(KEY_X) && bomberman.bombs.size()<*bomberman.maxBombs) {
-			bomberman.createBomb();
-		}
-		if ((*areRemoteControl) == true) {
-			if (IsKeyPressed(KEY_C)) {
-				for (int j = 0; j < bomberman.bombs.size(); j++) {
-					bomberman.bombs[j].boom = true;
+	if (!freeze) {
+		if (bomberman.isAlive) {
+			if (IsKeyDown(KEY_LEFT)) {
+				bomberman.MoveLeft();
+				if (i > 20) {
+					PlaySound(walk);
+					i = 0;
 				}
 			}
+			else if (IsKeyDown(KEY_RIGHT)) {
+				bomberman.MoveRight();
+				if (i > 20) {
+					PlaySound(walk);
+					i = 0;
+				}
+			}
+			else if (IsKeyDown(KEY_UP)) {
+				bomberman.MoveUp();
+				if (i > 20) {
+					PlaySound(walkUp);
+					i = 0;
+				}
+			}
+			else if (IsKeyDown(KEY_DOWN)) {
+
+				bomberman.MoveDown();
+				if (i > 20) {
+					PlaySound(walkUp);
+					i = 0;
+				}
+			}
+			else if (!bomberman.idle) {
+				bomberman.idle = true;
+				bomberman.bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
+			}
+			if (IsKeyPressed(KEY_X) && bomberman.bombs.size() < *bomberman.maxBombs) {
+				bomberman.createBomb();
+			}
+			if ((*areRemoteControl) == true) {
+				if (IsKeyPressed(KEY_C)) {
+					for (int j = 0; j < bomberman.bombs.size(); j++) {
+						bomberman.bombs[j].boom = true;
+					}
+				}
+			}
+			i++;
 		}
-		i++;
 	}
 #pragma region DEBUG
 	//DEBUG: KILL ALL ENEMIES
@@ -156,6 +162,10 @@ void Game::HandleInput() {
 		remoteControl.col.x = bomberman.bmanPos.x + 16;
 		remoteControl.col.y = bomberman.bmanPos.y + 1;
 		powerUps.insert(powerUps.begin(), remoteControl);
+	}
+	if (IsKeyPressed(KEY_D)) {
+		door.col.x = bomberman.bmanPos.x + 16;
+		door.col.y = bomberman.bmanPos.y + 1;
 	}
 #pragma endregion
 }
@@ -427,6 +437,8 @@ int l;
 	l = pUpPos(rng);
 	door.col.x = powerUpPositions[l].x + 1;
 	door.col.y = powerUpPositions[l].y + 1;
+	door.col.width = 2;
+	door.col.height = 2;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
 	if (level == 8) {
 		speedUp speedUp(&bomberman.colliders);

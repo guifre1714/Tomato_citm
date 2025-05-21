@@ -27,7 +27,7 @@ EN01::EN01(Vector2 position, vector<Collider>* colliders, Player* player, vector
     currentFrameEN = 0;
     frameContadorEN = 0;
     frameSpeedEN = 4; //marca la velocitat dels FPS
-    totalFramesEN = 6;
+    totalFramesEN = 4;
     ampladaFramesEN = 16;
     timer = 0.0f;
     bombs = bombes;
@@ -40,10 +40,10 @@ EN01:: ~EN01()
     
 void EN01::Update()
 {
-    rectUp = { EN_pos.x + 2, EN_pos.y - 2, 13, 1 };
-    rectDown = { EN_pos.x + 2, EN_pos.y + 18, 13, 1 };
-    rectLeft = { EN_pos.x - 2, EN_pos.y + 2, 1, 13 };
-    rectRight = { EN_pos.x + 18, EN_pos.y + 2, 1, 13 };
+    rectUp = { EN_pos.x + 2, EN_pos.y - 2, 10, 1 };
+    rectDown = { EN_pos.x + 2, EN_pos.y + 18, 10, 1 };
+    rectLeft = { EN_pos.x - 2, EN_pos.y + 2, 1, 10 };
+    rectRight = { EN_pos.x + 18, EN_pos.y + 2, 1, 10 };
     bomberDie();
     bombDie();
     EN_hitbox = { EN_pos.x+1 ,EN_pos.y+1, 13, 13 };
@@ -83,6 +83,7 @@ void EN01::Update()
     }
 }
 
+
 void EN01::Dead() {
     move = false;
     EN_texture = LoadTexture("Sprites/enemics/mortG.png");
@@ -111,32 +112,32 @@ void EN01::Direction() {
     }
 
     if (!colUp && direction != 1 && direction != 2 && timer >= 1) {
-        int i = GetRandomValue(1, 10);
-        timer = 0.0f;
-
-        if (i > 3) direction = 1;
-    }
-    if (!colDown && direction != 1 && direction != 2 && timer >= 1) {
-        int i = GetRandomValue(1, 10);
-        timer = 0.0f;
-        if (i > 3) direction = 2;
-    }
-    if (!colLeft && direction != 3 && direction != 4 && timer >= 1) {
-        int i = GetRandomValue(1, 10);
-        timer = 0.0f;
-
-        if (i > 3) direction = 3;
-    }
-    if (!colRight && direction != 3 && direction != 4 && timer >= 1) {
-        int i = GetRandomValue(1, 10);
-        timer = 0.0f;
-        if (i > 3) direction = 4;
-    }
-
-    if (colUp && colDown && !colLeft && !colRight && direction != 3 && direction != 4 && timer >= 0.5) {
         int i = GetRandomValue(1, 2);
         timer = 0.0f;
-        if (i == 3) {
+
+        if (i == 2) direction = 1;
+    }
+    if (!colDown && direction != 1 && direction != 2 && timer >= 1) {
+        int i = GetRandomValue(1, 2);
+        timer = 0.0f;
+        if (i == 2) direction = 2;
+    }
+    if (!colLeft && direction != 3 && direction != 4 && timer >= 1) {
+        int i = GetRandomValue(1, 2);
+        timer = 0.0f;
+
+        if (i == 2) direction = 3;
+    }
+    if (!colRight && direction != 3 && direction != 4 && timer >= 1) {
+        int i = GetRandomValue(1, 2);
+        timer = 0.0f;
+        if (i == 2) direction = 4;
+    }
+
+    if (colUp && colDown && !colLeft && !colRight && direction != 3 && direction != 4 && timer >= 0.5){
+        int i = GetRandomValue(1, 2);
+        timer = 0.0f;
+        if (i == 1) {
             direction = 4;
         }
         else {

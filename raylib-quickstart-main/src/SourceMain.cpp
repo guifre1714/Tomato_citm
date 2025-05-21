@@ -67,6 +67,7 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 
 	endScreen* endS = new endScreen();
 	screenList.insert(screenList.end(), endS);
+	endS->duration = 780;
 	return screenList;
 }
 void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {

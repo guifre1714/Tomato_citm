@@ -164,8 +164,8 @@ void Game::HandleInput() {
 		powerUps.insert(powerUps.begin(), remoteControl);
 	}
 	if (IsKeyPressed(KEY_D)) {
-		door.col.x = bomberman.bmanPos.x + 16;
-		door.col.y = bomberman.bmanPos.y + 1;
+		door.col.x = bomberman.bmanPos.x + 21;
+		door.col.y = bomberman.bmanPos.y + 7;
 	}
 #pragma endregion
 }
@@ -453,10 +453,10 @@ int l;
 
 	uniform_int_distribution<int> pUpPos(0, powerUpPositions.size() - 1);
 	l = pUpPos(rng);
-	door.col.x = powerUpPositions[l].x + 1;
-	door.col.y = powerUpPositions[l].y + 1;
-	door.col.width = 2;
-	door.col.height = 2;
+	door.col.x = powerUpPositions[l].x + 8;
+	door.col.y = powerUpPositions[l].y + 8;
+	door.col.width = 1;
+	door.col.height = 1;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
 	if (level == 9) {
 		speedUp speedUp(&bomberman.colliders);
@@ -511,7 +511,6 @@ void Game::Update()
 			} else if (enemics[i]->points == 200) {
 				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/200.png")));
 			}
-			scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/100.png")));
 			enemics.erase(enemics.begin() + i);
 		}
 		else {

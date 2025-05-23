@@ -81,6 +81,7 @@ void EN03::Update()
 
 void EN03::Dead() {
     move = false;
+    EN_col = { 0, 0, 0, 0 };
     EN_texture = LoadTexture("Sprites/enemics/mortGo.png");
     currentFrameEN = 0;
     totalFramesEN = 5;

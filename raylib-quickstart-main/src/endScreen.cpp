@@ -10,15 +10,15 @@ endScreen::endScreen() {
 	Fons = LoadTexture("Sprites/menu/bombermanEndScreen.png");
 	bgm = LoadMusicStream("music/08. Ending.mp3");
 	
-	humanPos.x = 420;
+	humanPos.x = 430;
 	humanPos.y = 416;
 
-	frameRec = { 0.0f, 0.0f, 12.0f, 16.0f };
+	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
 	currentFrame = 0;
 	frameContador = 0;
 	frameSpeed = 6; //marca la velocitat dels FPS
 	totalFrames = 3;
-	ampladaFrames = 12;
+	ampladaFrames = 16;
 	
 }
 
@@ -38,7 +38,7 @@ void endScreen::Draw() {
 		}
 		frameRec.x = (float)currentFrame * ampladaFrames;
 	}
-	if (humanPos.x >= 634) {
+	if (humanPos.x >= 627) {
 		bombHuman = LoadTexture("Sprites/assets/endBman.png");		
 	}
 	DrawTextureRec(bombHuman, frameRec, humanPos, WHITE);

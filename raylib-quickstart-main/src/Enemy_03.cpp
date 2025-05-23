@@ -21,7 +21,7 @@ EN03::EN03(Vector2 position, vector<Collider>* colliders, Player* player, vector
     EN_frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
     bomberman = player;
     isAlive = true;
-    points = 100;
+    points = 200;
 
     currentFrameEN = 0;
     frameContadorEN = 0;

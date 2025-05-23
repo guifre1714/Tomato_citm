@@ -91,7 +91,12 @@ void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, in
 void loadNextScreen() {
 	contador = 200;
 	StopMusicStream(screens[screen]->bgm);
-	if (screen >= 0 && screen!=8 && screen != screens.size()-2) {
+	if (screen == screens.size() - 2) {
+		screen = 0;
+		puntuacio = 0;
+		vida = 3;
+		maxBombs = 1;
+	} else if (screen >= 0 && screen!=8 && screen != screens.size()-2) {
 		if (screen == 1 || screen == 3 || screen == 5 || screen == 7) {
 			if (screen != screens.size() - 1 && screen != screens.size() - 2) {
 				addGameToScreens(screens, screen, &vida, &screen);
@@ -116,15 +121,8 @@ void loadNextScreen() {
 				screen++;
 			}
 		}
-	}
-	else if (screen == 8) {
+	} else if (screen == 8) {
 		screen = screens.size()-1;
-	}
-	else if (screen == screens.size()-2) {
-		screen = 0;
-		puntuacio = 0;
-		vida = 3;
-		maxBombs = 1;
 	}
 	PlayMusicStream(screens[screen]->bgm);
 	contador = 200;
@@ -146,6 +144,7 @@ void screenManagement() {
 	}
 	if (screens[screen]->nextLevel() == true) {
 		if (screens[screen]->timer > screens[screen]->duration) {
+			screens[screen]->timer = 0;
 			loadNextScreen();
 		}
 		else if(screens[screen]->timer == -1){

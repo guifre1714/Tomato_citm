@@ -464,12 +464,14 @@ int l;
 		powerUps.insert(powerUps.begin(), wallPass);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
-	bombUp bombUp(&bomberman.colliders);
-	l = pUpPos(rng);
-	bombUp.col.x = powerUpPositions[l].x + 1;
-	bombUp.col.y = powerUpPositions[l].y + 1;
-	powerUps.insert(powerUps.begin(), bombUp);
-	powerUpPositions.erase(powerUpPositions.begin() + l);
+	else {
+		bombUp bombUp(&bomberman.colliders);
+		l = pUpPos(rng);
+		bombUp.col.x = powerUpPositions[l].x + 1;
+		bombUp.col.y = powerUpPositions[l].y + 1;
+		powerUps.insert(powerUps.begin(), bombUp);
+		powerUpPositions.erase(powerUpPositions.begin() + l);
+	}
 }
 
 void Game::Update() 

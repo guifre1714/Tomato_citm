@@ -16,7 +16,7 @@ Player::Player() {
 	deathSound = LoadSound("SFX/mort.wav");
 	vel = 0.8f;
 
-	bmanPos.x = 409; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
+	bmanPos.x = 409;
 	bmanPos.y = 272;
 	
 	bmanCol = { bmanPos.x, bmanPos.y, 15, 15 };

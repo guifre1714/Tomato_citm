@@ -81,7 +81,7 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 //Function that adds a "Game" screen to the position next to the current screen in the screens vector.
 void addGameToScreens(vector<Screen*>& screenList, int levelIndex, int* vida, int* pantalla) {
 	int nextIndex = levelIndex + 1;
-	unsigned int seed = 100 + screen; //Seed that gives a set of screens we like
+	unsigned int seed = rand() % 130; //Seed that gives a set of screens we like
 	// Check if the next screen exists and is a Game and delete if so (i don't wwant to have 2 game screens back to back xd)
 	if (nextIndex < screenList.size()) {
 		Game* gamePtr = dynamic_cast<Game*>(screenList[nextIndex]);

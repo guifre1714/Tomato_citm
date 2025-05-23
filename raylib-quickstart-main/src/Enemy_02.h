@@ -11,7 +11,6 @@ public:
     EN02(Vector2 position, vector<Collider>* colliders, Player* player, vector <Bomba>* bombes);
 
     void Update();
-    bool Collide();
     void Dead();
     void Direction();
 };

@@ -43,7 +43,6 @@ void Bomba::Draw() {
 		boom = true;
 		myCollider.col = { 0,0,0,0 };
 	}
-	DrawRectangle(myCollider.col.x, myCollider.col.y, myCollider.col.width, myCollider.col.height, RED);
 	frameContador++;
 	if (frameContador >= (60 / frameSpeed)) {
 		frameContador = 0;
@@ -78,6 +77,7 @@ void Bomba::KaboomCheck() {
 	if (!plus && boom) {
 		totalFrames = 4;
 		frameSpeed = 8;
+		currentFrame = 0;
 		bombTEXT = LoadTexture("Sprites/bomb/expCentre.png");
 		rectUp = { bombPos.x + 1, bombPos.y - 15, 13, 13 };
 		rectDown = { bombPos.x + 1, bombPos.y + 15, 13, 13 };

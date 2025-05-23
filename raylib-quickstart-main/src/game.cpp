@@ -39,11 +39,6 @@ Game::~Game() {
 }
 
 void Game::Draw() {
-	//BUCLE FOR PER PINTAR ELS COLLIDERS DE LES CAIXES
-	/*for (int i = 0; i < bomberman.colliders.size(); i++) {
-		DrawRectangleRec(bomberman.colliders[i].col, GOLD);
-	}*/
-	
 	door.Draw();
 	for (int i = 0; i < powerUps.size(); i++) {
 		powerUps[i].Draw();
@@ -69,14 +64,9 @@ void Game::Draw() {
 		}
 	}
 	bomberman.Draw();
-	DrawRectangle(door.col.x, door.col.y, door.col.width, door.col.height, RED);
 	for (int j = 0; j < bomberman.bombs.size(); j++) {
 		bomberman.bombs[j].Draw();
 	}
-	/*DIBUIXAR TOTS ELS LLOCS ON ES POT COLOCAR LA BOMBA*/
-	/*for (int k = 0; k < bomberman.snapPositions.size(); k++) {
-		DrawRectangle(bomberman.snapPositions[k].x, bomberman.snapPositions[k].y, 16, 16, GOLD);
-	}*/
 }
 
 void Game::HandleInput() {

@@ -400,44 +400,34 @@ int l;
 	uniform_int_distribution<int> numBlocs(60, 80);
 	int num = numBlocs(rng);
 	bomberman.snapPositions = spawnPos;
-	if (level == 4) {
-		for (int i = 0; i < 4; ++i) {
-			if (spawnPos.empty()) break;
+	int globus_amount;
+	int gota_amount;
+	if (level == 3){ globus_amount = 6; gota_amount = 0; }
+	else if (level == 5) { globus_amount = 4; gota_amount = 2; }
+	else if (level == 7) { globus_amount = 3; gota_amount = 3; }
+	else { globus_amount = 4; gota_amount = 4; }
+	for (int i = 0; i < globus_amount; ++i) {
+		if (spawnPos.empty()) break;
 
-			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
-			int l = blocPos(rng);
+		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
+		int l = blocPos(rng);
 
-			// Validació per seguretat
-			if (l >= 0 && l < spawnPos.size()) {
-				enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
-				spawnPos.erase(spawnPos.begin() + l);
-			}
-		}
-		for (int i = 0; i < 2; ++i) {
-			if (spawnPos.empty()) break;
-
-			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
-			int l = blocPos(rng);
-
-			// Validació per seguretat
-			if (l >= 0 && l < spawnPos.size()) {
-				enemics.push_back(new EN03(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
-				spawnPos.erase(spawnPos.begin() + l);
-			}
+		// Validació per seguretat
+		if (l >= 0 && l < spawnPos.size()) {
+			enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
+			spawnPos.erase(spawnPos.begin() + l);
 		}
 	}
-	else {
-		for (int i = 0; i < 6; ++i) {
-			if (spawnPos.empty()) break;
+	for (int i = 0; i < gota_amount; ++i) {
+		if (spawnPos.empty()) break;
 
-			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
-			int l = blocPos(rng);
+		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
+		int l = blocPos(rng);
 
-			// Validació per seguretat
-			if (l >= 0 && l < spawnPos.size()) {
-				enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
-				spawnPos.erase(spawnPos.begin() + l);
-			}
+		// Validació per seguretat
+		if (l >= 0 && l < spawnPos.size()) {
+			enemics.push_back(new EN03(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
+			spawnPos.erase(spawnPos.begin() + l);
 		}
 	}
 	uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
@@ -468,7 +458,7 @@ int l;
 	door.col.width = 2;
 	door.col.height = 2;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
-	if (level == 8) {
+	if (level == 9) {
 		speedUp speedUp(&bomberman.colliders);
 		l = pUpPos(rng);
 		speedUp.col.x = powerUpPositions[l].x + 1;
@@ -476,7 +466,7 @@ int l;
 		powerUps.insert(powerUps.begin(), speedUp);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
-	if (level == 6) {
+	if (level == 7) {
 		remoteControl remoteControl(&bomberman.colliders);
 		l = pUpPos(rng);
 		remoteControl.col.x = powerUpPositions[l].x + 1;
@@ -484,7 +474,7 @@ int l;
 		powerUps.insert(powerUps.begin(), remoteControl);
 		powerUpPositions.erase(powerUpPositions.begin() + l);
 	}
-	if (level == 4) {
+	if (level == 5) {
 		wallPass wallPass(&bomberman.colliders);
 		l = pUpPos(rng);
 		wallPass.col.x = powerUpPositions[l].x + 1;
@@ -517,7 +507,9 @@ void Game::Update()
 			if (enemics[i]->points == 100){
 				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/100.png")));
 			} else if (enemics[i]->points == 8000) {
-				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/800.png")));
+				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/8000.png")));
+			} else if (enemics[i]->points == 200) {
+				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/200.png")));
 			}
 			scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/100.png")));
 			enemics.erase(enemics.begin() + i);

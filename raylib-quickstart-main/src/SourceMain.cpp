@@ -97,19 +97,19 @@ void loadNextScreen() {
 	contador = 200;
 	StopMusicStream(screens[screen]->bgm);
 	if (screen == screens.size() - 2) {
-		screen = 0;
+		screen = 1;
 		puntuacio = 0;
 		vida = 3;
 		maxBombs = 1;
-	} else if (screen >= 0 && screen!=8 && screen != screens.size()-2) {
-		if (screen == 1 || screen == 3 || screen == 5 || screen == 7) {
+	} else if (screen >= 0 && screen!=9 && screen != screens.size()-2) {
+		if (screen == 2 || screen == 4 || screen == 6 || screen == 8) {
 			if (screen != screens.size() - 1 && screen != screens.size() - 2) {
 				addGameToScreens(screens, screen, &vida, &screen);
 				screen++;
 				screens[screen]->bomberman.resetPlayer();
 			}
 			else {
-				screen = 0;
+				screen = 1;
 				puntuacio = 0;
 				vida = 3;
 				maxBombs = 1;
@@ -117,7 +117,7 @@ void loadNextScreen() {
 		}
 		else {
 			if (screen == screens.size() - 1) {
-				screen = 0;
+				screen = 1;
 				puntuacio = 0;
 				vida = 3;
 				maxBombs = 1;
@@ -126,7 +126,7 @@ void loadNextScreen() {
 				screen++;
 			}
 		}
-	} else if (screen == 8) {
+	} else if (screen == 9) {
 		screen = screens.size()-1;
 	}
 	PlayMusicStream(screens[screen]->bgm);
@@ -181,7 +181,7 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		if (screen == 0) {
+		if (screen == 1) {
 			camera.target.x = screenWidth / 2.0f;
 			camera.target.y = screenHeight / 2.0f;
 			camera.offset.x = screenWidth / 2.0f;
@@ -190,7 +190,8 @@ int main()
 			camera.zoom = 3.0f;
 		}
 		if (auxScreen != screen) {
-			if (vida != 0 && screen != 0 && screen != screens.size()-1) {
+			if (vida != 0 && screen != 1
+				&& screen != screens.size()-1) {
 				PlayMusicStream(screens[screen]->bgm);
 				camera.target.x = 608;
 				camera.target.y = screenHeight / 2.0f-20;
@@ -244,12 +245,14 @@ int main()
 
 		BeginDrawing();
 
-		DrawText(degree.c_str(), 200, 100, 30, WHITE);
-		DrawText(team.c_str(), 240, 250, 40, WHITE);
-		DrawText(tutor.c_str(), 450, 400, 30, WHITE);
-		DrawText(other.c_str(), 350, 450, 30, WHITE);
+		if (screen == 0) {
+			DrawText(degree.c_str(), 200, 100, 30, WHITE);
+			DrawText(team.c_str(), 240, 250, 40, WHITE);
+			DrawText(tutor.c_str(), 450, 400, 30, WHITE);
+			DrawText(other.c_str(), 350, 450, 30, WHITE);
+		}
 		
-		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7 && screen != screens.size() - 1 && screen != screens.size() - 2) {
+		if (screen != 0 && screen != 1 && screen != 2 && screen != 4 && screen != 6 && screen != 8 && screen != screens.size() - 1 && screen != screens.size() - 2) {
 			ClearBackground(GRAY);
 			DrawText(puntuacioText.c_str(), screenWidth - textw1 - 550, 32, 65, BLACK);
 			DrawText(vidaText.c_str(), screenWidth - textw2 - 110, 32, 65, BLACK);

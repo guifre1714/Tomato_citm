@@ -13,13 +13,12 @@ using namespace std;
 
 EN03::EN03(Vector2 position, vector<Collider>* colliders, Player* player, vector <Bomba>* bombes)
 {
-    velocity.x = 0.5;
-    velocity.y = 0.5;
+    velocity.x = 0.65;
+    velocity.y = 0.65;
     direction = GetRandomValue(1, 4);
     collidersRef = colliders;
     EN_pos = position;
     EN_frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
-    EN_texture = LoadTexture("Sprites/enemics/globus.png");
     bomberman = player;
     isAlive = true;
     points = 100;
@@ -60,19 +59,19 @@ void EN03::Update()
     Direction();
     if (move) {
         if (direction == 1 && !colUp) {
-            EN_texture = LoadTexture("Sprites/enemics/globusDreta.png");
+            EN_texture = LoadTexture("Sprites/enemics/gotaDreta.png");
             EN_pos.y -= velocity.y;
         }
         else if (direction == 2 && !colDown) {
-            EN_texture = LoadTexture("Sprites/enemics/globusEsquerra.png");
+            EN_texture = LoadTexture("Sprites/enemics/gotaEsquerra.png");
             EN_pos.y += velocity.y;
         }
         else if (direction == 3 && !colLeft) {
-            EN_texture = LoadTexture("Sprites/enemics/globusEsquerra.png");
+            EN_texture = LoadTexture("Sprites/enemics/gotaEsquerra.png");
             EN_pos.x -= velocity.x;
         }
         else if (direction == 4 && !colRight) {
-            EN_texture = LoadTexture("Sprites/enemics/globusDreta.png");
+            EN_texture = LoadTexture("Sprites/enemics/gotaDreta.png");
             EN_pos.x += velocity.x;
         }
         else { timer = interval; Direction(); }
@@ -82,7 +81,7 @@ void EN03::Update()
 
 void EN03::Dead() {
     move = false;
-    EN_texture = LoadTexture("Sprites/enemics/mortG.png");
+    EN_texture = LoadTexture("Sprites/enemics/mortGo.png");
     currentFrameEN = 0;
     totalFramesEN = 5;
 }

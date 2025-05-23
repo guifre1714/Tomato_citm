@@ -14,6 +14,7 @@
 #include <remoteControl.h>
 #include <wallPass.h>
 #include <score.h>
+#include <Enemy_03.h>
 
 using namespace std;
 

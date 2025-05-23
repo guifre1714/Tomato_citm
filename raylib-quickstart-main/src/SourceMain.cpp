@@ -235,9 +235,9 @@ int main()
 		string TIMEText = "TIME ";
 		int textw4 = MeasureText(TIMEText.c_str(), 50);
 
-		string degree = "Project 1\t\tVideo Game Design and Development\t\tCITM UPC.";
-		string team = "Elena Ibanez, Marcel Pascual, Marc Port.";
-		string tutor = "Alejandro Paris Gomez.";
+		string degree = "Project 1\t\tVideo Game Design and Development\t\tCITM UPC";
+		string team = "Elena Ibanez, Marcel Pascual, Marc Port";
+		string tutor = "Alejandro Paris Gomez";
 		string other="github.com/guifre1714/Tomato_citm";
 	
 		screens[screen]->HandleInput();

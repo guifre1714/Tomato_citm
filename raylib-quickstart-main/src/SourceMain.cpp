@@ -37,6 +37,8 @@ vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 	vector<Screen*> screenList;
 
 	Screen* inici = new Screen();
+	inici->bgm = LoadMusicStream("music/00. Kokiri Forest.mp3");
+	inici->duration = 3600;
 	screenList.insert(screenList.end(), inici);
 
 	Menu* menu = new Menu();
@@ -232,20 +234,20 @@ int main()
 		string TIMEText = "TIME ";
 		int textw4 = MeasureText(TIMEText.c_str(), 50);
 
-		string degree = "Project 1, Video Game Design and Development, CITM UPC.";
-		string team = "Elena Ibañez, Marcel Pascual, marc Port.";
+		string degree = "Project 1\t\tVideo Game Design and Development\t\tCITM UPC.";
+		string team = "Elena Ibanez, Marcel Pascual, Marc Port.";
 		string tutor = "Alejandro Paris Gomez.";
-		string other="Github: Tomato_citm.";
-
+		string other="github.com/guifre1714/Tomato_citm";
+	
 		screens[screen]->HandleInput();
 		screens[screen]->Update();
 
 		BeginDrawing();
 
-		DrawText(degree.c_str(), 200, 200, 30, WHITE);
-		DrawText(team.c_str(), 200, 250, 30, WHITE);
-		DrawText(tutor.c_str(), 200, 300, 30, WHITE);
-		DrawText(other.c_str(), 200, 350, 30, WHITE);
+		DrawText(degree.c_str(), 200, 100, 30, WHITE);
+		DrawText(team.c_str(), 240, 250, 40, WHITE);
+		DrawText(tutor.c_str(), 450, 400, 30, WHITE);
+		DrawText(other.c_str(), 350, 450, 30, WHITE);
 		
 		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7 && screen != screens.size() - 1 && screen != screens.size() - 2) {
 			ClearBackground(GRAY);

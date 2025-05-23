@@ -27,6 +27,7 @@ endScreen:: ~endScreen() {
 }
 
 void endScreen::Draw() {
+	//Animation loop.
 	frameContador++;
 	if (frameContador >= (60 / frameSpeed)) {
 		frameContador = 0;
@@ -43,13 +44,18 @@ void endScreen::Draw() {
 	}
 	DrawTextureRec(bombHuman, frameRec, humanPos, WHITE);
 	
-	//DrawRectangle(634, 416, 1, 16, RED);
+	//Draws two black rectangles in front of the human to simulate the effect of the original game
 	DrawRectangle(420, 416, 92, 16, BLACK);
 	DrawRectangle(768, 416, 100, 16, BLACK);
 }
 
 void endScreen::HandleInput() {
 	humanPos.x += 0.5;
+	if (timer > duration) {//When the sequence ends resets the player so that if you win again it plays accordingly.
+		bombHuman = LoadTexture("Sprites/bomberman/walkRight.png");
+		humanPos.x = 430;
+		humanPos.y = 416;
+	}
 }
 
 void endScreen::Update() {

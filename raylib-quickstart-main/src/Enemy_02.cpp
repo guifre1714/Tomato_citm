@@ -79,6 +79,7 @@ void EN02::Update()
 void EN02::Dead() {
     move = false;
     EN_col = { 0, 0, 0, 0 };
+    UnloadTexture(EN_texture);
     EN_texture = LoadTexture("Sprites/enemics/mortM.png");
     currentFrameEN = 0;
     totalFramesEN = 5;

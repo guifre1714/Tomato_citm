@@ -59,18 +59,22 @@ void EN03::Update()
     Direction();
     if (move) {
         if (direction == 1 && !colUp) {
+            UnloadTexture(EN_texture);
             EN_texture = LoadTexture("Sprites/enemics/gotaDreta.png");
             EN_pos.y -= velocity.y;
         }
         else if (direction == 2 && !colDown) {
+            UnloadTexture(EN_texture);
             EN_texture = LoadTexture("Sprites/enemics/gotaEsquerra.png");
             EN_pos.y += velocity.y;
         }
         else if (direction == 3 && !colLeft) {
+            UnloadTexture(EN_texture);
             EN_texture = LoadTexture("Sprites/enemics/gotaEsquerra.png");
             EN_pos.x -= velocity.x;
         }
         else if (direction == 4 && !colRight) {
+            UnloadTexture(EN_texture);
             EN_texture = LoadTexture("Sprites/enemics/gotaDreta.png");
             EN_pos.x += velocity.x;
         }
@@ -82,6 +86,7 @@ void EN03::Update()
 void EN03::Dead() {
     move = false;
     EN_col = { 0, 0, 0, 0 };
+    UnloadTexture(EN_texture);
     EN_texture = LoadTexture("Sprites/enemics/mortGo.png");
     currentFrameEN = 0;
     totalFramesEN = 5;

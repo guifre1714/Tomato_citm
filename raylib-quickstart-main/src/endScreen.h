@@ -20,4 +20,5 @@ public:
 	int frameSpeed; //marca la velocitat dels FPS
 	int totalFrames;
 	int ampladaFrames;
+
 };

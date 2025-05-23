@@ -6,19 +6,20 @@
 using namespace std;
 
 endScreen::endScreen() {
-	bombHuman = LoadTexture("Sprites/assets/endBman.png");
+	bombHuman = LoadTexture("Sprites/bomberman/walkRight.png");
 	Fons = LoadTexture("Sprites/menu/bombermanEndScreen.png");
 	bgm = LoadMusicStream("music/08. Ending.mp3");
 	
-	humanPos.x = 409;
-	humanPos.y = 272;
+	humanPos.x = 420;
+	humanPos.y = 416;
 
-	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
+	frameRec = { 0.0f, 0.0f, 12.0f, 16.0f };
 	currentFrame = 0;
 	frameContador = 0;
-	frameSpeed = 4; //marca la velocitat dels FPS
+	frameSpeed = 6; //marca la velocitat dels FPS
 	totalFrames = 3;
-	ampladaFrames = 16;
+	ampladaFrames = 12;
+	
 }
 
 endScreen:: ~endScreen() {
@@ -37,12 +38,18 @@ void endScreen::Draw() {
 		}
 		frameRec.x = (float)currentFrame * ampladaFrames;
 	}
+	if (humanPos.x >= 634) {
+		bombHuman = LoadTexture("Sprites/assets/endBman.png");		
+	}
 	DrawTextureRec(bombHuman, frameRec, humanPos, WHITE);
+	
+	//DrawRectangle(634, 416, 1, 16, RED);
+	DrawRectangle(420, 416, 92, 16, BLACK);
+	DrawRectangle(768, 416, 100, 16, BLACK);
 }
 
 void endScreen::HandleInput() {
-
-
+	humanPos.x += 0.5;
 }
 
 void endScreen::Update() {

@@ -511,7 +511,6 @@ void Game::Update()
 			} else if (enemics[i]->points == 200) {
 				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/200.png")));
 			}
-			scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/100.png")));
 			enemics.erase(enemics.begin() + i);
 		}
 		else {

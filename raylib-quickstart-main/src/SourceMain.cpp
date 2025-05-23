@@ -35,10 +35,13 @@ Camera2D camera = { 0 };
 
 vector<Screen*> setUpScreens(int* vida, int* pantalla) {
 	vector<Screen*> screenList;
-	if (screen == 0 || screen == screens.size()-1) {
-		Menu* menu = new Menu();
-		screenList.insert(screenList.end(), menu);
-	}
+
+	Screen* inici = new Screen();
+	screenList.insert(screenList.end(), inici);
+
+	Menu* menu = new Menu();
+	screenList.insert(screenList.end(), menu);
+
 	Screen* stage1 = new Screen();
 	stage1->Fons = LoadTexture("Sprites/menu/stage1.png");
 	stage1->bgm = LoadMusicStream("music/02. Stage Start.mp3");
@@ -229,10 +232,20 @@ int main()
 		string TIMEText = "TIME ";
 		int textw4 = MeasureText(TIMEText.c_str(), 50);
 
+		string degree = "Project 1, Video Game Design and Development, CITM UPC.";
+		string team = "Elena Ibañez, Marcel Pascual, marc Port.";
+		string tutor = "Alejandro Paris Gomez.";
+		string other="Github: Tomato_citm.";
+
 		screens[screen]->HandleInput();
 		screens[screen]->Update();
 
 		BeginDrawing();
+
+		DrawText(degree.c_str(), 200, 200, 30, WHITE);
+		DrawText(team.c_str(), 200, 250, 30, WHITE);
+		DrawText(tutor.c_str(), 200, 300, 30, WHITE);
+		DrawText(other.c_str(), 200, 350, 30, WHITE);
 		
 		if (screen != 0 && screen != 1 && screen != 3 && screen != 5 && screen != 7 && screen != screens.size() - 1 && screen != screens.size() - 2) {
 			ClearBackground(GRAY);

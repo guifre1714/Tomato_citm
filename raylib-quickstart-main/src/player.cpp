@@ -19,17 +19,17 @@ Player::Player() {
 	bmanPos.x = 409; //CAL AJUSTAR POSICIO INICIAL !!!!!!!!!
 	bmanPos.y = 272;
 	
-	bmanCol = { bmanPos.x, bmanPos.y, 12, 15 };
+	bmanCol = { bmanPos.x, bmanPos.y, 15, 15 };
 	myCollider = { bmanPos.x, bmanPos.y, 11, 14 };
 
-	frameRecB = { 0.0f, 0.0f, 12.0f, 16.0f };
+	frameRecB = { 0.0f, 0.0f, 16.0f, 16.0f };
 
 	currentFrameB = 0;
 	frameContadorB = 0;
 	frameSpeedB = 8; //marca la velocitat dels FPS
 	
 	totalFrames = 3;
-	ampladaFrames = 12;
+	ampladaFrames = 16;
 	p_guanyats = 0;
 }
 
@@ -79,8 +79,6 @@ void Player::Draw() {
 void Player::Dead() {
 	isAlive = false;
 	totalFrames = 7;
-	ampladaFrames = 16;
-	frameRecB = { 0.0f,0.0f,16.0f,16.0f };
 	frameSpeedB = 4;
 	PlaySound(deathSound);
 	bmanTXT = LoadTexture("Sprites/bomberman/death.png");
@@ -88,7 +86,7 @@ void Player::Dead() {
 
 void Player::MoveUp() {
 	idle = false;
-	bmanTXT = LoadTexture("Sprites/bomberman/walkBack.png");
+	bmanTXT = LoadTexture("Sprites/bomberman/walkUp.png");
 	dir = "up";
 	if (!Collide()) {
 		bmanPos.y -= vel;
@@ -97,7 +95,7 @@ void Player::MoveUp() {
 }
 void Player::MoveDown() {
 	idle = false;
-	bmanTXT = LoadTexture("Sprites/bomberman/walkFront.png");
+	bmanTXT = LoadTexture("Sprites/bomberman/walkDown.png");
 	dir = "down";
 	if (!Collide()) {
 		bmanPos.y += vel;
@@ -218,14 +216,14 @@ void Player::resetPlayer() {
 	idle = true;
 	bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
 
-	bmanCol = { bmanPos.x, bmanPos.y, 12, 15 };
+	bmanCol = { bmanPos.x, bmanPos.y, 14, 15 };
 
-	frameRecB = { 0.0f, 0.0f, 12.0f, 16.0f };
+	frameRecB = { 0.0f, 0.0f, 16.0f, 16.0f };
 
 	currentFrameB = 0;
 
 	totalFrames = 3;
-	ampladaFrames = 12;
+	ampladaFrames = 16;
 	frameSpeedB = 8; //marca la velocitat dels FPS
 }
 

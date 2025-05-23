@@ -400,16 +400,44 @@ int l;
 	uniform_int_distribution<int> numBlocs(60, 80);
 	int num = numBlocs(rng);
 	bomberman.snapPositions = spawnPos;
-	for (int i = 0; i < 6; ++i) {
-		if (spawnPos.empty()) break;
+	if (level == 4) {
+		for (int i = 0; i < 4; ++i) {
+			if (spawnPos.empty()) break;
 
-		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
-		int l = blocPos(rng);
+			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
+			int l = blocPos(rng);
 
-		// Validació per seguretat
-		if (l >= 0 && l < spawnPos.size()) {
-			enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
-			spawnPos.erase(spawnPos.begin() + l);
+			// Validació per seguretat
+			if (l >= 0 && l < spawnPos.size()) {
+				enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
+				spawnPos.erase(spawnPos.begin() + l);
+			}
+		}
+		for (int i = 0; i < 2; ++i) {
+			if (spawnPos.empty()) break;
+
+			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
+			int l = blocPos(rng);
+
+			// Validació per seguretat
+			if (l >= 0 && l < spawnPos.size()) {
+				enemics.push_back(new EN03(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
+				spawnPos.erase(spawnPos.begin() + l);
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 6; ++i) {
+			if (spawnPos.empty()) break;
+
+			uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
+			int l = blocPos(rng);
+
+			// Validació per seguretat
+			if (l >= 0 && l < spawnPos.size()) {
+				enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
+				spawnPos.erase(spawnPos.begin() + l);
+			}
 		}
 	}
 	uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);

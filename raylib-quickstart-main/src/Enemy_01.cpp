@@ -19,7 +19,6 @@ EN01::EN01(Vector2 position, vector<Collider>* colliders, Player* player, vector
     collidersRef = colliders;
     EN_pos = position;
     EN_frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
-    EN_texture = LoadTexture("Sprites/enemics/globus.png");
     bomberman = player;
     isAlive = true;
     points = 100;

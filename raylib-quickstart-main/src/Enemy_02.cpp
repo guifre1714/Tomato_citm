@@ -27,7 +27,7 @@ EN02::EN02(Vector2 position, vector<Collider>* colliders, Player* player, vector
 
     currentFrameEN = 0;
     frameContadorEN = 0;
-    frameSpeedEN = 8; //marca la velocitat dels FPS
+    frameSpeedEN = 8;
     totalFramesEN = 6;
     ampladaFramesEN = 16;
     timer = 0.0f;

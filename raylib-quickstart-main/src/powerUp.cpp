@@ -1,6 +1,7 @@
 #include <powerUp.h>
 
 powerUp::powerUp() {
+	//Set up
 	frameRec = { 0.0f, 0.0f, 16.0f, 16.0f };
 
 	currentFrame = 0;
@@ -16,6 +17,6 @@ powerUp::powerUp() {
 
 powerUp::~powerUp(){}
 
-bool powerUp::playerCol(Player* player) {
+bool powerUp::playerCol(Player* player) {//Return true if player touches it.
 	return CheckCollisionRecs(col, player->myCollider);
 };

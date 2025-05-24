@@ -48,6 +48,7 @@ public:
 	int totalFrames;
 	int ampladaFrames;
 	bool idle;
+	bool gainedBomb;
 
 	int* maxBombs;
 

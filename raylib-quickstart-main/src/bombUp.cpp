@@ -7,7 +7,7 @@ bombUp::bombUp(vector <Collider>* bColliders) {
 };
 bombUp::~bombUp() {};
 
-bool bombUp::playerCol(Player* player) {
+bool bombUp::playerCol(Player* player) {//If it isn't behind a block and the player touches it, return true.
 	for (int i = 0; i < blocs->size(); i++) {
 		if (CheckCollisionRecs((*blocs)[i].col, col) == true) return false;
 	}

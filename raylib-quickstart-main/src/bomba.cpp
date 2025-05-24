@@ -1,9 +1,9 @@
 #include <bomba.h>
 
-Bomba::Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs) {
+Bomba::Bomba(Vector2 pos, vector <Collider>* pBlocs) {
+	//Set up
 	bombPos = pos;
 	boom = false;
-	plus = potenciada;
 	blocs = pBlocs;
 	bombActive = true;
 	boomTime = 120;
@@ -39,11 +39,12 @@ Bomba::~Bomba() {
 }
 
 void Bomba::Draw() {
-	if (time == boomTime && remoCon==false) {
+	if (time == boomTime && remoCon==false) {//If enough time has passed and the player does not have the remote control powerup, explode.
 		boom = true;
 		currentFrame = 0;
 		myCollider.col = { 0,0,0,0 };
 	}
+	//Animation loop
 	frameContador++;
 	if (frameContador >= (60 / frameSpeed)) {
 		frameContador = 0;
@@ -51,12 +52,13 @@ void Bomba::Draw() {
 		if (currentFrame > totalFrames && totalFrames == 3) {
 			currentFrame = 0;
 		}
-		else if (currentFrame > totalFrames && totalFrames > 3) {
+		else if (currentFrame > totalFrames && totalFrames > 3) {//If the exploding animation ends, set bombActive to true (this will be used by game.cpp to know that it has to destroy it).
 			bombActive = false;
 		}
 		frameRec.x = (float)currentFrame * ampladaFrames;//12 = (float)Texture.Width/num requadres a dividir, en aquest cas 3
 	}
-	KaboomCheck();
+	KaboomCheck();//Check if the bomb has to explode.
+	//Draw the explosion expanding in the directions designated by KaboomCheck function.
 	if (expandUp) {
 		DrawTextureRec(expUp, frameRec, { rectUp.x,rectUp.y }, WHITE);
 	}
@@ -73,7 +75,7 @@ void Bomba::Draw() {
 }
 
 void Bomba::KaboomCheck() {
-	if (!plus && boom) {
+	if (boom) {
 		totalFrames = 4;
 		frameSpeed = 8;
 		bombTEXT = LoadTexture("Sprites/bomb/expCentre.png");

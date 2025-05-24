@@ -7,7 +7,7 @@ using namespace std;
 
 class Bomba {
 public:
-	Bomba(Vector2 pos, bool potenciada, vector <Collider>* pBlocs);
+	Bomba(Vector2 pos, vector <Collider>* pBlocs);
 	~Bomba();
 
 	void Draw();

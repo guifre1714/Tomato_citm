@@ -1,7 +1,6 @@
 #include <door.h>
 
 Door::Door() {
-	/*enemies = enemics;*/
 	blockTEXT = LoadTexture("Sprites/assets/door.png");
 };
 Door::~Door() {};
@@ -24,6 +23,6 @@ void Door::Draw() {
 	DrawTextureRec(blockTEXT, frameRec, pos, WHITE);
 };
 
-bool Door::playerCol(Player* player) {
+bool Door::playerCol(Player* player) {//Return true if the player touches it.
 	return CheckCollisionRecs(col, player->myCollider);
 };

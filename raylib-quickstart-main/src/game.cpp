@@ -570,6 +570,7 @@ void Game::checkPowerUps() {
 				}
 				else if (powerUps[i].type == "bombUp") {
 					++(*bomberman.maxBombs);
+					bomberman.gainedBomb = true;
 					powerUps.erase(powerUps.begin() + i);
 				}
 				else if (powerUps[i].type == "remoteControl") {

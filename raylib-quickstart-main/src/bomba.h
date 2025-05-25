@@ -38,5 +38,5 @@ public:
 	bool colliderAdded;
 	bool erased;
 
-	Sound BOOOOOM;
+	Sound kaboom;
 };

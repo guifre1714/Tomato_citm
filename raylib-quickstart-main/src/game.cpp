@@ -118,6 +118,7 @@ void Game::HandleInput() {
 				if (IsKeyPressed(KEY_C)) {
 					for (int j = 0; j < bomberman.bombs.size(); j++) {
 						bomberman.bombs[j].boom = true;
+						PlaySound(bomberman.bombs[j].kaboom);
 					}
 				}
 			}
@@ -156,7 +157,7 @@ void Game::HandleInput() {
 		remoteControl.col.y = bomberman.bmanPos.y + 1;
 		powerUps.insert(powerUps.begin(), remoteControl);
 	}
-	if (IsKeyPressed(KEY_D)) {
+	if (IsKeyPressed(KEY_D)) { //DEBUG: SPAWN DOOR
 		door.col.x = bomberman.bmanPos.x + 21;
 		door.col.y = bomberman.bmanPos.y + 7;
 	}

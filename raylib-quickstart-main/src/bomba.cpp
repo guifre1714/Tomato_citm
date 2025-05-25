@@ -33,6 +33,8 @@ Bomba::Bomba(Vector2 pos, vector <Collider>* pBlocs) {
 	expandRight = true;
 	colliderAdded = false;
 	erased = false;
+
+	kaboom = LoadSound("SFX/explosion.wav");
 }
 
 Bomba::~Bomba() {
@@ -41,6 +43,7 @@ Bomba::~Bomba() {
 void Bomba::Draw() {
 	if (time == boomTime && remoCon==false) {//If enough time has passed and the player does not have the remote control powerup, explode.
 		boom = true;
+		PlaySound(kaboom);
 		currentFrame = 0;
 		myCollider.col = { 0,0,0,0 };
 	}

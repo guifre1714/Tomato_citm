@@ -76,53 +76,52 @@ void Game::HandleInput() {
 	if (IsKeyDown(KEY_W)) {
 		bomberman.isWallPass = true;
 	}
-	if (!freeze) {
-		if (bomberman.isAlive) {
+	if (!freeze) {//this freeze bool is used for when Bomberman goes through the door's level, so that he doesn't move while the stage clear music plays
+		if (bomberman.isAlive) {//bool to check if bomberman is alive, if false
 			if (IsKeyDown(KEY_LEFT)) {
-				bomberman.MoveLeft();
-				if (i > 20) {
+				bomberman.MoveLeft();//Bomberman moves left
+				if (i > 20) {//every 0.3 seconds plays the sound of Bomberman walking
 					PlaySound(walk);
-					i = 0;
+					i = 0;//resets the tally counter so that it can start over again
 				}
 			}
 			else if (IsKeyDown(KEY_RIGHT)) {
-				bomberman.MoveRight();
+				bomberman.MoveRight();//Bomberman moves right
 				if (i > 20) {
 					PlaySound(walk);
 					i = 0;
 				}
 			}
 			else if (IsKeyDown(KEY_UP)) {
-				bomberman.MoveUp();
+				bomberman.MoveUp();//Bomberman moves up
 				if (i > 20) {
-					PlaySound(walkUp);
+					PlaySound(walkUp);//when Bomberman moves in the Y axis it plays another walking sound
 					i = 0;
 				}
 			}
 			else if (IsKeyDown(KEY_DOWN)) {
-
-				bomberman.MoveDown();
+				bomberman.MoveDown();//Bomberman moves down
 				if (i > 20) {
 					PlaySound(walkUp);
 					i = 0;
 				}
 			}
-			else if (!bomberman.idle) {
-				bomberman.idle = true;
+			else if (!bomberman.idle) {//when Bomberman isn't moving in any direction, it loads the "idle sprite", which is just Bomberman staring at the front
+				bomberman.idle = true;//this bool is so that it only loads ONCE the sprite
 				bomberman.bmanTXT = LoadTexture("Sprites/bomberman/idle.png");
 			}
-			if (IsKeyPressed(KEY_X) && bomberman.bombs.size() < *bomberman.maxBombs) {
-				bomberman.createBomb();
+			if (IsKeyPressed(KEY_X) && bomberman.bombs.size() < *bomberman.maxBombs) {//when key X is pressed and there are less bombs spawned in game than the maximum you can create
+				bomberman.createBomb();//calls createBomb function from player
 			}
-			if ((*areRemoteControl) == true) {
-				if (IsKeyPressed(KEY_C)) {
-					for (int j = 0; j < bomberman.bombs.size(); j++) {
-						bomberman.bombs[j].boom = true;
-						PlaySound(bomberman.bombs[j].kaboom);
+			if ((*areRemoteControl) == true) {//checks if the power-up RemoteControl is active
+				if (IsKeyPressed(KEY_C)) {//when the C key is pressed
+					for (int j = 0; j < bomberman.bombs.size(); j++) {//checks every bomb spawned in the game
+						bomberman.bombs[j].boom = true;//and makes them explode
+						PlaySound(bomberman.bombs[j].kaboom);//and also plays the explosion sound
 					}
 				}
 			}
-			i++;
+			i++;//adds one to the tally counter for each pass that game does through HandleInput (which is 60 times for each second)
 		}
 	}
 #pragma region DEBUG

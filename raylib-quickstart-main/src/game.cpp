@@ -565,7 +565,6 @@ void Game::checkPowerUps() {//Check if player has picked up a power up and which
 	for (int i = 0; i < powerUps.size(); i++)
 	{
 		if (powerUps[i].playerCol(&bomberman)) {//Check if player is touching a power up.
-			cout << bomberman.colliders.size();
 			for (int j = 0; j < (*blocs).size(); j++) {//Check if said power up is still behind a block.
 				if (!collided) {
 					collided = CheckCollisionRecs(powerUps[i].col, bomberman.colliders[j].col);

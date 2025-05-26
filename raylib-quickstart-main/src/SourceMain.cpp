@@ -181,7 +181,7 @@ int main()
 	//Initializes the game
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-	InitWindow(screenWidth, screenHeight, "Bomberman Test");
+	InitWindow(screenWidth, screenHeight, "Bomberman");
 	InitAudioDevice();
 
 	SearchAndSetResourceDir("resources");

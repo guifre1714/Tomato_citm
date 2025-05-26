@@ -77,7 +77,7 @@ void Bomba::Draw() {
 	time++;
 }
 
-void Bomba::KaboomCheck() {
+void Bomba::KaboomCheck() {//Function that checks if bomb exploded and if so detects in which directions it expands and breaks adjacent breakable blocks.
 	if (boom) {
 		totalFrames = 4;
 		frameSpeed = 8;

@@ -2,10 +2,11 @@
 
 using namespace std;
 
-int i = 0;
+int i = 0;//Aux var we will later use
 
 Game::Game(int nivell, int* pLife, int* pScreen, int* pMBombs, unsigned int seed, bool* isRemoteControl, int* puntuacio, int* contador):rng(seed)
 {
+	//Initialise all variables.
 	duration = 179;
 	timer = -1;
 	level = nivell;
@@ -39,6 +40,7 @@ Game::~Game() {
 }
 
 void Game::Draw() {
+	//Draw all elements in their correct order.
 	door.Draw();
 	for (int i = 0; i < powerUps.size(); i++) {
 		powerUps[i].Draw();
@@ -70,10 +72,10 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
-	if (IsKeyDown(KEY_Z) && bomberman.isAlive==true) {
+	if (IsKeyDown(KEY_Z) && bomberman.isAlive==true) {//DEBUG: Kill yourself.
 		bomberman.Dead();
 	}
-	if (IsKeyDown(KEY_W)) {
+	if (IsKeyDown(KEY_W)) {//DEBUG: Activate WallPass
 		bomberman.isWallPass = true;
 	}
 	if (!freeze) {
@@ -157,7 +159,8 @@ void Game::HandleInput() {
 		remoteControl.col.y = bomberman.bmanPos.y + 1;
 		powerUps.insert(powerUps.begin(), remoteControl);
 	}
-	if (IsKeyPressed(KEY_D)) { //DEBUG: SPAWN DOOR
+	//DEBUG: SPAWN DOOR
+	if (IsKeyPressed(KEY_D)) { 
 		door.col.x = bomberman.bmanPos.x + 21;
 		door.col.y = bomberman.bmanPos.y + 7;
 	}
@@ -323,7 +326,7 @@ int l;
 	col74.col = { 841, 417, 13, 13 };
 	bomberman.colliders.insert(bomberman.colliders.end(), col74);
 #pragma endregion
-#pragma region Posicions on poden apareixer coses
+#pragma region Positions where things can spawn
 	for (int k = 2; k <= 28; k++) {
 		Vector2 pos;
 		pos.x = 408 + (k * 16);
@@ -396,17 +399,20 @@ int l;
 	bomberman.snapPositions = spawnPos;
 	int globus_amount;
 	int gota_amount;
+	//Different level set ups.
 	if (level == 3){ globus_amount = 6; gota_amount = 0; }
 	else if (level == 5) { globus_amount = 4; gota_amount = 2; }
 	else if (level == 7) { globus_amount = 3; gota_amount = 3; }
 	else { globus_amount = 4; gota_amount = 4; }
+
+	//Spawn enemies in random locations (based on seed).
 	for (int i = 0; i < globus_amount; ++i) {
 		if (spawnPos.empty()) break;
 
 		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
 		int l = blocPos(rng);
 
-		// Validació per seguretat
+		// Security validation.
 		if (l >= 0 && l < spawnPos.size()) {
 			enemics.push_back(new EN01(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
 			spawnPos.erase(spawnPos.begin() + l);
@@ -418,12 +424,13 @@ int l;
 		uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
 		int l = blocPos(rng);
 
-		// Validació per seguretat
+		// Security validation.
 		if (l >= 0 && l < spawnPos.size()) {
 			enemics.push_back(new EN03(spawnPos[l], &bomberman.colliders, &bomberman, &bomberman.bombs));
 			spawnPos.erase(spawnPos.begin() + l);
 		}
 	}
+	//Spawn breakable blocks in free positions after spawning enemies (depends on seed).
 	uniform_int_distribution<int> blocPos(0, spawnPos.size() - 1);
 	for (int k = 0; k < num; k++) 
 	{
@@ -432,6 +439,7 @@ int l;
 		powerUpPositions.insert(powerUpPositions.end(), spawnPos[l]);
 		bomberman.colliders.insert(bomberman.colliders.end(), bloc);
 	}
+	//Ends setting up all possible positions in which the player can place a bomb.
 	Vector2 pos;
 	pos.x = 424;
 	pos.y = 272;
@@ -444,7 +452,7 @@ int l;
 	pos3.x = 408;
 	pos3.y = 288;
 	bomberman.snapPositions.insert(bomberman.snapPositions.begin(), pos3);
-
+	//Spawn door at a random breakable wall position and do the same with each level's power up.
 	uniform_int_distribution<int> pUpPos(0, powerUpPositions.size() - 1);
 	l = pUpPos(rng);
 	door.col.x = powerUpPositions[l].x + 8;
@@ -452,6 +460,7 @@ int l;
 	door.col.width = 1;
 	door.col.height = 1;
 	powerUpPositions.erase(powerUpPositions.begin() + l);
+	//Spawn only one power up per level.
 	if (level == 9) {
 		speedUp speedUp(&bomberman.colliders);
 		l = pUpPos(rng);
@@ -488,12 +497,13 @@ int l;
 
 void Game::Update() 
 {
-	if (!clear && enemics.size() == 0) {
+	if (!clear && enemics.size() == 0) {//If the last enemy is killed, play the clear sound to let the player know he can now go through the door.
 		clear = true;
 		PlaySound(clearSound);
 	}
 	for (int i = 0; i < enemics.size(); i++)
 	{
+		//Check if an enemy has died and draw the score it gives.
 		if (enemics[i]->isAlive == false) {
 			(*score) += enemics[i]->points;
 			bomberman.p_guanyats = *score;
@@ -506,15 +516,16 @@ void Game::Update()
 				scores.push_back(new Score(enemics[i]->EN_pos, LoadTexture("Sprites/puntuacio/200.png")));
 			}
 			enemics.erase(enemics.begin() + i);
-		}
+		}//If the checked enemy is not dead, call its update function.
 		else {
 			enemics[i]->Update();
 		}
 	}
-	checkPowerUps();
+	checkPowerUps();//Check if player has picked up a power up.
 	for (int j = 0; j < bomberman.bombs.size(); j++) {
-		bomberman.bombs[j].remoCon = (*areRemoteControl);
+		bomberman.bombs[j].remoCon = (*areRemoteControl);//Set bombs to remote control mode if player has said power up.
 	}
+	//When time is up: erase all active enemies and spawn 10 COIN enemies at random locations.
 	if ((*time) <= 0 && !timeUp) {
 		if (enemics.size() != 0) {
 			for (int i = 0; i < enemics.size(); i++)
@@ -541,7 +552,7 @@ void Game::Update()
 	}
 }
 
-bool Game::nextLevel() {
+bool Game::nextLevel() {//Check if player can pass through door.
 	for (int j = 0; j < bomberman.colliders.size(); j++) {
 		if (CheckCollisionRecs(door.col, bomberman.colliders[j].col) == true || enemics.size()>0) {
 			return false;
@@ -550,18 +561,18 @@ bool Game::nextLevel() {
 	return door.playerCol(&bomberman);
 }
 
-void Game::checkPowerUps() {
+void Game::checkPowerUps() {//Check if player has picked up a power up and which one.
 	bool collided = false;
 	for (int i = 0; i < powerUps.size(); i++)
 	{
-		if (powerUps[i].playerCol(&bomberman)) {
+		if (powerUps[i].playerCol(&bomberman)) {//Check if player is touching a power up.
 			cout << bomberman.colliders.size();
-			for (int j = 0; j < (*blocs).size(); j++) {
+			for (int j = 0; j < (*blocs).size(); j++) {//Check if said power up is still behind a block.
 				if (!collided) {
 					collided = CheckCollisionRecs(powerUps[i].col, bomberman.colliders[j].col);
 				}
 			}
-			if (!collided) {
+			if (!collided) {//If the power up is not behind a block, play the power up sound, give its according effect to the player and erase it.
 				PlaySound(powerUpSound);
 				bgm = LoadMusicStream("music/04. Power-Up Get.mp3");
 				PlayMusicStream(bgm);

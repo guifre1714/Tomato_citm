@@ -28,7 +28,7 @@ int contador = 200;
 const int fontSize = 65;
 float temps = 0.0f;
 
-//Vars shared between screens
+//Vars shared between screens/levels (will later be passed to each level by pointers).
 int maxBombs = 1;
 bool isRemoteControl = false;
 
